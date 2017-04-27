@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Examples on Light Eventuate - An event sourcing and CQRS framework with Kafka</title>
+    <link>https://networknt.github.io/light-eventuate/example/</link>
+    <description>Recent content in Examples on Light Eventuate - An event sourcing and CQRS framework with Kafka</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Released under the MIT license</copyright>
+    <lastBuildDate>Thu, 27 Apr 2017 09:37:50 -0400</lastBuildDate>
+    
+	<atom:link href="https://networknt.github.io/light-eventuate/example/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>index</title>
+      <link>https://networknt.github.io/light-eventuate/example/</link>
+      <pubDate>Thu, 27 Apr 2017 09:37:50 -0400</pubDate>
+      
+      <guid>https://networknt.github.io/light-eventuate/example/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
