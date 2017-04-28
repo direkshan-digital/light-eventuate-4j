@@ -14,64 +14,72 @@
     
     <item>
       <title>Roadmap</title>
-      <link>https://networknt.github.io/light-eventuate/roadmap/</link>
+      <link>https://networknt.github.io/light-eventuate/roadmap/index/</link>
       <pubDate>Thu, 27 Apr 2017 09:38:52 -0400</pubDate>
       
-      <guid>https://networknt.github.io/light-eventuate/roadmap/</guid>
+      <guid>https://networknt.github.io/light-eventuate/roadmap/index/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Tutorial</title>
-      <link>https://networknt.github.io/light-eventuate/tutorial/</link>
+      <link>https://networknt.github.io/light-eventuate/tutorial/index/</link>
       <pubDate>Thu, 27 Apr 2017 09:38:08 -0400</pubDate>
       
-      <guid>https://networknt.github.io/light-eventuate/tutorial/</guid>
+      <guid>https://networknt.github.io/light-eventuate/tutorial/index/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Example</title>
-      <link>https://networknt.github.io/light-eventuate/example/</link>
+      <link>https://networknt.github.io/light-eventuate/example/index/</link>
       <pubDate>Thu, 27 Apr 2017 09:37:50 -0400</pubDate>
       
-      <guid>https://networknt.github.io/light-eventuate/example/</guid>
+      <guid>https://networknt.github.io/light-eventuate/example/index/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Desgin</title>
-      <link>https://networknt.github.io/light-eventuate/design/</link>
+      <link>https://networknt.github.io/light-eventuate/design/index/</link>
       <pubDate>Thu, 27 Apr 2017 09:37:10 -0400</pubDate>
       
-      <guid>https://networknt.github.io/light-eventuate/design/</guid>
-      <description></description>
+      <guid>https://networknt.github.io/light-eventuate/design/index/</guid>
+      <description>#Light-eventuate conceptual model
+/images/Drawing1.png
+Entity
+An entity is a business object such as an Order. An entity is an instance of an EntityType. In Domain-Driven Design terms, an entity is an aggregate. Each entity has an ID, unique among instances of the same entity type, which you can choose or allow Eventuate to assign to you. An entity has a sequence of one or more events. You can perform the following operations on an entity • Create - Create a new instance of the specified entity type with an initial sequence of events.</description>
     </item>
     
     <item>
       <title>Architecture</title>
-      <link>https://networknt.github.io/light-eventuate/architecture/</link>
+      <link>https://networknt.github.io/light-eventuate/architecture/index/</link>
       <pubDate>Thu, 27 Apr 2017 09:35:23 -0400</pubDate>
       
-      <guid>https://networknt.github.io/light-eventuate/architecture/</guid>
-      <description></description>
+      <guid>https://networknt.github.io/light-eventuate/architecture/index/</guid>
+      <description>#Event-driven architecture
+An Eventuate application consists of four types of modules, each with different roles and responsibilities:
+• Command-side module • Query-side view updater module • Query-side view query module module • Outbound gateway module Note that this is the logical architecture of the application. The modules can either be deployed together as a monolithic application or separately as standalone microservices.
+Command-side modules
+The command-side of an Eventuate application consists of one or more command-side modules.</description>
     </item>
     
     <item>
       <title>Getting Started</title>
-      <link>https://networknt.github.io/light-eventuate/getting-started/</link>
+      <link>https://networknt.github.io/light-eventuate/getting-started/index/</link>
       <pubDate>Thu, 27 Apr 2017 09:35:07 -0400</pubDate>
       
-      <guid>https://networknt.github.io/light-eventuate/getting-started/</guid>
-      <description></description>
+      <guid>https://networknt.github.io/light-eventuate/getting-started/index/</guid>
+      <description>#Light Eventuate Framework
+Distributed data management problems in a microservice architecture: In microservice system, normally each service has its own database. Some business transactions, however, span multiple services so you need a mechanism to ensure data consistency across services. For example, let’s imagine that you are building an e-commerce store where customers have a credit limit. The application must ensure that a new order will not exceed the customer’s credit limit.</description>
     </item>
     
     <item>
       <title>Index</title>
-      <link>https://networknt.github.io/light-eventuate/</link>
+      <link>https://networknt.github.io/light-eventuate/index/</link>
       <pubDate>Wed, 26 Apr 2017 22:57:30 -0400</pubDate>
       
-      <guid>https://networknt.github.io/light-eventuate/</guid>
+      <guid>https://networknt.github.io/light-eventuate/index/</guid>
       <description>This is the index page.</description>
     </item>
     

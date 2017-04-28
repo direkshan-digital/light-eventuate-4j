@@ -14,11 +14,14 @@
     
     <item>
       <title>Desgin</title>
-      <link>https://networknt.github.io/light-eventuate/design/</link>
+      <link>https://networknt.github.io/light-eventuate/design/index/</link>
       <pubDate>Thu, 27 Apr 2017 09:37:10 -0400</pubDate>
       
-      <guid>https://networknt.github.io/light-eventuate/design/</guid>
-      <description></description>
+      <guid>https://networknt.github.io/light-eventuate/design/index/</guid>
+      <description>#Light-eventuate conceptual model
+/images/Drawing1.png
+Entity
+An entity is a business object such as an Order. An entity is an instance of an EntityType. In Domain-Driven Design terms, an entity is an aggregate. Each entity has an ID, unique among instances of the same entity type, which you can choose or allow Eventuate to assign to you. An entity has a sequence of one or more events. You can perform the following operations on an entity • Create - Create a new instance of the specified entity type with an initial sequence of events.</description>
     </item>
     
   </channel>
