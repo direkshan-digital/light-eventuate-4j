@@ -14,13 +14,12 @@
     
     <item>
       <title>Architecture</title>
-      <link>https://networknt.github.io/light-eventuate/architecture/index/</link>
+      <link>https://networknt.github.io/light-eventuate/architecture/</link>
       <pubDate>Thu, 27 Apr 2017 09:35:23 -0400</pubDate>
       
-      <guid>https://networknt.github.io/light-eventuate/architecture/index/</guid>
-      <description>#Event-driven architecture
-An Eventuate application consists of four types of modules, each with different roles and responsibilities:
-• Command-side module • Query-side view updater module • Query-side view query module module • Outbound gateway module Note that this is the logical architecture of the application. The modules can either be deployed together as a monolithic application or separately as standalone microservices.
+      <guid>https://networknt.github.io/light-eventuate/architecture/</guid>
+      <description>Event-driven architecture An Eventuate application consists of four types of modules, each with different roles and responsibilities:
+ Command-side module Query-side view updater module Query-side view query module module Outbound gateway module  Note that this is the logical architecture of the application. The modules can either be deployed together as a monolithic application or separately as standalone microservices.
 Command-side modules
 The command-side of an Eventuate application consists of one or more command-side modules.</description>
     </item>

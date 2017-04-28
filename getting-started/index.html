@@ -9,18 +9,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
-    <title>Light Eventuate - An event sourcing and CQRS framework with Kafka</title>
+    <title>Getting Started - Light Eventuate - An event sourcing and CQRS framework with Kafka</title>
     <meta name="generator" content="Hugo 0.20.6" />
 
     
     <meta name="description" content="Light Eventuate Docs">
     
-    <link rel="canonical" href="https://networknt.github.io/light-eventuate/">
+    <link rel="canonical" href="https://networknt.github.io/light-eventuate/getting-started/">
     
     <meta name="author" content="Steve Hu, Gavin Chen">
     
 
-    <meta property="og:url" content="https://networknt.github.io/light-eventuate/">
+    <meta property="og:url" content="https://networknt.github.io/light-eventuate/getting-started/">
     <meta property="og:title" content="Light Eventuate - An event sourcing and CQRS framework with Kafka">
     <meta property="og:image" content="https://networknt.github.io/light-eventuate/images/logo.png">
     <meta name="apple-mobile-web-app-title" content="Light Eventuate - An event sourcing and CQRS framework with Kafka">
@@ -69,9 +69,6 @@
     <script src="https://networknt.github.io/light-eventuate/javascripts/modernizr.js"></script>
 
     
-    <link href="https://networknt.github.io/light-eventuate/index.xml" rel="alternate" type="application/rss+xml" title="Light Eventuate - An event sourcing and CQRS framework with Kafka" />
-    <link href="https://networknt.github.io/light-eventuate/index.xml" rel="feed" type="application/rss+xml" title="Light Eventuate - An event sourcing and CQRS framework with Kafka" />
-    
 
   </head>
   <body class="palette-primary-red palette-accent-teal">
@@ -100,7 +97,7 @@
     </div>
     <div class="stretch">
       <div class="title">
-        Light Eventuate - An event sourcing and CQRS framework with Kafka
+        Getting Started
       </div>
     </div>
 
@@ -201,11 +198,14 @@
 
 
 
-<a  title="Getting started" href="https://networknt.github.io/light-eventuate/getting-started/">
+<a class="current" title="Getting started" href="https://networknt.github.io/light-eventuate/getting-started/">
 	
 	Getting started
 </a>
 
+
+<ul id="scrollspy">
+</ul>
 
 
   
@@ -374,7 +374,34 @@
 
 	<article class="article">
 		<div class="wrapper">
+			<h1>Getting Started </h1>
+
 			
+
+<h2 id="light-eventuate-framework">Light Eventuate Framework</h2>
+
+<h3 id="distributed-data-management-problems-in-a-microservice-architecture">Distributed data management problems in a microservice architecture:</h3>
+
+<p>In microservice system, normally each service has its own database. Some business transactions,
+however, span multiple services so you need a mechanism to ensure data consistency across
+services. For example, let’s imagine that you are building an e-commerce store where customers
+have a credit limit. The application must ensure that a new order will not exceed the customer’s
+credit limit. Since Orders and Customers are in different databases the application cannot simply
+use a local ACID transaction.</p>
+
+<h2 id="solution">Solution</h2>
+
+<p>A good solution to this problem is to use event sourcing. Event sourcing persists the state of
+a business entity as a sequence of state-changing events. Whenever the state of a business entity
+changes, a new event is appended to the list of events. Since saving an event is a single
+operation, it is inherently atomic. The application reconstructs an entity’s current state by
+replaying the events.</p>
+
+<p>Applications save events in an event store, which is a database of events. The store has an API
+for adding and retrieving an entity’s events. The event store also behaves like a message broker.
+It provides an API that enables services to subscribe to events. When a service saves an event
+in the event store, it is delivered to all interested subscribers.</p>
+
 
 			<aside class="copyright" role="note">
 				
@@ -389,23 +416,37 @@
 			<footer class="footer">
 				
 
-
-
 <nav class="pagination" aria-label="Footer">
   <div class="previous">
+  
+      <a href="https://networknt.github.io/light-eventuate/architecture/" title="Architecture">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Architecture
+            </div>
+          </div>
+        </div>
+      </a>
+  
   </div>
 
-  
-  
   <div class="next">
-      <a href="https://networknt.github.io/light-eventuate/tags/" title="Tags">
+  
+      <a href="https://networknt.github.io/light-eventuate/" title="Index">
         <span class="direction">
           Next
         </span>
         <div class="page">
           <div class="stretch">
             <div class="title">
-              Tags
+              Index
             </div>
           </div>
           <div class="button button-next" role="button" aria-label="Next">
@@ -413,8 +454,11 @@
           </div>
         </div>
       </a>
+  
   </div>
 </nav>
+
+
 
 
 
