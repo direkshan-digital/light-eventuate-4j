@@ -84,7 +84,7 @@ The command-side of an Eventuate application consists of one or more command-sid
       <pubDate>Wed, 26 Apr 2017 22:57:30 -0400</pubDate>
       
       <guid>https://networknt.github.io/light-eventuate-4j/</guid>
-      <description>This is the index page.</description>
+      <description>This is the index page and it should be shown as the first page.</description>
     </item>
     
     <item>
