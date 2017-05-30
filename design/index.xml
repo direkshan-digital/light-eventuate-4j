@@ -19,7 +19,7 @@
       
       <guid>https://networknt.github.io/light-eventuate-4j/design/</guid>
       <description>#Light-eventuate conceptual model
-/images/Drawing1.png Entity
+Entity
 An entity is a business object such as an Order. An entity is an instance of an EntityType. In Domain-Driven Design terms, an entity is an aggregate. Each entity has an ID, unique among instances of the same entity type, which you can choose or allow Eventuate to assign to you. An entity has a sequence of one or more events. You can perform the following operations on an entity • Create - Create a new instance of the specified entity type with an initial sequence of events.</description>
     </item>
     
