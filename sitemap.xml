@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://networknt.github.io/light-eventuate-4j/introduction/</loc>
+    <lastmod>2017-05-30T12:12:44-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://networknt.github.io/light-eventuate-4j/roadmap/</loc>
     <lastmod>2017-04-27T09:38:52-04:00</lastmod>
   </url>
@@ -92,8 +97,14 @@
   </url>
   
   <url>
+    <loc>https://networknt.github.io/light-eventuate-4j/introduction/</loc>
+    <lastmod>2017-05-30T12:12:44-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://networknt.github.io/light-eventuate-4j/</loc>
-    <lastmod>2017-04-27T09:38:52-04:00</lastmod>
+    <lastmod>2017-05-30T12:12:44-04:00</lastmod>
     <priority>0</priority>
   </url>
   
