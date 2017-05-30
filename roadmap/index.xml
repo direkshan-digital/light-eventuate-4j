@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Roadmaps on Light Eventuate - An event sourcing and CQRS framework with Kafka</title>
+    <title>Roadmaps on Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
     <link>https://networknt.github.io/light-eventuate-4j/roadmap/</link>
-    <description>Recent content in Roadmaps on Light Eventuate - An event sourcing and CQRS framework with Kafka</description>
+    <description>Recent content in Roadmaps on Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Released under the MIT license</copyright>
@@ -13,7 +13,7 @@
     
     
     <item>
-      <title>Roadmap</title>
+      <title>Road Map</title>
       <link>https://networknt.github.io/light-eventuate-4j/roadmap/</link>
       <pubDate>Thu, 27 Apr 2017 09:38:52 -0400</pubDate>
       

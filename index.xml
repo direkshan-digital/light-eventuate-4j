@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Light Eventuate - An event sourcing and CQRS framework with Kafka</title>
+    <title>Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
     <link>https://networknt.github.io/light-eventuate-4j/</link>
-    <description>Recent content on Light Eventuate - An event sourcing and CQRS framework with Kafka</description>
+    <description>Recent content on Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Released under the MIT license</copyright>
@@ -13,7 +13,7 @@
     
     
     <item>
-      <title>Roadmap</title>
+      <title>Road Map</title>
       <link>https://networknt.github.io/light-eventuate-4j/roadmap/</link>
       <pubDate>Thu, 27 Apr 2017 09:38:52 -0400</pubDate>
       
@@ -74,11 +74,11 @@ The command-side of an Eventuate application consists of one or more command-sid
       <pubDate>Thu, 27 Apr 2017 09:35:07 -0400</pubDate>
       
       <guid>https://networknt.github.io/light-eventuate-4j/getting-started/</guid>
-      <description>Light Eventuate Framework Distributed data management problems in a microservice architecture: In microservice system, normally each service has its own database. Some business transactions, however, span multiple services so you need a mechanism to ensure data consistency across services. For example, let’s imagine that you are building an e-commerce store where customers have a credit limit. The application must ensure that a new order will not exceed the customer’s credit limit.</description>
+      <description>Light Eventuate 4J Framework Distributed data management problems in a microservice architecture: In microservice system, normally each service has its own database. Some business transactions, however, span multiple services so you need a mechanism to ensure data consistency across services. For example, let’s imagine that you are building an e-commerce store where customers have a credit limit. The application must ensure that a new order will not exceed the customer’s credit limit.</description>
     </item>
     
     <item>
-      <title>Index</title>
+      <title>Introduction</title>
       <link>https://networknt.github.io/light-eventuate-4j/</link>
       <pubDate>Wed, 26 Apr 2017 22:57:30 -0400</pubDate>
       
