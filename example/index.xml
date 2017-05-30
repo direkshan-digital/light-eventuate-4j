@@ -2,32 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Examples on Light Eventuate - An event sourcing and CQRS framework with Kafka</title>
-    <link>https://networknt.github.io/light-eventuate/example/</link>
+    <link>https://networknt.github.io/light-eventuate-4j/example/</link>
     <description>Recent content in Examples on Light Eventuate - An event sourcing and CQRS framework with Kafka</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Released under the MIT license</copyright>
     <lastBuildDate>Thu, 27 Apr 2017 09:37:50 -0400</lastBuildDate>
     
-	<atom:link href="https://networknt.github.io/light-eventuate/example/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://networknt.github.io/light-eventuate-4j/example/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Example</title>
-      <link>https://networknt.github.io/light-eventuate/example/</link>
+      <link>https://networknt.github.io/light-eventuate-4j/example/</link>
       <pubDate>Thu, 27 Apr 2017 09:37:50 -0400</pubDate>
       
-      <guid>https://networknt.github.io/light-eventuate/example/</guid>
+      <guid>https://networknt.github.io/light-eventuate-4j/example/</guid>
       <description>The following examples can be found in light-example-4j repository.
  TODO List - Todo list example  </description>
     </item>
     
     <item>
       <title>TodoList</title>
-      <link>https://networknt.github.io/light-eventuate/example/todo/</link>
+      <link>https://networknt.github.io/light-eventuate-4j/example/todo/</link>
       <pubDate>Sat, 22 Oct 2016 20:22:34 -0400</pubDate>
       
-      <guid>https://networknt.github.io/light-eventuate/example/todo/</guid>
+      <guid>https://networknt.github.io/light-eventuate-4j/example/todo/</guid>
       <description>Introduction This example can be found at https://github.com/networknt/light-eventuate-example/todo
 The TodoList application is the entry point POC example application for the Light Eventuate. It illustrates how you can use the platform to write an application with a microservices architecture that uses Event Sourcing and Command Query Responsibility Segregation (CQRS). The TodoList application lets users maintain a todolist.
 The TodoList application is a Java application built on Light-Java platform by using Event Sourcing based programming model.</description>

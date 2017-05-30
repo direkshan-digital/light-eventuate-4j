@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Getting-starteds on Light Eventuate - An event sourcing and CQRS framework with Kafka</title>
-    <link>https://networknt.github.io/light-eventuate/getting-started/</link>
+    <link>https://networknt.github.io/light-eventuate-4j/getting-started/</link>
     <description>Recent content in Getting-starteds on Light Eventuate - An event sourcing and CQRS framework with Kafka</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Released under the MIT license</copyright>
     <lastBuildDate>Thu, 27 Apr 2017 09:35:07 -0400</lastBuildDate>
     
-	<atom:link href="https://networknt.github.io/light-eventuate/getting-started/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://networknt.github.io/light-eventuate-4j/getting-started/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Getting Started</title>
-      <link>https://networknt.github.io/light-eventuate/getting-started/</link>
+      <link>https://networknt.github.io/light-eventuate-4j/getting-started/</link>
       <pubDate>Thu, 27 Apr 2017 09:35:07 -0400</pubDate>
       
-      <guid>https://networknt.github.io/light-eventuate/getting-started/</guid>
+      <guid>https://networknt.github.io/light-eventuate-4j/getting-started/</guid>
       <description>Light Eventuate Framework Distributed data management problems in a microservice architecture: In microservice system, normally each service has its own database. Some business transactions, however, span multiple services so you need a mechanism to ensure data consistency across services. For example, let’s imagine that you are building an e-commerce store where customers have a credit limit. The application must ensure that a new order will not exceed the customer’s credit limit.</description>
     </item>
     

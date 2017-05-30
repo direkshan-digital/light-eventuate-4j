@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Light Eventuate - An event sourcing and CQRS framework with Kafka</title>
-    <link>https://networknt.github.io/light-eventuate/tags/</link>
+    <link>https://networknt.github.io/light-eventuate-4j/tags/</link>
     <description>Recent content in Tags on Light Eventuate - An event sourcing and CQRS framework with Kafka</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Released under the MIT license</copyright>
     
-	<atom:link href="https://networknt.github.io/light-eventuate/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://networknt.github.io/light-eventuate-4j/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>

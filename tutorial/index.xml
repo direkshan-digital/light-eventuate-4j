@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tutorials on Light Eventuate - An event sourcing and CQRS framework with Kafka</title>
-    <link>https://networknt.github.io/light-eventuate/tutorial/</link>
+    <link>https://networknt.github.io/light-eventuate-4j/tutorial/</link>
     <description>Recent content in Tutorials on Light Eventuate - An event sourcing and CQRS framework with Kafka</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Released under the MIT license</copyright>
     <lastBuildDate>Thu, 27 Apr 2017 09:38:08 -0400</lastBuildDate>
     
-	<atom:link href="https://networknt.github.io/light-eventuate/tutorial/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://networknt.github.io/light-eventuate-4j/tutorial/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Tutorial</title>
-      <link>https://networknt.github.io/light-eventuate/tutorial/</link>
+      <link>https://networknt.github.io/light-eventuate-4j/tutorial/</link>
       <pubDate>Thu, 27 Apr 2017 09:38:08 -0400</pubDate>
       
-      <guid>https://networknt.github.io/light-eventuate/tutorial/</guid>
+      <guid>https://networknt.github.io/light-eventuate-4j/tutorial/</guid>
       <description>The following tutorials will help users to get started and more will be added later.
  How to build, setting local nd docker environment for light event sourcing framework
  How to do unit test
@@ -28,10 +28,10 @@
     
     <item>
       <title>End to End Test</title>
-      <link>https://networknt.github.io/light-eventuate/tutorial/end-to-end-test/</link>
+      <link>https://networknt.github.io/light-eventuate-4j/tutorial/end-to-end-test/</link>
       <pubDate>Wed, 12 Oct 2016 17:21:40 -0400</pubDate>
       
-      <guid>https://networknt.github.io/light-eventuate/tutorial/end-to-end-test/</guid>
+      <guid>https://networknt.github.io/light-eventuate-4j/tutorial/end-to-end-test/</guid>
       <description>End to End Test Run the e2etest module in the example project toto-list
 get light-eventuate-example project:
 Git clone https://github.com/networknt/light-eventuate-example.git
@@ -41,29 +41,29 @@ run test class: com.networknt.eventuate.todolist.TodoTest</description>
     
     <item>
       <title>Integration Test</title>
-      <link>https://networknt.github.io/light-eventuate/tutorial/integration-test/</link>
+      <link>https://networknt.github.io/light-eventuate-4j/tutorial/integration-test/</link>
       <pubDate>Wed, 12 Oct 2016 17:06:30 -0400</pubDate>
       
-      <guid>https://networknt.github.io/light-eventuate/tutorial/integration-test/</guid>
+      <guid>https://networknt.github.io/light-eventuate-4j/tutorial/integration-test/</guid>
       <description> Integration Test </description>
     </item>
     
     <item>
       <title>Unit Test</title>
-      <link>https://networknt.github.io/light-eventuate/tutorial/unit-test/</link>
+      <link>https://networknt.github.io/light-eventuate-4j/tutorial/unit-test/</link>
       <pubDate>Wed, 12 Oct 2016 17:05:47 -0400</pubDate>
       
-      <guid>https://networknt.github.io/light-eventuate/tutorial/unit-test/</guid>
+      <guid>https://networknt.github.io/light-eventuate-4j/tutorial/unit-test/</guid>
       <description>Junit test Run the junit test test cases in the each component modules to unit test.
 Unit test Run EventuateEmbeddedTestAggregateStoreTest test case in testjdbc module to unit test the event process</description>
     </item>
     
     <item>
       <title>Microservices</title>
-      <link>https://networknt.github.io/light-eventuate/tutorial/setup/</link>
+      <link>https://networknt.github.io/light-eventuate-4j/tutorial/setup/</link>
       <pubDate>Sun, 09 Oct 2016 08:01:56 -0400</pubDate>
       
-      <guid>https://networknt.github.io/light-eventuate/tutorial/setup/</guid>
+      <guid>https://networknt.github.io/light-eventuate-4j/tutorial/setup/</guid>
       <description>Introduction Microservices enable businesses to innovate faster and stay ahead of the competition. But one major challenge with the microservices architecture is the management of distributed data. Each microservice has its own private database. It is difficult to implement business transactions that maintain data consistency across multiple services as well as queries that retrieve data from multiple services.
 The light event sourcing framework provides a simple yet powerful event-driven programming model that solves the distributed data management problems inherent in a microservice architecture.</description>
     </item>
