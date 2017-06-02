@@ -547,33 +547,55 @@ The framework will based on the event handler definition the decide which handle
 
 <h2 id="integration-test">Integration Test</h2>
 
+<p>Following the steps on tutorial to start event store and CDC service.</p>
+
+<p>For command side service:</p>
+
 <p>From the root folder of the todo-list project: /light-eventuate-example/todo-list, use maven to build the project:</p>
 
-<p>cmd: mvn clean install</p>
-
-<pre><code>
+<pre><code>cmd: mvn clean install
 </code></pre>
 
-<p>Copy the command side serivce jar (eventuate-todo-command-service-0.1.0.jar) to framework&rsquo;s command serivce folder:</p>
-
-<p>/light-eventuate-4j/command/service.</p>
+<p>Go to the  command serivce folder:/light-eventuate-example/todo-list/command-service:</p>
 
 <p>Start command side service:</p>
 
-<pre><code>java -cp ./service/*:target/eventuate-command-1.3.0.jar com.networknt.server.Server
+<pre><code>mvn exec:exec
 </code></pre>
+
+<p>Or</p>
+
+<pre><code>java -jar ./target/eventuate-todo-command-service-0.1.0.jar
+</code></pre>
+
+<p>For query side service:</p>
 
 <pre><code>
-Copy the query side serivce jar (eventuate-todo-query-service-0.1.0.jar) to framework's query serivce folder:
+Go to the  query serivce folder:/light-eventuate-example/todo-list/query-service::
 
-/light-eventuate-4j/query/service.
-
-Start query side service:
-
+Start command side service:
 </code></pre>
 
-<p>java -cp ./service/*:target/eventuate-query-1.3.0.jar com.networknt.server.Server
-```</p>
+<p>mvn exec:exec</p>
+
+<pre><code>
+Or
+</code></pre>
+
+<p>java -jar ./target/eventuate-todo-query-service-0.1.0.jar</p>
+
+<pre><code>
+
+## Dockerization
+
+  -- go to project root folder: /light-eventuate-example/todo-list/
+  run command:
+</code></pre>
+
+<p>docker-compose up
+  ```</p>
+
+<p>##Verify result:</p>
 
 <p>Open Postman, send POST request to URL:<a href="http://localhost:8083/v1/todos">http://localhost:8083/v1/todos</a>
 with Json format request body:

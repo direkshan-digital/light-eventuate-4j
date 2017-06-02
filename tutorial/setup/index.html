@@ -471,25 +471,31 @@ Run query side service
 
 </code></pre>
 
-<p>java -cp ./service/*:target/eventuate-query-1.3.0.jar com.networknt.server.Server
-```</p>
+<p>java -cp ./service/*:target/eventuate-query-1.3.0.jar com.networknt.server.Server</p>
 
-<h2 id="test-user-event-sourcing-services">Test user event sourcing services</h2>
+<pre><code>
+##  Test user event sourcing services
 
-<p>User can use Postman or develop UI or test class to test the services based on the swaggen</p>
+User can use Postman or develop UI or test class to test the services based on the swaggen
 
-<h2 id="dockerization">Dockerization</h2>
 
-<p>Docker can simplify the application delivery. For light event sourcing system, to start event store by dockerization:
-  &ndash; go to project root folder: /light-eventuate-4j
-  &ndash; run docker-compose up
-    system will start ALL required event store components (mysql, zookeeper, kafka)</p>
+## Dockerization
 
-<p>&ndash; Same as local environment setup, copy the cdc service and user defined command side service to  /light-eventuate-4j/command/service
-    copy user defined query side services to /light-eventuate-4j/query/service.</p>
+Docker can simplify the application delivery. For light event sourcing system, to start event store by dockerization:
+  -- go to project root folder: /light-eventuate-4j
+</code></pre>
 
-<p>&mdash; go to docker module in the light-eventute-4j project: cd /light-eventuate-4j/docker
- &mdash; run docker-compose up to start the command and query side services</p>
+<p>&ndash; run docker-compose up</p>
+
+<pre><code>    system will start ALL required event store components (mysql, zookeeper, kafka)
+
+
+ -- Same as local environment setup, copy the cdc service and user defined command side service to  /light-eventuate-4j/docker/command/service
+</code></pre>
+
+<p>run docker-compose -f docker-compose-service.yml up
+   ```
+  System will start CDC service and run the command side hybrid services (if you have command side services)</p>
 
 <h2 id="integration">Integration</h2>
 
