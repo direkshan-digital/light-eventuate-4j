@@ -599,10 +599,13 @@ Or
 <li>Send request from command side the publish events:</li>
 </ol>
 
-<p>From postmand, send post request:
-   URL: <a href="http://localhost:8083/v1/todos">http://localhost:8083/v1/todos</a>
-   Headers:[{&ldquo;key&rdquo;:&ldquo;Content-Type&rdquo;,&ldquo;value&rdquo;:&ldquo;application/json&rdquo;,&ldquo;description&rdquo;:&ldquo;&rdquo;}]
-   Body: {&ldquo;title&rdquo;:&rdquo; this is the test todo from postman1&rdquo;,&ldquo;completed&rdquo;:false,&ldquo;order&rdquo;:0}</p>
+<p>From postmand, send post request:</p>
+
+<p>URL: <a href="http://localhost:8083/v1/todos">http://localhost:8083/v1/todos</a>;</p>
+
+<p>Headers:[{&ldquo;key&rdquo;:&ldquo;Content-Type&rdquo;,&ldquo;value&rdquo;:&ldquo;application/json&rdquo;,&ldquo;description&rdquo;:&ldquo;&rdquo;}];</p>
+
+<p>Body: {&ldquo;title&rdquo;:&rdquo; this is the test todo from postman1&rdquo;,&ldquo;completed&rdquo;:false,&ldquo;order&rdquo;:0};</p>
 
 <p>Response:
 {
@@ -610,14 +613,17 @@ Or
   &ldquo;cancelled&rdquo;: false,
   &ldquo;completedExceptionally&rdquo;: false,
   &ldquo;numberOfDependents&rdquo;: 0
-}</p>
+};</p>
 
-<p>This request will send request which will call backe-end service to generate a &ldquo;create todo&rdquo; event and publish to event store.
- Event sourcing system will save the event into event store
- CDC service will be triggered and will publish event to Kafka:</p>
+<p>This request will send request which will call backe-end service to generate a &ldquo;create todo&rdquo; event and publish to event store.</p>
 
-<p>The request will publish a &ldquo;CreateTodo&rdquo; event and will save the entity/event to the event store mysql database.
- we can use sql to verify:</p>
+<p>Event sourcing system will save the event into event store.</p>
+
+<p>CDC service will be triggered and will publish event to Kafka:</p>
+
+<p>The request will publish a &ldquo;CreateTodo&rdquo; event and will save the entity/event to the event store mysql database.</p>
+
+<p>we can use sql to verify:</p>
 
 <p>select * from entity;</p>
 
@@ -632,7 +638,7 @@ For todo-list example, the event handle simply get the event and save the latest
 
 <p>From Postman or from brower, send GET request:</p>
 
-<p><a href="http://localhost:8082/v1/todos">http://localhost:8082/v1/todos</a></p>
+<p><a href="http://localhost:8082/v1/todos">http://localhost:8082/v1/todos</a>;</p>
 
 <p>Reponse:
 [
@@ -643,7 +649,7 @@ For todo-list example, the event handle simply get the event and save the latest
       &ldquo;order&rdquo;: 0
     }
   }
-]</p>
+];</p>
 
 <h2 id="end">End</h2>
 

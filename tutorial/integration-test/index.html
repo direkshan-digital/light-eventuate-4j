@@ -378,19 +378,22 @@
 <h2 id="integration-test">Integration Test</h2>
 
 <ol>
-<li><p>Following the steps on &ldquo;How to build, setting local and docker environment for light-eventuate-4j framework&rdquo;
-To start event store, cdc service, and command/query side service</p></li>
+<li>Following the steps on &ldquo;How to build, setting local and docker environment for light-eventuate-4j framework&rdquo;:</li>
+</ol>
 
-<li><p>Send request from command side the publish events:</p></li>
+<p>To start event store, cdc service, and command/query side service</p>
+
+<ol>
+<li>Send request from command side the publish events:</li>
 </ol>
 
 <p>From postmand, send post request:</p>
 
-<p>URL: <a href="http://localhost:8083/v1/todos">http://localhost:8083/v1/todos</a></p>
+<p>URL: <a href="http://localhost:8083/v1/todos">http://localhost:8083/v1/todos</a>;</p>
 
-<p>Headers:[{&ldquo;key&rdquo;:&ldquo;Content-Type&rdquo;,&ldquo;value&rdquo;:&ldquo;application/json&rdquo;,&ldquo;description&rdquo;:&ldquo;&rdquo;}]</p>
+<p>Headers:[{&ldquo;key&rdquo;:&ldquo;Content-Type&rdquo;,&ldquo;value&rdquo;:&ldquo;application/json&rdquo;,&ldquo;description&rdquo;:&ldquo;&rdquo;}];</p>
 
-<p>Body: {&ldquo;title&rdquo;:&rdquo; this is the test todo from postman1&rdquo;,&ldquo;completed&rdquo;:false,&ldquo;order&rdquo;:0}</p>
+<p>Body: {&ldquo;title&rdquo;:&rdquo; this is the test todo from postman1&rdquo;,&ldquo;completed&rdquo;:false,&ldquo;order&rdquo;:0};</p>
 
 <p>Response:
 {
@@ -398,22 +401,25 @@ To start event store, cdc service, and command/query side service</p></li>
   &ldquo;cancelled&rdquo;: false,
   &ldquo;completedExceptionally&rdquo;: false,
   &ldquo;numberOfDependents&rdquo;: 0
-}</p>
+};</p>
 
-<p>This request will send request which will call backe-end service to generate a &ldquo;create todo&rdquo; event and publish to event store.
- Event sourcing system will save the event into event store
- CDC service will be triggered and will publish event to Kafka:</p>
+<p>This request will send request which will call backe-end service to generate a &ldquo;create todo&rdquo; event and publish to event store.</p>
+
+<p>Event sourcing system will save the event into event store.</p>
+
+<p>CDC service will be triggered and will publish event to Kafka:</p>
 
 <ol>
 <li>Subscrible the event and process event on the query side:</li>
 </ol>
 
-<p>Event sourcing system will subscrible the events from event store and process user defined event handlers.
-For todo-list example, the event handle simply get the event and save the latest todo info into local TODO table.</p>
+<p>Event sourcing system will subscrible the events from event store and process user defined event handlers.</p>
+
+<p>For todo-list example, the event handle simply get the event and save the latest todo info into local TODO table.</p>
 
 <p>From Postman or from brower, send GET request:</p>
 
-<p><a href="http://localhost:8082/v1/todos">http://localhost:8082/v1/todos</a></p>
+<p><a href="http://localhost:8082/v1/todos:">http://localhost:8082/v1/todos:</a></p>
 
 <p>Reponse:
 [
@@ -424,7 +430,7 @@ For todo-list example, the event handle simply get the event and save the latest
       &ldquo;order&rdquo;: 0
     }
   }
-]</p>
+];</p>
 
 
 			<aside class="copyright" role="note">
