@@ -399,6 +399,7 @@ git clone git@github.com:networknt/light-rest-4j.git
 git clone git@github.com:networknt/light-codegen.git
 git clone git@github.com:networknt/light-eventuate-4j.git
 git clone git@github.com:networknt/light-eventuate-example.git
+git clone git@github.com:networknt/light-hybrid-4j.git
 
 ## Prepare workspace
 
@@ -408,76 +409,145 @@ Go into the projects folder above, and build the project with maven
 
 <p>mvn clean install</p>
 
-<p>```</p>
+<pre><code>
+## Prepare and start event store
 
-<h2 id="prepare-and-start-event-store">Prepare and start event store</h2>
+The light event sourcing framework build on event store which used to save and dispatch events for calling microservices.
+The event store is build upon the database (mysql or postgresql) and distributed stream system (Kafka). For the local environment (wothout docker). Please follow below step to setup event store.
 
-<p>The light event sourcing framework build on event store which used to save and dispatch events for calling microservices.
-The event store is build upon the database (mysql or postgresql) and distributed stream system (Kafka). For the local environment (wothout docker). Please follow below step to setup event store.</p>
 
-<p>&mdash; Mysql (by default: use mysql as database to save event/entity/snapshot records):</p>
+--- Mysql (by default: use mysql as database to save event/entity/snapshot records):
 
-<p>&ndash; Download mysql database (version: 5.7.18 and above) and install it in local environment.</p>
+-- Download mysql database (version: 5.7.18 and above) and install it in local environment.
 
-<p>&ndash; start mysql database: &gt;mysqld</p>
+-- start mysql database: &gt;mysqld
 
-<p>&ndash; get and run DB setup script from folder: /light-eventuate-4j/client/src/main/resources/mysql-event-store-schema.sql</p>
+-- get and run DB setup script from folder: /light-eventuate-4j/client/src/main/resources/mysql-event-store-schema.sql
 
-<p>&mdash; Kafka:</p>
 
-<p>&ndash;Download Kafka (distributed steam system) from for version (2.11-0.10.2.0 or above):
-  <a href="http://www.us.apache.org/dist/kafka/0.10.2.0/kafka_2.11-0.10.2.0.tgz">http://www.us.apache.org/dist/kafka/0.10.2.0/kafka_2.11-0.10.2.0.tgz</a></p>
 
-<p>&ndash; Start zookeeper server and Kafka server:
-   Kafka uses ZooKeeper so you need to first start a ZooKeeper server if you don&rsquo;t already have one. You can use the convenience script packaged with kafka to get a quick-and-dirty single-node ZooKeeper instance.
-  &gt; bin/zookeeper-server-start.sh config/zookeeper.properties</p>
+--- Kafka:
 
-<p>&mdash; Start Kafka server
-  &gt;bin/kafka-server-start.sh config/server.properties</p>
+--Download Kafka (distributed steam system) from for version (2.11-0.10.2.0 or above):
+  http://www.us.apache.org/dist/kafka/0.10.2.0/kafka_2.11-0.10.2.0.tgz
 
-<p>&mdash; postgresql (if user select postgre as database to save event/entity/snapshot records)
-  &ndash;TODO</p>
+-- Start zookeeper server and Kafka server:
+   Kafka uses ZooKeeper so you need to first start a ZooKeeper server if you don't already have one. You can use the convenience script packaged with kafka to get a quick-and-dirty single-node ZooKeeper instance.
+  &gt; bin/zookeeper-server-start.sh config/zookeeper.properties
 
-<h2 id="prepare-and-start-event-sourcing-command-side-service">Prepare and start event sourcing command side service.</h2>
+--- Start Kafka server
+  &gt;bin/kafka-server-start.sh config/server.properties
 
-<p>The light event sourcing framework provide a server side command service to run CDC(capture data change) and work as service container to run user defined event sourcing command side microservices</p>
+--- postgresql (if user select postgreSql as database to save event/entity/snapshot records)
+  --TODO
 
-<p>&ndash; copy the cdc service jar file (/cdcservice/target/eventuate-cdcservice-1.3.0.jar) to command service container folder: /light-eventuate-4j/command/service
- &ndash; copy user defined command side service jar into same folder: /light-eventuate-4j/command/service</p>
 
-<p>Run command side service:</p>
 
-<p>java -cp ./service/*:target/eventuate-command-1.3.0.jar com.networknt.server.Server</p>
+## Prepare and start event sourcing CDC (capture data change service).
 
-<h2 id="prepare-and-start-event-sourcing-query-side-service">Prepare and start event sourcing query side service.</h2>
+CDC service use database replication to populate data from database (mysql) to distributed stream system (kafka).
 
-<p>The light event sourcing framework provide a server side query service to  work as service container to run user defined event sourcing query side microservices</p>
+-- go to cdcservice project module:
+  cd cdcservice
 
-<p>&ndash; copy user defined query side service jar into same folder: /light-eventuate-4j/query/service</p>
+-- run command line:
+</code></pre>
 
-<p>Run query side service</p>
+<p>java -cp target/eventuate-command-1.3.1.jar com.networknt.server.Server
+  ```</p>
 
-<p>java -cp ./service/*:target/eventuate-query-1.3.0.jar com.networknt.server.Server</p>
+<p>or</p>
 
-<h2 id="test-user-event-sourcing-services">Test user event sourcing services</h2>
+<p>mvn exec:exec</p>
 
-<p>User can use Postman or develop UI or test class to test the services based on the swaggen</p>
+<h2 id="prepare-and-start-event-sourcing-command-side-service-and-query-side-service">Prepare and start event sourcing command side service and query side service.</h2>
+
+<p>Normally event sourcing system will have at least two microservices:</p>
+
+<p>command side service</p>
+
+<p>query side service</p>
+
+<p>For example, to use our simple todo-list example:</p>
+
+<p>Go to light-eventuate-example/todo-list
+ Build the project from command line:
+   &ndash;mvn clean install</p>
+
+<h2 id="command-side-service">Command side service</h2>
+
+<p>Go command-service module, run command line:
+   &ndash; mvn package exec:exec</p>
+
+<h2 id="query-side-service">Query side service</h2>
+
+<p>Prepare query side DB script: (DB script saved at: /light-eventuate-example/mysql)</p>
+
+<pre><code>create database todo_db;
+
+CREATE  TABLE TODO (
+  ID varchar(255),
+  TITLE varchar(255),
+  COMPLETED BOOLEAN,
+  ORDER_ID INTEGER,
+  ACTIVE_FLG varchar(1) DEFAULT 'Y',
+  PRIMARY KEY(ID)
+);
+
+GRANT ALL PRIVILEGES ON todo_db.* TO 'mysqluser' IDENTIFIED BY 'mysqlpw';
+</code></pre>
+
+<p>Go query-service module, run command line:
+   &ndash; mvn package exec:exec</p>
 
 <h2 id="dockerization">Dockerization</h2>
 
+<h1 id="event-store-docker-compose">Event Store docker compose:</h1>
+
 <p>Docker can simplify the application delivery. For light event sourcing system, to start event store by dockerization:</p>
 
-<p>&ndash; go to project root folder: /light-eventuate-4j</p>
+<p>&ndash; From light-eventuate-4j project root folder: /light-eventuate-4j</p>
 
 <p>&ndash; run docker-compose up</p>
 
 <p>system will start ALL required event store components (mysql, zookeeper, kafka)</p>
 
-<p>&ndash; Same as local environment setup, copy the cdc service and user defined command side service to  /light-eventuate-4j/docker/command/service</p>
+<p>For todo-list exampleocumentdocumentdd:
+   Prepare query side DB script: (DB script saved at: /light-eventuate-example/mysql)</p>
 
-<p>run docker-compose -f docker-compose-service.yml up</p>
+<pre><code>  create database todo_db;
 
-<p>System will start CDC service and run the command side hybrid services (if you have command side services)</p>
+  CREATE  TABLE TODO (
+    ID varchar(255),
+    TITLE varchar(255),
+    COMPLETED BOOLEAN,
+    ORDER_ID INTEGER,
+    ACTIVE_FLG varchar(1) DEFAULT 'Y',
+    PRIMARY KEY(ID)
+  );
+
+  GRANT ALL PRIVILEGES ON todo_db.* TO 'mysqluser' IDENTIFIED BY 'mysqlpw';
+</code></pre>
+
+<h1 id="for-restful-services">For Restful Services</h1>
+
+<p>Start CDC service:</p>
+
+<p>&ndash; From light-eventuate-4j project root folder: /light-eventuate-4j</p>
+
+<p>&ndash; run docker-compose -f docker-compose-cdcservice.yml up</p>
+
+<p>Run Command/Query side service:</p>
+
+<p>&ndash; From todo-list example root folder: /light-eventuate-example/todo-list</p>
+
+<p>&ndash; run docker-compose up</p>
+
+<h1 id="for-hybrid-api-services">For Hybrid API Services</h1>
+
+<p>&ndash; From light-eventuate-4j project root folder: /light-eventuate-4j</p>
+
+<p>&ndash; Run docker-compose -f docker-compose-service.yml up</p>
 
 <h2 id="integration">Integration</h2>
 

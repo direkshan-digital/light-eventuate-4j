@@ -595,18 +595,26 @@ Or
 
 <p>##Verify result:</p>
 
-<p>Open Postman, send POST request to URL:<a href="http://localhost:8083/v1/todos">http://localhost:8083/v1/todos</a>
-with Json format request body:
-{&ldquo;title&rdquo;:&rdquo; this is the  todo send from postman&rdquo;,&ldquo;completed&rdquo;:false,&ldquo;order&rdquo;:0}</p>
+<ol>
+<li>Send request from command side the publish events:</li>
+</ol>
 
-<p>It should get response:</p>
+<p>From postmand, send post request:
+   URL: <a href="http://localhost:8083/v1/todos">http://localhost:8083/v1/todos</a>
+   Headers:[{&ldquo;key&rdquo;:&ldquo;Content-Type&rdquo;,&ldquo;value&rdquo;:&ldquo;application/json&rdquo;,&ldquo;description&rdquo;:&ldquo;&rdquo;}]
+   Body: {&ldquo;title&rdquo;:&rdquo; this is the test todo from postman1&rdquo;,&ldquo;completed&rdquo;:false,&ldquo;order&rdquo;:0}</p>
 
-<p>{
-  &ldquo;completedExceptionally&rdquo;: false,
-  &ldquo;numberOfDependents&rdquo;: 0,
+<p>Response:
+{
+  &ldquo;done&rdquo;: true,
   &ldquo;cancelled&rdquo;: false,
-  &ldquo;done&rdquo;: true
+  &ldquo;completedExceptionally&rdquo;: false,
+  &ldquo;numberOfDependents&rdquo;: 0
 }</p>
+
+<p>This request will send request which will call backe-end service to generate a &ldquo;create todo&rdquo; event and publish to event store.
+ Event sourcing system will save the event into event store
+ CDC service will be triggered and will publish event to Kafka:</p>
 
 <p>The request will publish a &ldquo;CreateTodo&rdquo; event and will save the entity/event to the event store mysql database.
  we can use sql to verify:</p>
@@ -615,12 +623,27 @@ with Json format request body:
 
 <p>select * from events;</p>
 
-<p>The light event sourcing framework will trigger cdc, and publish the event to stream system (Kafka).</p>
+<ol>
+<li>Subscrible the event and process event on the query side:</li>
+</ol>
 
-<p>And query side service will get the event from kafka and process the event by event handle. For Todo application the query side service will save the todo list to local TODO table.</p>
+<p>Event sourcing system will subscrible the events from event store and process user defined event handlers.
+For todo-list example, the event handle simply get the event and save the latest todo info into local TODO table.</p>
 
-<p>From the brower or Postman, send GET request: <a href="http://localhost:8083/v1/todos">http://localhost:8083/v1/todos</a>
-we will see the TODO-list return from local TODO table.</p>
+<p>From Postman or from brower, send GET request:</p>
+
+<p><a href="http://localhost:8082/v1/todos">http://localhost:8082/v1/todos</a></p>
+
+<p>Reponse:
+[
+  {
+    &ldquo;0000015c8a1b67af-0242ac1200060000&rdquo;: {
+      &ldquo;title&rdquo;: &ldquo; this is the test todo from postman1&rdquo;,
+      &ldquo;completed&rdquo;: false,
+      &ldquo;order&rdquo;: 0
+    }
+  }
+]</p>
 
 <h2 id="end">End</h2>
 

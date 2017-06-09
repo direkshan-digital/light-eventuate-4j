@@ -125,7 +125,11 @@ run test class: com.networknt.eventuate.todolist.TodoTest</description>
       <pubDate>Wed, 12 Oct 2016 17:06:30 -0400</pubDate>
       
       <guid>https://networknt.github.io/light-eventuate-4j/tutorial/integration-test/</guid>
-      <description> Integration Test </description>
+      <description>Integration Test  Following the steps on &amp;ldquo;How to build, setting local and docker environment for light-eventuate-4j framework&amp;rdquo; To start event store, cdc service, and command/query side service
+ Send request from command side the publish events:
+  From postmand, send post request: URL: http://localhost:8083/v1/todos Headers:[{&amp;ldquo;key&amp;rdquo;:&amp;ldquo;Content-Type&amp;rdquo;,&amp;ldquo;value&amp;rdquo;:&amp;ldquo;application/json&amp;rdquo;,&amp;ldquo;description&amp;rdquo;:&amp;ldquo;&amp;rdquo;}] Body: {&amp;ldquo;title&amp;rdquo;:&amp;rdquo; this is the test todo from postman1&amp;rdquo;,&amp;ldquo;completed&amp;rdquo;:false,&amp;ldquo;order&amp;rdquo;:0}
+Response: { &amp;ldquo;done&amp;rdquo;: true, &amp;ldquo;cancelled&amp;rdquo;: false, &amp;ldquo;completedExceptionally&amp;rdquo;: false, &amp;ldquo;numberOfDependents&amp;rdquo;: 0 }
+This request will send request which will call backe-end service to generate a &amp;ldquo;create todo&amp;rdquo; event and publish to event store.</description>
     </item>
     
     <item>
