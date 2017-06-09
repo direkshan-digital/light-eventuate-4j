@@ -134,7 +134,10 @@ An entity is a business object such as an Order. An entity is an instance of an 
       <pubDate>Wed, 26 Apr 2017 22:57:30 -0400</pubDate>
       
       <guid>https://networknt.github.io/light-eventuate-4j/</guid>
-      <description>This is the index page and it should be shown as the first page.</description>
+      <description>When building microservices, there are two major patterns are used for service to service communication.
+Synchronous, Request/Response Communication In light-4j, this means to use Client module to call other services in the request/response fashion regardless light-rest-4j, light-graphql-4j or light-hybrid-4j is used.
+Asynchronous, Message-Based Communication The eventual consistency framework light-eventuate-4j is designed to facilitate asynchronous communication between services built on top of light-rest-4j, light-grahpql-4j and light-hybrid-4j.
+Service communication is through events and every service maintain its own aggregates to serve consumer independently.</description>
     </item>
     
     <item>
