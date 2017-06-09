@@ -9,18 +9,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
-    <title>Roadmap - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
+    <title>Event Sourcing - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
     <meta name="generator" content="Hugo 0.20.6" />
 
     
     <meta name="description" content="Light Eventuate Docs">
     
-    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/roadmap/">
+    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/architecture/event-sourcing/">
     
     <meta name="author" content="Steve Hu, Gavin Chen">
     
 
-    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/roadmap/">
+    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/architecture/event-sourcing/">
     <meta property="og:title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
     <meta property="og:image" content="https://networknt.github.io/light-eventuate-4j/images/logo.png">
     <meta name="apple-mobile-web-app-title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
@@ -97,7 +97,7 @@
     </div>
     <div class="stretch">
       <div class="title">
-        Roadmap
+        Event Sourcing
       </div>
     </div>
 
@@ -306,14 +306,11 @@
 
 
 
-<a class="current" title="Roadmap" href="https://networknt.github.io/light-eventuate-4j/roadmap/">
+<a  title="Roadmap" href="https://networknt.github.io/light-eventuate-4j/roadmap/">
 	
 	Roadmap
 </a>
 
-
-<ul id="scrollspy">
-</ul>
 
 
   
@@ -374,22 +371,20 @@
 
 	<article class="article">
 		<div class="wrapper">
-			<h1>Roadmap </h1>
+			<h1>Event Sourcing </h1>
 
-			
+			<p>Event sourcing is an event-centric approach to persistence; A service that uses event
+sourcing persists each aggregate as a sequence of events. When it creates or updates an
+aggregate, the service saves one or more events in the database, which is also known as
+the event store. It reconstructs the current state of an aggregate by loading the events
+and replaying them. In functional programming terms, a service reconstructs the state of
+an aggregate by performing a functional fold/reduce over the events. Because the events
+are the state, you no longer have the problem of atomically updating state and publishing
+events.</p>
 
-<h1 id="light-eventuate-tasks-todo-list">light-eventuate tasks TODO list:</h1>
-
-<p>enrich the eventuate-cdccore package by adding Kafka stream API to handle events in stream
-chain; implement Stream as Table.</p>
-
-<p>enrich eventuate-jdbc to handle different database.</p>
-
-<p>add more junit cases for the project.</p>
-
-<p>create an admin console for project to monitor the event process and the event sync between different service.</p>
-
-<p>create example project  top of Light 4J and Light Eventuate 4J.</p>
+<p>For the service need to use the event sourcing, the service should include light-eventuate-4j
+and implement it owen event handle. The implemented event handle will call the API in
+light-eventuate-4j to process/subscriber the events.</p>
 
 
 			<aside class="copyright" role="note">
@@ -408,34 +403,18 @@ chain; implement Stream as Table.</p>
 <nav class="pagination" aria-label="Footer">
   <div class="previous">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/design/component/" title="Components">
-        <span class="direction">
-          Previous
-        </span>
-        <div class="page">
-          <div class="button button-previous" role="button" aria-label="Previous">
-            <i class="icon icon-back"></i>
-          </div>
-          <div class="stretch">
-            <div class="title">
-              Components
-            </div>
-          </div>
-        </div>
-      </a>
-  
   </div>
 
   <div class="next">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/tutorial/" title="Tutorial">
+      <a href="https://networknt.github.io/light-eventuate-4j/architecture/event-driven/" title="Event Driven Architecture">
         <span class="direction">
           Next
         </span>
         <div class="page">
           <div class="stretch">
             <div class="title">
-              Tutorial
+              Event Driven Architecture
             </div>
           </div>
           <div class="button button-next" role="button" aria-label="Next">

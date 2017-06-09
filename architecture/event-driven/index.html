@@ -9,18 +9,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
-    <title>Roadmap - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
+    <title>Event Driven Architecture - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
     <meta name="generator" content="Hugo 0.20.6" />
 
     
     <meta name="description" content="Light Eventuate Docs">
     
-    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/roadmap/">
+    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/architecture/event-driven/">
     
     <meta name="author" content="Steve Hu, Gavin Chen">
     
 
-    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/roadmap/">
+    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/architecture/event-driven/">
     <meta property="og:title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
     <meta property="og:image" content="https://networknt.github.io/light-eventuate-4j/images/logo.png">
     <meta name="apple-mobile-web-app-title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
@@ -97,7 +97,7 @@
     </div>
     <div class="stretch">
       <div class="title">
-        Roadmap
+        Event Driven Architecture
       </div>
     </div>
 
@@ -306,14 +306,11 @@
 
 
 
-<a class="current" title="Roadmap" href="https://networknt.github.io/light-eventuate-4j/roadmap/">
+<a  title="Roadmap" href="https://networknt.github.io/light-eventuate-4j/roadmap/">
 	
 	Roadmap
 </a>
 
-
-<ul id="scrollspy">
-</ul>
 
 
   
@@ -374,22 +371,49 @@
 
 	<article class="article">
 		<div class="wrapper">
-			<h1>Roadmap </h1>
+			<h1>Event Driven Architecture </h1>
 
 			
 
-<h1 id="light-eventuate-tasks-todo-list">light-eventuate tasks TODO list:</h1>
+<h1 id="event-driven-architecture">Event-driven architecture</h1>
 
-<p>enrich the eventuate-cdccore package by adding Kafka stream API to handle events in stream
-chain; implement Stream as Table.</p>
+<p>An Eventuate application consists of four types of modules, each with different roles and responsibilities:</p>
 
-<p>enrich eventuate-jdbc to handle different database.</p>
+<ul>
+<li>Command-side module</li>
+<li>Query-side view updater module</li>
+<li>Query-side view query module module</li>
+<li>Outbound gateway module</li>
+</ul>
 
-<p>add more junit cases for the project.</p>
+<p>Note that this is the logical architecture of the application. The modules can either be deployed together as a monolithic application or separately as standalone microservices.</p>
 
-<p>create an admin console for project to monitor the event process and the event sync between different service.</p>
+<p>Command-side modules</p>
 
-<p>create example project  top of Light 4J and Light Eventuate 4J.</p>
+<p>The command-side of an Eventuate application consists of one or more command-side modules. A command-side module creates and updates aggregates in response to external update requests (for example, HTTP POST, PUT, and DELETE requests) and events published by command-side aggregates. A command-side module consists of following components :
+* Aggregates - Implement most of the business logic and are persisted using event sourcing
+* Services - Process external requests by creating and updating aggregates
+* Event handlers - Process events by creating and updating aggregates</p>
+
+<p>Query-side modules</p>
+
+<p>The query-side of an Eventuate application maintains one or more materialized (CQRS) views of command-side aggregates. Each view has two modules:
+* View updater module - Subscribes to events and updates the view
+* View query module - Handles query (for example, HTTP GET) requests by querying the view</p>
+
+<p>Outbound gateway modules</p>
+
+<p>An outbound gateway module processes events by invoking external services.</p>
+
+<p>Diagram:</p>
+
+<p><img src="https://networknt.github.io/light-eventuate-4j/images/Drawing1.png" alt="drawing1" /></p>
+
+<p>Light java based Light-eventuate architecture</p>
+
+<p>In an event-driven architecture, a service publishes events when something notable happens, such as when it updates a business object. Other services subscribe to those events. In response to an event a service typically updates its own state. It might also publish more events, which then get consumed by other services</p>
+
+<p><img src="https://networknt.github.io/light-eventuate-4j/images/Drawing3.png" alt="drawing3" /></p>
 
 
 			<aside class="copyright" role="note">
@@ -408,7 +432,7 @@ chain; implement Stream as Table.</p>
 <nav class="pagination" aria-label="Footer">
   <div class="previous">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/design/component/" title="Components">
+      <a href="https://networknt.github.io/light-eventuate-4j/architecture/event-sourcing/" title="Event Sourcing">
         <span class="direction">
           Previous
         </span>
@@ -418,7 +442,7 @@ chain; implement Stream as Table.</p>
           </div>
           <div class="stretch">
             <div class="title">
-              Components
+              Event Sourcing
             </div>
           </div>
         </div>
@@ -428,14 +452,14 @@ chain; implement Stream as Table.</p>
 
   <div class="next">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/tutorial/" title="Tutorial">
+      <a href="https://networknt.github.io/light-eventuate-4j/architecture/comm-pattern/" title="Communication Patterns">
         <span class="direction">
           Next
         </span>
         <div class="page">
           <div class="stretch">
             <div class="title">
-              Tutorial
+              Communication Patterns
             </div>
           </div>
           <div class="button button-next" role="button" aria-label="Next">

@@ -9,18 +9,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
-    <title>Roadmap - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
+    <title>Communication Patterns - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
     <meta name="generator" content="Hugo 0.20.6" />
 
     
     <meta name="description" content="Light Eventuate Docs">
     
-    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/roadmap/">
+    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/architecture/comm-pattern/">
     
     <meta name="author" content="Steve Hu, Gavin Chen">
     
 
-    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/roadmap/">
+    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/architecture/comm-pattern/">
     <meta property="og:title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
     <meta property="og:image" content="https://networknt.github.io/light-eventuate-4j/images/logo.png">
     <meta name="apple-mobile-web-app-title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
@@ -97,7 +97,7 @@
     </div>
     <div class="stretch">
       <div class="title">
-        Roadmap
+        Communication Patterns
       </div>
     </div>
 
@@ -306,14 +306,11 @@
 
 
 
-<a class="current" title="Roadmap" href="https://networknt.github.io/light-eventuate-4j/roadmap/">
+<a  title="Roadmap" href="https://networknt.github.io/light-eventuate-4j/roadmap/">
 	
 	Roadmap
 </a>
 
-
-<ul id="scrollspy">
-</ul>
 
 
   
@@ -374,22 +371,135 @@
 
 	<article class="article">
 		<div class="wrapper">
-			<h1>Roadmap </h1>
+			<h1>Communication Patterns </h1>
 
 			
 
-<h1 id="light-eventuate-tasks-todo-list">light-eventuate tasks TODO list:</h1>
+<h1 id="introduction">Introduction</h1>
 
-<p>enrich the eventuate-cdccore package by adding Kafka stream API to handle events in stream
-chain; implement Stream as Table.</p>
+<p>In a monolithic application, components invoke one another via method or function calls. In contrast,
+a microservices-based application might be distributed on multiple Docker containers or VMs or multiple
+machines. Each service instance is typically a process and services much interact using an inter-process
+communication mechanism.</p>
 
-<p>enrich eventuate-jdbc to handle different database.</p>
+<h1 id="patterns">Patterns</h1>
 
-<p>add more junit cases for the project.</p>
+<p>There are two major styles in client/service communication.</p>
 
-<p>create an admin console for project to monitor the event process and the event sync between different service.</p>
+<h2 id="synchronous">Synchronous</h2>
 
-<p>create example project  top of Light 4J and Light Eventuate 4J.</p>
+<p>The client expects a timely response from the service and might even block while it waits.</p>
+
+<p>When using a synchronous, request/response-based IPC mechanism, a client sends a request to a service.
+The service processes the request and sends back a response. In many clients, the thread that makes the
+request blocks while waiting for a response. Other clients might use asynchronous, event-driven client
+code that is perhaps encapsulated by Futures or Rx Observables. However, unlike when using messaging, the
+client assumes that the response will arrive in a timely fashion. There are numerous styles to choose
+from. Two popular HTTP styles are REST and RPC.</p>
+
+<p>There are numerous benefits to using a communication style that is based on HTTP:</p>
+
+<ul>
+<li>HTTP is simple and familiar.</li>
+<li>You can test an HTTP API from within a browser using an extension such as Postman or from the command
+line using curl (assuming JSON or some other text format is used).</li>
+<li>It directly supports request/response-style communication.</li>
+<li>HTTP is, of course, firewall-friendly.</li>
+<li>It doesn’t require an intermediate broker, which simplifies the system’s architecture.</li>
+</ul>
+
+<p>There are some drawbacks to using HTTP:</p>
+
+<ul>
+<li>It only directly supports the request/response style of interaction. You can use HTTP for notifications
+but the server must always send an HTTP response.</li>
+<li>Because the client and service communicate directly (without an intermediary to buffer messages), they
+must both be running for the duration of the exchange.</li>
+<li>The client must know the location (i.e., the URL) of each service instance and this is a non-trivial
+problem in a modern application. Clients must use a service discovery mechanism to locate service instances.</li>
+</ul>
+
+<h2 id="asynchronous-message-based-communication">Asynchronous, Message-Based Communication</h2>
+
+<p>The client doesn’t block while waiting for a response, and the response, if any, isn’t necessarily
+sent immediately.</p>
+
+<p>When using messaging, processes communicate by asynchronously exchanging messages. A client makes a
+request to a service by sending it a message. If the service is expected to reply, it does so by sending
+a separate message back to the client. Since the communication is asynchronous, the client does not block
+waiting for a reply. Instead, the client is written assuming that the reply will not be received immediately.</p>
+
+<p>A message consists of headers (metadata such as the sender) and a message body. Messages are exchanged
+over channels. Any number of producers can send messages to a channel. Similarly, any number of consumers
+can receive messages from a channel.</p>
+
+<p>There are many advantages to using messaging:</p>
+
+<ul>
+<li>Decouples the client from the service</li>
+</ul>
+
+<p>A client makes a request simply by sending a message to the appropriate channel. The client is completely
+unaware of the service instances. It does not need to use a discovery mechanism to determine the location
+of a service instance.</p>
+
+<ul>
+<li>Message buffering</li>
+</ul>
+
+<p>With a synchronous request/response protocol, such as a HTTP, both the client and service must be available
+for the duration of the exchange. In contrast, a message broker queues up the messages written to a channel
+until they can be processed by the consumer. This means, for example, that an online store can accept orders
+from customers even when the order fulfillment system is slow or unavailable. The order messages simply queue
+up.</p>
+
+<ul>
+<li>Flexible client-service interactions</li>
+</ul>
+
+<p>Messaging supports all of the interaction styles described earlier.</p>
+
+<ul>
+<li>Explicit inter-process communication</li>
+</ul>
+
+<p>RPC-based mechanisms attempt to make invoking a remote service look the same as calling a local service.
+However, because of the laws of physics and the possibility of partial failure, they are in fact quite
+different. Messaging makes these differences very explicit so developers are not lulled into a false sense
+of security.</p>
+
+<p>There are, however, some downsides to using messaging:</p>
+
+<ul>
+<li>Additional operational complexity</li>
+</ul>
+
+<p>The messaging system is yet another system component that must be installed, configured, and operated. It’s
+essential that the message broker be highly available, otherwise system reliability is impacted.</p>
+
+<ul>
+<li>Complexity of implementing request/response-based interaction</li>
+</ul>
+
+<p>Request/response-style interaction requires some work to implement. Each request message must contain a reply
+channel identifier and a correlation identifier. The service writes a response message containing the
+correlation ID to the reply channel. The client uses the correlation ID to match the response with the request.
+It is often easier to use an IPC mechanism that directly supports request/response.</p>
+
+<ul>
+<li>Client needs to discover location of message broker</li>
+</ul>
+
+<p>Given message broker is the most important of component in the infrastructure, it is normally a cluster of
+serveral instances. This makes client more complicated to locate which instance to communicate with and how
+to fail over to other instances when the current one fails.</p>
+
+<h1 id="summary">Summary</h1>
+
+<p>Microservices must communicate using an inter-process communication mechanism. When designing how your
+services will communicate, you need to consider various issues: how services interact, how to specify the
+API for each service, how to evolve the APIs, and how to handle partial failure. There are two kinds of IPC
+mechanisms that microservices can use, asynchronous messaging and synchronous request/response.</p>
 
 
 			<aside class="copyright" role="note">
@@ -408,7 +518,7 @@ chain; implement Stream as Table.</p>
 <nav class="pagination" aria-label="Footer">
   <div class="previous">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/design/component/" title="Components">
+      <a href="https://networknt.github.io/light-eventuate-4j/architecture/event-driven/" title="Event Driven Architecture">
         <span class="direction">
           Previous
         </span>
@@ -418,7 +528,7 @@ chain; implement Stream as Table.</p>
           </div>
           <div class="stretch">
             <div class="title">
-              Components
+              Event Driven Architecture
             </div>
           </div>
         </div>
@@ -428,14 +538,14 @@ chain; implement Stream as Table.</p>
 
   <div class="next">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/tutorial/" title="Tutorial">
+      <a href="https://networknt.github.io/light-eventuate-4j/design/component/" title="Components">
         <span class="direction">
           Next
         </span>
         <div class="page">
           <div class="stretch">
             <div class="title">
-              Tutorial
+              Components
             </div>
           </div>
           <div class="button button-next" role="button" aria-label="Next">

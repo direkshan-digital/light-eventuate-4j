@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
     <title>Architecture - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
-    <meta name="generator" content="Hugo 0.21" />
+    <meta name="generator" content="Hugo 0.20.6" />
 
     
     <meta name="description" content="Light Eventuate Docs">
@@ -255,9 +255,9 @@
 
 
 
-<a  title="Tutorials" href="https://networknt.github.io/light-eventuate-4j/tutorial/">
+<a  title="Tutorial" href="https://networknt.github.io/light-eventuate-4j/tutorial/">
 	
-	Tutorials
+	Tutorial
 </a>
 
 
@@ -273,9 +273,9 @@
 
 
 
-<a  title="Examples" href="https://networknt.github.io/light-eventuate-4j/example/">
+<a  title="Example" href="https://networknt.github.io/light-eventuate-4j/example/">
 	
-	Examples
+	Example
 </a>
 
 
@@ -376,47 +376,15 @@
 		<div class="wrapper">
 			<h1>Architecture </h1>
 
-			
-
-<h1 id="event-driven-architecture">Event-driven architecture</h1>
-
-<p>An Eventuate application consists of four types of modules, each with different roles and responsibilities:</p>
+			<p>Here is a list of architecure decisions for light-eventuate-4j:</p>
 
 <ul>
-<li>Command-side module</li>
-<li>Query-side view updater module</li>
-<li>Query-side view query module module</li>
-<li>Outbound gateway module</li>
+<li><p><a href="https://networknt.github.io/light-eventuate-4j/architecture/comm-pattern/">Communication Patterns</a></p></li>
+
+<li><p><a href="https://networknt.github.io/light-eventuate-4j/architecture/event-driven/">Event Driven</a></p></li>
+
+<li><p><a href="https://networknt.github.io/light-eventuate-4j/architecture/event-sourcing/">Event Sourcing</a></p></li>
 </ul>
-
-<p>Note that this is the logical architecture of the application. The modules can either be deployed together as a monolithic application or separately as standalone microservices.</p>
-
-<p>Command-side modules</p>
-
-<p>The command-side of an Eventuate application consists of one or more command-side modules. A command-side module creates and updates aggregates in response to external update requests (for example, HTTP POST, PUT, and DELETE requests) and events published by command-side aggregates. A command-side module consists of following components :
-* Aggregates - Implement most of the business logic and are persisted using event sourcing
-* Services - Process external requests by creating and updating aggregates
-* Event handlers - Process events by creating and updating aggregates</p>
-
-<p>Query-side modules</p>
-
-<p>The query-side of an Eventuate application maintains one or more materialized (CQRS) views of command-side aggregates. Each view has two modules:
-* View updater module - Subscribes to events and updates the view
-* View query module - Handles query (for example, HTTP GET) requests by querying the view</p>
-
-<p>Outbound gateway modules</p>
-
-<p>An outbound gateway module processes events by invoking external services.</p>
-
-<p>Diagram:</p>
-
-<p><img src="https://networknt.github.io/light-eventuate-4j/images/Drawing1.png" alt="drawing1" /></p>
-
-<p>Light java based Light-eventuate architecture</p>
-
-<p>In an event-driven architecture, a service publishes events when something notable happens, such as when it updates a business object. Other services subscribe to those events. In response to an event a service typically updates its own state. It might also publish more events, which then get consumed by other services</p>
-
-<p><img src="https://networknt.github.io/light-eventuate-4j/images/Drawing3.png" alt="drawing3" /></p>
 
 
 			<aside class="copyright" role="note">

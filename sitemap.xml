@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://networknt.github.io/light-eventuate-4j/introduction/</loc>
-    <lastmod>2017-05-30T12:12:44-04:00</lastmod>
+    <loc>https://networknt.github.io/light-eventuate-4j/architecture/event-sourcing/</loc>
+    <lastmod>2017-06-09T18:20:57-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://networknt.github.io/light-eventuate-4j/architecture/event-driven/</loc>
+    <lastmod>2017-06-09T16:32:37-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://networknt.github.io/light-eventuate-4j/architecture/comm-pattern/</loc>
+    <lastmod>2017-06-09T14:39:01-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://networknt.github.io/light-eventuate-4j/design/component/</loc>
+    <lastmod>2017-06-09T13:15:31-04:00</lastmod>
   </url>
   
   <url>
@@ -69,7 +83,7 @@
   
   <url>
     <loc>https://networknt.github.io/light-eventuate-4j/architecture/</loc>
-    <lastmod>2017-04-27T09:35:23-04:00</lastmod>
+    <lastmod>2017-06-09T18:20:57-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -80,7 +94,7 @@
   
   <url>
     <loc>https://networknt.github.io/light-eventuate-4j/design/</loc>
-    <lastmod>2017-04-27T09:37:10-04:00</lastmod>
+    <lastmod>2017-06-09T13:15:31-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -97,14 +111,8 @@
   </url>
   
   <url>
-    <loc>https://networknt.github.io/light-eventuate-4j/introduction/</loc>
-    <lastmod>2017-05-30T12:12:44-04:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://networknt.github.io/light-eventuate-4j/</loc>
-    <lastmod>2017-05-30T12:12:44-04:00</lastmod>
+    <lastmod>2017-06-09T18:20:57-04:00</lastmod>
     <priority>0</priority>
   </url>
   

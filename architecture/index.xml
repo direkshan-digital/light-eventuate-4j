@@ -7,10 +7,42 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Released under the MIT license</copyright>
-    <lastBuildDate>Thu, 27 Apr 2017 09:35:23 -0400</lastBuildDate>
+    <lastBuildDate>Fri, 09 Jun 2017 18:20:57 -0400</lastBuildDate>
     
 	<atom:link href="https://networknt.github.io/light-eventuate-4j/architecture/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Event Sourcing</title>
+      <link>https://networknt.github.io/light-eventuate-4j/architecture/event-sourcing/</link>
+      <pubDate>Fri, 09 Jun 2017 18:20:57 -0400</pubDate>
+      
+      <guid>https://networknt.github.io/light-eventuate-4j/architecture/event-sourcing/</guid>
+      <description>Event sourcing is an event-centric approach to persistence; A service that uses event sourcing persists each aggregate as a sequence of events. When it creates or updates an aggregate, the service saves one or more events in the database, which is also known as the event store. It reconstructs the current state of an aggregate by loading the events and replaying them. In functional programming terms, a service reconstructs the state of an aggregate by performing a functional fold/reduce over the events.</description>
+    </item>
+    
+    <item>
+      <title>Event Driven Architecture</title>
+      <link>https://networknt.github.io/light-eventuate-4j/architecture/event-driven/</link>
+      <pubDate>Fri, 09 Jun 2017 16:32:37 -0400</pubDate>
+      
+      <guid>https://networknt.github.io/light-eventuate-4j/architecture/event-driven/</guid>
+      <description>Event-driven architecture An Eventuate application consists of four types of modules, each with different roles and responsibilities:
+ Command-side module Query-side view updater module Query-side view query module module Outbound gateway module  Note that this is the logical architecture of the application. The modules can either be deployed together as a monolithic application or separately as standalone microservices.
+Command-side modules
+The command-side of an Eventuate application consists of one or more command-side modules.</description>
+    </item>
+    
+    <item>
+      <title>Communication Patterns</title>
+      <link>https://networknt.github.io/light-eventuate-4j/architecture/comm-pattern/</link>
+      <pubDate>Fri, 09 Jun 2017 14:39:01 -0400</pubDate>
+      
+      <guid>https://networknt.github.io/light-eventuate-4j/architecture/comm-pattern/</guid>
+      <description>Introduction In a monolithic application, components invoke one another via method or function calls. In contrast, a microservices-based application might be distributed on multiple Docker containers or VMs or multiple machines. Each service instance is typically a process and services much interact using an inter-process communication mechanism.
+Patterns There are two major styles in client/service communication.
+Synchronous The client expects a timely response from the service and might even block while it waits.</description>
+    </item>
     
     <item>
       <title>Architecture</title>
@@ -18,10 +50,11 @@
       <pubDate>Thu, 27 Apr 2017 09:35:23 -0400</pubDate>
       
       <guid>https://networknt.github.io/light-eventuate-4j/architecture/</guid>
-      <description>Event-driven architecture An Eventuate application consists of four types of modules, each with different roles and responsibilities:
- Command-side module Query-side view updater module Query-side view query module module Outbound gateway module  Note that this is the logical architecture of the application. The modules can either be deployed together as a monolithic application or separately as standalone microservices.
-Command-side modules
-The command-side of an Eventuate application consists of one or more command-side modules.</description>
+      <description>Here is a list of architecure decisions for light-eventuate-4j:
+ Communication Patterns
+ Event Driven
+ Event Sourcing
+  </description>
     </item>
     
   </channel>

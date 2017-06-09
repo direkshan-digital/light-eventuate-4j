@@ -9,18 +9,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
-    <title>Roadmap - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
+    <title>Components - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
     <meta name="generator" content="Hugo 0.20.6" />
 
     
     <meta name="description" content="Light Eventuate Docs">
     
-    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/roadmap/">
+    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/design/component/">
     
     <meta name="author" content="Steve Hu, Gavin Chen">
     
 
-    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/roadmap/">
+    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/design/component/">
     <meta property="og:title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
     <meta property="og:image" content="https://networknt.github.io/light-eventuate-4j/images/logo.png">
     <meta name="apple-mobile-web-app-title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
@@ -97,7 +97,7 @@
     </div>
     <div class="stretch">
       <div class="title">
-        Roadmap
+        Components
       </div>
     </div>
 
@@ -306,14 +306,11 @@
 
 
 
-<a class="current" title="Roadmap" href="https://networknt.github.io/light-eventuate-4j/roadmap/">
+<a  title="Roadmap" href="https://networknt.github.io/light-eventuate-4j/roadmap/">
 	
 	Roadmap
 </a>
 
-
-<ul id="scrollspy">
-</ul>
 
 
   
@@ -374,22 +371,28 @@
 
 	<article class="article">
 		<div class="wrapper">
-			<h1>Roadmap </h1>
+			<h1>Components </h1>
 
 			
 
-<h1 id="light-eventuate-tasks-todo-list">light-eventuate tasks TODO list:</h1>
+<h1 id="light-eventuate-4-components">light-eventuate-4 components:</h1>
 
-<p>enrich the eventuate-cdccore package by adding Kafka stream API to handle events in stream
-chain; implement Stream as Table.</p>
+<p>eventuate-cdccore :                    Provide API for publishing / subscribing  events from Kafka</p>
 
-<p>enrich eventuate-jdbc to handle different database.</p>
+<p>eventuate-cdcservice:                   Handle MySQL replication stream and publishes them to Apache Kafka;</p>
 
-<p>add more junit cases for the project.</p>
+<p>eventuate-client/eventuate-common :    Eventuate domain and core interface</p>
 
-<p>create an admin console for project to monitor the event process and the event sync between different service.</p>
+<p>eventuate-event:                       Eventuate event handle interface and implementation</p>
 
-<p>create example project  top of Light 4J and Light Eventuate 4J.</p>
+<p>eventuate-jdbc:                        Eventuate database API for persisting event to database tables</p>
+
+<p>command:                               Command side service which use to work as container to  run command side hybrid services.
+                                       Copy the command side services jar files in to the /service folder in this module. And usually, we can put cdc service in the /service folder.
+                                       This module is generated based on light-codegen</p>
+
+<p>query:                                 Query side service which use to work as container to  run Query side hybrid  services.
+                                       Copy the query side services jar files in to the /service folder in this module; This module is generated based on light-codegen</p>
 
 
 			<aside class="copyright" role="note">
@@ -408,7 +411,7 @@ chain; implement Stream as Table.</p>
 <nav class="pagination" aria-label="Footer">
   <div class="previous">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/design/component/" title="Components">
+      <a href="https://networknt.github.io/light-eventuate-4j/architecture/comm-pattern/" title="Communication Patterns">
         <span class="direction">
           Previous
         </span>
@@ -418,7 +421,7 @@ chain; implement Stream as Table.</p>
           </div>
           <div class="stretch">
             <div class="title">
-              Components
+              Communication Patterns
             </div>
           </div>
         </div>
@@ -428,14 +431,14 @@ chain; implement Stream as Table.</p>
 
   <div class="next">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/tutorial/" title="Tutorial">
+      <a href="https://networknt.github.io/light-eventuate-4j/roadmap/" title="Roadmap">
         <span class="direction">
           Next
         </span>
         <div class="page">
           <div class="stretch">
             <div class="title">
-              Tutorial
+              Roadmap
             </div>
           </div>
           <div class="button button-next" role="button" aria-label="Next">
