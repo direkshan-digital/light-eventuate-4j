@@ -135,7 +135,7 @@ An entity is a business object such as an Order. An entity is an instance of an 
       <pubDate>Thu, 27 Apr 2017 09:35:07 -0400</pubDate>
       
       <guid>https://networknt.github.io/light-eventuate-4j/getting-started/</guid>
-      <description>Introduction One of the major issues that we have seen occur in a system with microservices is the way transactions work when they span over different services. Within our old monolithic architecture, we have been using distributed transactions to resolve this, but they come with their own issues. Especially deadlocks have been a pain and scalability is a big headache.
+      <description>Introduction One of the major issues that we have seen occur in a system with microservices is the way transactions work when they span over different services. Within our old monolithic architecture, we have been using distributed transactions to resolve this, but they come with their own issues. It is very hard to avoid deadlocks and scale the application when business grows.
 Distributed transaction management is a key architectural consideration that needs to be addressed whenever you are proposing a microservices deployment model to a customer.</description>
     </item>
     
