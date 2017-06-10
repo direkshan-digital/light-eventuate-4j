@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Released under the MIT license</copyright>
-    <lastBuildDate>Fri, 09 Jun 2017 18:20:57 -0400</lastBuildDate>
+    <lastBuildDate>Fri, 09 Jun 2017 20:22:10 -0400</lastBuildDate>
     
 	<atom:link href="https://networknt.github.io/light-eventuate-4j/architecture/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>cqrs</title>
+      <link>https://networknt.github.io/light-eventuate-4j/architecture/cqrs/</link>
+      <pubDate>Fri, 09 Jun 2017 20:22:10 -0400</pubDate>
+      
+      <guid>https://networknt.github.io/light-eventuate-4j/architecture/cqrs/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Event Sourcing</title>
@@ -54,6 +63,7 @@ Synchronous The client expects a timely response from the service and might even
  Communication Patterns
  Event Driven
  Event Sourcing
+ CQRS
   </description>
     </item>
     

@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Released under the MIT license</copyright>
-    <lastBuildDate>Fri, 09 Jun 2017 18:20:57 -0400</lastBuildDate>
+    <lastBuildDate>Fri, 09 Jun 2017 20:22:10 -0400</lastBuildDate>
     
 	<atom:link href="https://networknt.github.io/light-eventuate-4j/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>cqrs</title>
+      <link>https://networknt.github.io/light-eventuate-4j/architecture/cqrs/</link>
+      <pubDate>Fri, 09 Jun 2017 20:22:10 -0400</pubDate>
+      
+      <guid>https://networknt.github.io/light-eventuate-4j/architecture/cqrs/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Event Sourcing</title>
@@ -116,6 +125,7 @@ An entity is a business object such as an Order. An entity is an instance of an 
  Communication Patterns
  Event Driven
  Event Sourcing
+ CQRS
   </description>
     </item>
     
@@ -125,7 +135,8 @@ An entity is a business object such as an Order. An entity is an instance of an 
       <pubDate>Thu, 27 Apr 2017 09:35:07 -0400</pubDate>
       
       <guid>https://networknt.github.io/light-eventuate-4j/getting-started/</guid>
-      <description>Light Eventuate 4J Framework Distributed data management problems in a microservice architecture: In microservice system, normally each service has its own database. Some business transactions, however, span multiple services so you need a mechanism to ensure data consistency across services. For example, let’s imagine that you are building an e-commerce store where customers have a credit limit. The application must ensure that a new order will not exceed the customer’s credit limit.</description>
+      <description>Introduction One of the major issues that we have seen occur in a system with microservices is the way transactions work when they span over different services. Within our old monolithic architecture, we have been using distributed transactions to resolve this, but they come with their own issues. Especially deadlocks have been a pain and scalability is a big headache.
+Distributed transaction management is a key architectural consideration that needs to be addressed whenever you are proposing a microservices deployment model to a customer.</description>
     </item>
     
     <item>

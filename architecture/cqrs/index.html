@@ -9,18 +9,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
-    <title>Event Sourcing - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
+    <title>cqrs - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
     <meta name="generator" content="Hugo 0.20.6" />
 
     
     <meta name="description" content="Light Eventuate Docs">
     
-    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/architecture/event-sourcing/">
+    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/architecture/cqrs/">
     
     <meta name="author" content="Steve Hu, Gavin Chen">
     
 
-    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/architecture/event-sourcing/">
+    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/architecture/cqrs/">
     <meta property="og:title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
     <meta property="og:image" content="https://networknt.github.io/light-eventuate-4j/images/logo.png">
     <meta name="apple-mobile-web-app-title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
@@ -97,7 +97,7 @@
     </div>
     <div class="stretch">
       <div class="title">
-        Event Sourcing
+        cqrs
       </div>
     </div>
 
@@ -371,21 +371,9 @@
 
 	<article class="article">
 		<div class="wrapper">
-			<h1>Event Sourcing </h1>
+			<h1>cqrs </h1>
 
-			<p>Event sourcing is an event-centric approach to persistence; A service that uses event
-sourcing persists each aggregate as a sequence of events. When it creates or updates an
-aggregate, the service saves one or more events in the database, which is also known as
-the event store. It reconstructs the current state of an aggregate by loading the events
-and replaying them. In functional programming terms, a service reconstructs the state of
-an aggregate by performing a functional fold/reduce over the events. Because the events
-are the state, you no longer have the problem of atomically updating state and publishing
-events.</p>
-
-<p>For the service need to use the event sourcing, the service should include light-eventuate-4j
-and implement it owen event handle. The implemented event handle will call the API in
-light-eventuate-4j to process/subscriber the events.</p>
-
+			
 
 			<aside class="copyright" role="note">
 				
@@ -403,34 +391,18 @@ light-eventuate-4j to process/subscriber the events.</p>
 <nav class="pagination" aria-label="Footer">
   <div class="previous">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/architecture/cqrs/" title="cqrs">
-        <span class="direction">
-          Previous
-        </span>
-        <div class="page">
-          <div class="button button-previous" role="button" aria-label="Previous">
-            <i class="icon icon-back"></i>
-          </div>
-          <div class="stretch">
-            <div class="title">
-              cqrs
-            </div>
-          </div>
-        </div>
-      </a>
-  
   </div>
 
   <div class="next">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/architecture/event-driven/" title="Event Driven Architecture">
+      <a href="https://networknt.github.io/light-eventuate-4j/architecture/event-sourcing/" title="Event Sourcing">
         <span class="direction">
           Next
         </span>
         <div class="page">
           <div class="stretch">
             <div class="title">
-              Event Driven Architecture
+              Event Sourcing
             </div>
           </div>
           <div class="button button-next" role="button" aria-label="Next">
