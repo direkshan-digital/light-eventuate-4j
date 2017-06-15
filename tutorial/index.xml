@@ -27,6 +27,29 @@
     </item>
     
     <item>
+      <title>Docker Images for Event Store</title>
+      <link>https://networknt.github.io/light-eventuate-4j/tutorial/docker/</link>
+      <pubDate>Wed, 12 Oct 2016 17:21:40 -0400</pubDate>
+      
+      <guid>https://networknt.github.io/light-eventuate-4j/tutorial/docker/</guid>
+      <description>Event Store docker images Light-eventuate-4j include event store docker files for local environment:
+/light=eventuate-4j/docker/dockerimages
+ --- kafka --- zookeeper --- mysql  build docker images Kafka:
+go to /light=eventuate-4j/docker/dockerimages/kafka
+run command:
+&amp;ndash; ./build.sh
+Zookeeper:
+go to /light=eventuate-4j/docker/dockerimages/zookeeper
+run command:
+&amp;ndash; ./build.sh
+Mysql:
+go to /light=eventuate-4j/docker/dockerimages/mysql
+run command:
+&amp;ndash; ./build.sh
+tag and publish docker images The notation for associating a local image with a repository on a registry is username/repository:tag. The tag is optional, but recommended, since it is the mechanism that registries use to give Docker images a version.</description>
+    </item>
+    
+    <item>
       <title>End to End Test</title>
       <link>https://networknt.github.io/light-eventuate-4j/tutorial/end-to-end-test/</link>
       <pubDate>Wed, 12 Oct 2016 17:21:40 -0400</pubDate>
@@ -65,7 +88,7 @@ Unit test Run EventuateEmbeddedTestAggregateStoreTest test case in testjdbc modu
     </item>
     
     <item>
-      <title>Microservices</title>
+      <title>Framework Setup</title>
       <link>https://networknt.github.io/light-eventuate-4j/tutorial/setup/</link>
       <pubDate>Sun, 09 Oct 2016 08:01:56 -0400</pubDate>
       

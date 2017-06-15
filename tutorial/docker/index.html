@@ -9,18 +9,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
-    <title>Unit Test - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
+    <title>Docker Images for Event Store - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
     <meta name="generator" content="Hugo 0.21" />
 
     
     <meta name="description" content="Light Eventuate Docs">
     
-    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/tutorial/unit-test/">
+    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/tutorial/docker/">
     
     <meta name="author" content="Steve Hu, Gavin Chen">
     
 
-    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/tutorial/unit-test/">
+    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/tutorial/docker/">
     <meta property="og:title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
     <meta property="og:image" content="https://networknt.github.io/light-eventuate-4j/images/logo.png">
     <meta name="apple-mobile-web-app-title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
@@ -97,7 +97,7 @@
     </div>
     <div class="stretch">
       <div class="title">
-        Unit Test
+        Docker Images for Event Store
       </div>
     </div>
 
@@ -371,17 +371,62 @@
 
 	<article class="article">
 		<div class="wrapper">
-			<h1>Unit Test </h1>
+			<h1>Docker Images for Event Store </h1>
 
 			
 
-<h2 id="junit-test">Junit test</h2>
+<h2 id="event-store-docker-images">Event Store docker images</h2>
 
-<p>Run the junit test test cases in the each component modules to unit test.</p>
+<p>Light-eventuate-4j include event store docker files for local environment:</p>
 
-<h2 id="unit-test">Unit test</h2>
+<p>/light=eventuate-4j/docker/dockerimages</p>
 
-<p>Run EventuateEmbeddedTestAggregateStoreTest test case in testjdbc module to unit test the event process</p>
+<pre><code> --- kafka
+ --- zookeeper
+ --- mysql
+</code></pre>
+
+<h2 id="build-docker-images">build docker images</h2>
+
+<p>Kafka:</p>
+
+<p>go to  /light=eventuate-4j/docker/dockerimages/kafka</p>
+
+<p>run command:</p>
+
+<p>&ndash; ./build.sh</p>
+
+<p>Zookeeper:</p>
+
+<p>go to  /light=eventuate-4j/docker/dockerimages/zookeeper</p>
+
+<p>run command:</p>
+
+<p>&ndash; ./build.sh</p>
+
+<p>Mysql:</p>
+
+<p>go to  /light=eventuate-4j/docker/dockerimages/mysql</p>
+
+<p>run command:</p>
+
+<p>&ndash; ./build.sh</p>
+
+<h2 id="tag-and-publish-docker-images">tag and publish docker images</h2>
+
+<p>The notation for associating a local image with a repository on a registry is username/repository:tag.
+   The tag is optional, but recommended, since it is the mechanism that registries use to give Docker images a version.</p>
+
+<p>docker tag image username/repository:tag</p>
+
+<p>For example:</p>
+
+<p>docker tag lighteventuate-local-kafka test/kafka:1.0.1</p>
+
+<p>Upload your tagged image to the repository:</p>
+
+<p>docker push username/repository:tag
+   Once complete, the results of this upload are publicly available. If you log in to Docker Hub, you will see the new image there, with its pull command.</p>
 
 
 			<aside class="copyright" role="note">
@@ -400,7 +445,7 @@
 <nav class="pagination" aria-label="Footer">
   <div class="previous">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/tutorial/integration-test/" title="Integration Test">
+      <a href="https://networknt.github.io/light-eventuate-4j/example/todo/" title="TodoList">
         <span class="direction">
           Previous
         </span>
@@ -410,7 +455,7 @@
           </div>
           <div class="stretch">
             <div class="title">
-              Integration Test
+              TodoList
             </div>
           </div>
         </div>
@@ -420,14 +465,14 @@
 
   <div class="next">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/tutorial/setup/" title="Framework Setup">
+      <a href="https://networknt.github.io/light-eventuate-4j/tutorial/end-to-end-test/" title="End to End Test">
         <span class="direction">
           Next
         </span>
         <div class="page">
           <div class="stretch">
             <div class="title">
-              Framework Setup
+              End to End Test
             </div>
           </div>
           <div class="button button-next" role="button" aria-label="Next">

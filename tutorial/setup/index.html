@@ -9,8 +9,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
-    <title>Microservices - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
-    <meta name="generator" content="Hugo 0.20.6" />
+    <title>Framework Setup - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
+    <meta name="generator" content="Hugo 0.21" />
 
     
     <meta name="description" content="Light Eventuate Docs">
@@ -97,7 +97,7 @@
     </div>
     <div class="stretch">
       <div class="title">
-        Microservices
+        Framework Setup
       </div>
     </div>
 
@@ -371,7 +371,7 @@
 
 	<article class="article">
 		<div class="wrapper">
-			<h1>Microservices </h1>
+			<h1>Framework Setup </h1>
 
 			
 
@@ -401,6 +401,7 @@ git clone git@github.com:networknt/light-eventuate-4j.git
 git clone git@github.com:networknt/light-eventuate-example.git
 git clone git@github.com:networknt/light-hybrid-4j.git
 
+
 ## Prepare workspace
 
 Go into the projects folder above, and build the project with maven
@@ -410,7 +411,7 @@ Go into the projects folder above, and build the project with maven
 <p>mvn clean install</p>
 
 <pre><code>
-## Prepare and start event store
+## Prepare and start event store (without docker)
 
 The light event sourcing framework build on event store which used to save and dispatch events for calling microservices.
 The event store is build upon the database (mysql or postgresql) and distributed stream system (Kafka). For the local environment (wothout docker). Please follow below step to setup event store.
@@ -481,7 +482,7 @@ CDC service use database replication to populate data from database (mysql) to d
 
 <h2 id="query-side-service">Query side service</h2>
 
-<p>Prepare query side DB script: (DB script saved at: /light-eventuate-example/mysql)</p>
+<p>Prepare query side DB script: (DB script saved at: /light-eventuate-example/mysql; root user for mysql: root/rootpassword)</p>
 
 <pre><code>create database todo_db;
 
@@ -500,9 +501,13 @@ GRANT ALL PRIVILEGES ON todo_db.* TO 'mysqluser' IDENTIFIED BY 'mysqlpw';
 <p>Go query-service module, run command line:
    &ndash; mvn package exec:exec</p>
 
-<h2 id="dockerization">Dockerization</h2>
+<h1 id="dockerization">Dockerization</h1>
 
-<h1 id="event-store-docker-compose">Event Store docker compose:</h1>
+<ul>
+<li><a href="https://networknt.github.io/light-eventuate-4j/tutorial/docker/">How to build and create event store docker images for light-eventuate-4j framework</a></li>
+</ul>
+
+<h2 id="event-store-docker-compose">Event Store docker compose:</h2>
 
 <p>Docker can simplify the application delivery. For light event sourcing system, to start event store by dockerization:</p>
 
@@ -512,8 +517,9 @@ GRANT ALL PRIVILEGES ON todo_db.* TO 'mysqluser' IDENTIFIED BY 'mysqlpw';
 
 <p>system will start ALL required event store components (mysql, zookeeper, kafka)</p>
 
-<p>For todo-list exampleocumentdocumentdd:
-   Prepare query side DB script: (DB script saved at: /light-eventuate-example/mysql)</p>
+<p>For todo-list example:</p>
+
+<p>Prepare query side DB script: (DB script saved at: /light-eventuate-example/mysql; root user for mysql: root/rootpassword)</p>
 
 <pre><code>  create database todo_db;
 
@@ -529,7 +535,7 @@ GRANT ALL PRIVILEGES ON todo_db.* TO 'mysqluser' IDENTIFIED BY 'mysqlpw';
   GRANT ALL PRIVILEGES ON todo_db.* TO 'mysqluser' IDENTIFIED BY 'mysqlpw';
 </code></pre>
 
-<h1 id="for-restful-services">For Restful Services</h1>
+<h2 id="for-restful-services">For Restful Services</h2>
 
 <p>Start CDC service:</p>
 
@@ -543,7 +549,7 @@ GRANT ALL PRIVILEGES ON todo_db.* TO 'mysqluser' IDENTIFIED BY 'mysqlpw';
 
 <p>&ndash; run docker-compose up</p>
 
-<h1 id="for-hybrid-api-services">For Hybrid API Services</h1>
+<h2 id="for-hybrid-api-services">For Hybrid API Services</h2>
 
 <p>&ndash; From light-eventuate-4j project root folder: /light-eventuate-4j</p>
 
