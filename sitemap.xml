@@ -68,6 +68,16 @@
   </url>
   
   <url>
+    <loc>https://networknt.github.io/light-eventuate-4j/example/todo_integration/</loc>
+    <lastmod>2016-10-22T20:22:34-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://networknt.github.io/light-eventuate-4j/example/todo_introduction/</loc>
+    <lastmod>2016-10-22T20:22:34-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://networknt.github.io/light-eventuate-4j/tutorial/docker/</loc>
     <lastmod>2016-10-12T17:21:40-04:00</lastmod>
   </url>

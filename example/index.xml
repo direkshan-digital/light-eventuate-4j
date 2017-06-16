@@ -33,5 +33,30 @@ The TodoList application is the entry point POC example application for the Ligh
 The TodoList application is a Java application built on Light-Java platform by using Event Sourcing based programming model.</description>
     </item>
     
+    <item>
+      <title>TodoList</title>
+      <link>https://networknt.github.io/light-eventuate-4j/example/todo_integration/</link>
+      <pubDate>Sat, 22 Oct 2016 20:22:34 -0400</pubDate>
+      
+      <guid>https://networknt.github.io/light-eventuate-4j/example/todo_integration/</guid>
+      <description>Integration Test Following the steps on tutorial to start event store and CDC service:
+Event Store docker compose: Docker can simplify the application delivery. For light event sourcing system, to start event store by from docker:
+&amp;ndash; From light-eventuate-4j project root folder: /light-eventuate-4j
+&amp;ndash; run docker-compose up
+system will start ALL required event store components (mysql, zookeeper, kafka)
+Prepare query side DB script: (DB script saved at: /light-eventuate-example/mysql; root user for mysql: root/rootpassword)</description>
+    </item>
+    
+    <item>
+      <title>TodoList Introduction</title>
+      <link>https://networknt.github.io/light-eventuate-4j/example/todo_introduction/</link>
+      <pubDate>Sat, 22 Oct 2016 20:22:34 -0400</pubDate>
+      
+      <guid>https://networknt.github.io/light-eventuate-4j/example/todo_introduction/</guid>
+      <description>Introduction This example can be found at https://github.com/networknt/light-eventuate-example/todo
+The TodoList application is the entry point POC example application for the Light Eventuate. It illustrates how you can use the platform to write an application with a microservices architecture that uses Event Sourcing and Command Query Responsibility Segregation (CQRS). The TodoList application lets users maintain a todolist.
+The TodoList application is a Java application built on Light-Java platform by using Event Sourcing based programming model.</description>
+    </item>
+    
   </channel>
 </rss>

@@ -9,18 +9,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
-    <title>TodoList - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
+    <title>TodoList Introduction - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
     <meta name="generator" content="Hugo 0.21" />
 
     
     <meta name="description" content="Light Eventuate Docs">
     
-    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/example/todo/">
+    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/example/todo_introduction/">
     
     <meta name="author" content="Steve Hu, Gavin Chen">
     
 
-    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/example/todo/">
+    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/example/todo_introduction/">
     <meta property="og:title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
     <meta property="og:image" content="https://networknt.github.io/light-eventuate-4j/images/logo.png">
     <meta name="apple-mobile-web-app-title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
@@ -97,7 +97,7 @@
     </div>
     <div class="stretch">
       <div class="title">
-        TodoList
+        TodoList Introduction
       </div>
     </div>
 
@@ -371,7 +371,7 @@
 
 	<article class="article">
 		<div class="wrapper">
-			<h1>TodoList </h1>
+			<h1>TodoList Introduction </h1>
 
 			
 
@@ -397,7 +397,7 @@
 <li><p>Query side microservice (Restful based or hybrid based) to trigger query API.</p></li>
 </ul>
 
-<h1 id="common-module">Common module</h1>
+<h2 id="common-module">Common module</h2>
 
 <p>common module define domain object and event object across module both command side and query side</p>
 
@@ -409,7 +409,7 @@ public interface TodoEvent extends Event {
 
 <p>by default, light event sourcing framework will use the annotation defined &ldquo;com.networknt.eventuate.todolist.domain.TodoAggregate&rdquo; as entity type for entity table and topic name for Kafka.</p>
 
-<p>#Command side API</p>
+<h2 id="command-side-api">Command side API</h2>
 
 <p>Command side API implement command to process command and apply events. For todolist sample, it simply return TodoInfo object:</p>
 
@@ -460,7 +460,7 @@ public TodoInfo getTodo() {
 
 <p>}</p>
 
-<p>#Command side microservice</p>
+<h2 id="command-side-microservice">Command side microservice</h2>
 
 <p>Command side microservice is light-4j based microservice:</p>
 
@@ -501,7 +501,7 @@ public TodoInfo getTodo() {
 }
 </code></pre>
 
-<p>#Query side microservice</p>
+<h2 id="query-side-api">Query side API</h2>
 
 <p>Query side API implement event subscrible and process.</p>
 
@@ -545,112 +545,6 @@ The framework will based on the event handler definition the decide which handle
 
 <p>It initially generated from swaggen specification based on light-codegen. The service generated resfful based microservice to expose API to external which can be call and subscrible the events from event sourcing system.</p>
 
-<h2 id="integration-test">Integration Test</h2>
-
-<p>Following the steps on tutorial to start event store and CDC service.</p>
-
-<p>For command side service:</p>
-
-<p>From the root folder of the todo-list project: /light-eventuate-example/todo-list, use maven to build the project:</p>
-
-<pre><code>cmd: mvn clean install
-</code></pre>
-
-<p>Go to the  command serivce folder:/light-eventuate-example/todo-list/command-service:</p>
-
-<p>Start command side service:</p>
-
-<pre><code>mvn exec:exec
-</code></pre>
-
-<p>Or</p>
-
-<pre><code>java -jar ./target/eventuate-todo-command-service-0.1.0.jar
-</code></pre>
-
-<p>For query side service:</p>
-
-<pre><code>
-Go to the  query serivce folder:/light-eventuate-example/todo-list/query-service::
-
-Start command side service:
-</code></pre>
-
-<p>mvn exec:exec</p>
-
-<pre><code>
-Or
-</code></pre>
-
-<p>java -jar ./target/eventuate-todo-query-service-0.1.0.jar
-```</p>
-
-<h2 id="dockerization">Dockerization</h2>
-
-<p>&ndash; go to project root folder: /light-eventuate-example/todo-list/</p>
-
-<p>run command:</p>
-
-<p>docker-compose up</p>
-
-<p>##Verify result:</p>
-
-<ol>
-<li>Send request from command side the publish events:</li>
-</ol>
-
-<p>From postmand, send post request:</p>
-
-<p>URL: <a href="http://localhost:8083/v1/todos">http://localhost:8083/v1/todos</a>;</p>
-
-<p>Headers:[{&ldquo;key&rdquo;:&ldquo;Content-Type&rdquo;,&ldquo;value&rdquo;:&ldquo;application/json&rdquo;,&ldquo;description&rdquo;:&ldquo;&rdquo;}];</p>
-
-<p>Body: {&ldquo;title&rdquo;:&rdquo; this is the test todo from postman1&rdquo;,&ldquo;completed&rdquo;:false,&ldquo;order&rdquo;:0};</p>
-
-<p>Response:
-{
-  &ldquo;done&rdquo;: true,
-  &ldquo;cancelled&rdquo;: false,
-  &ldquo;completedExceptionally&rdquo;: false,
-  &ldquo;numberOfDependents&rdquo;: 0
-};</p>
-
-<p>This request will send request which will call backe-end service to generate a &ldquo;create todo&rdquo; event and publish to event store.</p>
-
-<p>Event sourcing system will save the event into event store.</p>
-
-<p>CDC service will be triggered and will publish event to Kafka:</p>
-
-<p>The request will publish a &ldquo;CreateTodo&rdquo; event and will save the entity/event to the event store mysql database.</p>
-
-<p>we can use sql to verify:</p>
-
-<p>select * from entity;</p>
-
-<p>select * from events;</p>
-
-<ol>
-<li>Subscrible the event and process event on the query side:</li>
-</ol>
-
-<p>Event sourcing system will subscrible the events from event store and process user defined event handlers.
-For todo-list example, the event handle simply get the event and save the latest todo info into local TODO table.</p>
-
-<p>From Postman or from brower, send GET request:</p>
-
-<p><a href="http://localhost:8082/v1/todos">http://localhost:8082/v1/todos</a>;</p>
-
-<p>Reponse:
-[
-  {
-    &ldquo;0000015c8a1b67af-0242ac1200060000&rdquo;: {
-      &ldquo;title&rdquo;: &ldquo; this is the test todo from postman1&rdquo;,
-      &ldquo;completed&rdquo;: false,
-      &ldquo;order&rdquo;: 0
-    }
-  }
-];</p>
-
 <h2 id="end">End</h2>
 
 
@@ -670,7 +564,7 @@ For todo-list example, the event handle simply get the event and save the latest
 <nav class="pagination" aria-label="Footer">
   <div class="previous">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/" title="Introduction">
+      <a href="https://networknt.github.io/light-eventuate-4j/example/todo_integration/" title="TodoList">
         <span class="direction">
           Previous
         </span>
@@ -680,7 +574,7 @@ For todo-list example, the event handle simply get the event and save the latest
           </div>
           <div class="stretch">
             <div class="title">
-              Introduction
+              TodoList
             </div>
           </div>
         </div>
@@ -690,14 +584,14 @@ For todo-list example, the event handle simply get the event and save the latest
 
   <div class="next">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/example/todo_integration/" title="TodoList">
+      <a href="https://networknt.github.io/light-eventuate-4j/tutorial/docker/" title="Docker Images for Event Store">
         <span class="direction">
           Next
         </span>
         <div class="page">
           <div class="stretch">
             <div class="title">
-              TodoList
+              Docker Images for Event Store
             </div>
           </div>
           <div class="button button-next" role="button" aria-label="Next">
