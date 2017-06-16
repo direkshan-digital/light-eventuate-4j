@@ -28,9 +28,9 @@
       <pubDate>Sat, 22 Oct 2016 20:22:34 -0400</pubDate>
       
       <guid>https://networknt.github.io/light-eventuate-4j/example/todo/</guid>
-      <description>Introduction This example can be found at https://github.com/networknt/light-eventuate-example/todo
-The TodoList application is the entry point POC example application for the Light Eventuate. It illustrates how you can use the platform to write an application with a microservices architecture that uses Event Sourcing and Command Query Responsibility Segregation (CQRS). The TodoList application lets users maintain a todolist.
-The TodoList application is a Java application built on Light-Java platform by using Event Sourcing based programming model.</description>
+      <description> TODO List Introduction - Todo list example introduction
+ TODO List Integration Test - Todo list example integration test
+  </description>
     </item>
     
     <item>
