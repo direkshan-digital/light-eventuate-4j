@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://networknt.github.io/light-eventuate-4j/design/dup-events/</loc>
+    <lastmod>2017-06-19T08:18:08-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://networknt.github.io/light-eventuate-4j/architecture/kafka-eventstore/</loc>
+    <lastmod>2017-06-19T08:14:44-04:00</lastmod>
+  </url>
   
   <url>
     <loc>https://networknt.github.io/light-eventuate-4j/architecture/cqrs/</loc>
@@ -104,7 +113,7 @@
   
   <url>
     <loc>https://networknt.github.io/light-eventuate-4j/architecture/</loc>
-    <lastmod>2017-06-09T20:22:10-04:00</lastmod>
+    <lastmod>2017-06-19T08:14:44-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -115,7 +124,7 @@
   
   <url>
     <loc>https://networknt.github.io/light-eventuate-4j/design/</loc>
-    <lastmod>2017-06-09T13:15:31-04:00</lastmod>
+    <lastmod>2017-06-19T08:18:08-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -133,7 +142,7 @@
   
   <url>
     <loc>https://networknt.github.io/light-eventuate-4j/</loc>
-    <lastmod>2017-06-09T20:22:10-04:00</lastmod>
+    <lastmod>2017-06-19T08:18:08-04:00</lastmod>
     <priority>0</priority>
   </url>
   

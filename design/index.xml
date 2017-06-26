@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Released under the MIT license</copyright>
-    <lastBuildDate>Fri, 09 Jun 2017 13:15:31 -0400</lastBuildDate>
+    <lastBuildDate>Mon, 19 Jun 2017 08:18:08 -0400</lastBuildDate>
     
 	<atom:link href="https://networknt.github.io/light-eventuate-4j/design/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How to handle duplicated events in Kafka</title>
+      <link>https://networknt.github.io/light-eventuate-4j/design/dup-events/</link>
+      <pubDate>Mon, 19 Jun 2017 08:18:08 -0400</pubDate>
+      
+      <guid>https://networknt.github.io/light-eventuate-4j/design/dup-events/</guid>
+      <description> As we are using Kafka as our messaging broker for event sourcing and Kafka guarantees messages are delivered to consumers at least once. that means we will have duplicated events that have to be handled gracefully.
+There are several ways to handle duplicate messages.
+Idempotency Vector clock </description>
+    </item>
     
     <item>
       <title>Components</title>

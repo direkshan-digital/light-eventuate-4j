@@ -7,10 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Released under the MIT license</copyright>
-    <lastBuildDate>Fri, 09 Jun 2017 20:22:10 -0400</lastBuildDate>
+    <lastBuildDate>Mon, 19 Jun 2017 08:14:44 -0400</lastBuildDate>
     
 	<atom:link href="https://networknt.github.io/light-eventuate-4j/architecture/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Why not use kafka as eventstore</title>
+      <link>https://networknt.github.io/light-eventuate-4j/architecture/kafka-eventstore/</link>
+      <pubDate>Mon, 19 Jun 2017 08:14:44 -0400</pubDate>
+      
+      <guid>https://networknt.github.io/light-eventuate-4j/architecture/kafka-eventstore/</guid>
+      <description>When using Kafka as pipeline for event sourcing, people will ask why not use Kafka as event store. It can persist events and keep it for as long as it requires.
+There are several drawbacks in doing so.
+ Kafka only guarantees at least once deliver and there are duplicates in the event store that cannot be removed.
+ Due to immutability, there is no way to manipulate event store when application evolves and events need to be transformed.</description>
+    </item>
     
     <item>
       <title>cqrs</title>
@@ -64,6 +76,7 @@ Synchronous The client expects a timely response from the service and might even
  Event Driven
  Event Sourcing
  CQRS
+ Why not use Kafka as source of truth
   </description>
     </item>
     

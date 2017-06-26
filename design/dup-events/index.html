@@ -9,18 +9,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
-    <title>Tutorial - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
+    <title>How to handle duplicated events in Kafka - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
     <meta name="generator" content="Hugo 0.20.6" />
 
     
     <meta name="description" content="Light Eventuate Docs">
     
-    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/tutorial/">
+    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/design/dup-events/">
     
     <meta name="author" content="Steve Hu, Gavin Chen">
     
 
-    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/tutorial/">
+    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/design/dup-events/">
     <meta property="og:title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
     <meta property="og:image" content="https://networknt.github.io/light-eventuate-4j/images/logo.png">
     <meta name="apple-mobile-web-app-title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
@@ -97,7 +97,7 @@
     </div>
     <div class="stretch">
       <div class="title">
-        Tutorial
+        How to handle duplicated events in Kafka
       </div>
     </div>
 
@@ -234,14 +234,11 @@
 
 
 
-<a class="current" title="Tutorial" href="https://networknt.github.io/light-eventuate-4j/tutorial/">
+<a  title="Tutorial" href="https://networknt.github.io/light-eventuate-4j/tutorial/">
 	
 	Tutorial
 </a>
 
-
-<ul id="scrollspy">
-</ul>
 
 
   
@@ -374,19 +371,19 @@
 
 	<article class="article">
 		<div class="wrapper">
-			<h1>Tutorial </h1>
+			<h1>How to handle duplicated events in Kafka </h1>
 
-			<p>The following tutorials will help users to get started and more will be added later.</p>
+			
 
-<ul>
-<li><p><a href="https://networknt.github.io/light-eventuate-4j/tutorial/setup/">How to build, setting local and docker environment for light-eventuate-4j framework</a></p></li>
+<p>As we are using Kafka as our messaging broker for event sourcing and Kafka
+guarantees messages are delivered to consumers at least once. that means we
+will have duplicated events that have to be handled gracefully.</p>
 
-<li><p><a href="https://networknt.github.io/light-eventuate-4j/tutorial/unit-test/">How to do unit test</a></p></li>
+<p>There are several ways to handle duplicate messages.</p>
 
-<li><p><a href="https://networknt.github.io/light-eventuate-4j/tutorial/end-to-end-test/">How to do end-to-end test</a></p></li>
+<h2 id="idempotency">Idempotency</h2>
 
-<li><p><a href="https://networknt.github.io/light-eventuate-4j/tutorial/integration-test/">How to do integration test</a></p></li>
-</ul>
+<h2 id="vector-clock">Vector clock</h2>
 
 
 			<aside class="copyright" role="note">
@@ -405,34 +402,18 @@
 <nav class="pagination" aria-label="Footer">
   <div class="previous">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/roadmap/" title="Roadmap">
-        <span class="direction">
-          Previous
-        </span>
-        <div class="page">
-          <div class="button button-previous" role="button" aria-label="Previous">
-            <i class="icon icon-back"></i>
-          </div>
-          <div class="stretch">
-            <div class="title">
-              Roadmap
-            </div>
-          </div>
-        </div>
-      </a>
-  
   </div>
 
   <div class="next">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/example/" title="Example">
+      <a href="https://networknt.github.io/light-eventuate-4j/architecture/kafka-eventstore/" title="Why not use kafka as eventstore">
         <span class="direction">
           Next
         </span>
         <div class="page">
           <div class="stretch">
             <div class="title">
-              Example
+              Why not use kafka as eventstore
             </div>
           </div>
           <div class="button button-next" role="button" aria-label="Next">

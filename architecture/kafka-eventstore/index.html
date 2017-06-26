@@ -9,18 +9,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
-    <title>Tutorial - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
+    <title>Why not use kafka as eventstore - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
     <meta name="generator" content="Hugo 0.20.6" />
 
     
     <meta name="description" content="Light Eventuate Docs">
     
-    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/tutorial/">
+    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/architecture/kafka-eventstore/">
     
     <meta name="author" content="Steve Hu, Gavin Chen">
     
 
-    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/tutorial/">
+    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/architecture/kafka-eventstore/">
     <meta property="og:title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
     <meta property="og:image" content="https://networknt.github.io/light-eventuate-4j/images/logo.png">
     <meta name="apple-mobile-web-app-title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
@@ -97,7 +97,7 @@
     </div>
     <div class="stretch">
       <div class="title">
-        Tutorial
+        Why not use kafka as eventstore
       </div>
     </div>
 
@@ -234,14 +234,11 @@
 
 
 
-<a class="current" title="Tutorial" href="https://networknt.github.io/light-eventuate-4j/tutorial/">
+<a  title="Tutorial" href="https://networknt.github.io/light-eventuate-4j/tutorial/">
 	
 	Tutorial
 </a>
 
-
-<ul id="scrollspy">
-</ul>
 
 
   
@@ -374,19 +371,29 @@
 
 	<article class="article">
 		<div class="wrapper">
-			<h1>Tutorial </h1>
+			<h1>Why not use kafka as eventstore </h1>
 
-			<p>The following tutorials will help users to get started and more will be added later.</p>
+			<p>When using Kafka as pipeline for event sourcing, people will ask why not use
+Kafka as event store. It can persist events and keep it for as long as it requires.</p>
+
+<p>There are several drawbacks in doing so.</p>
 
 <ul>
-<li><p><a href="https://networknt.github.io/light-eventuate-4j/tutorial/setup/">How to build, setting local and docker environment for light-eventuate-4j framework</a></p></li>
+<li><p>Kafka only guarantees at least once deliver and there are duplicates in the event
+store that cannot be removed.</p></li>
 
-<li><p><a href="https://networknt.github.io/light-eventuate-4j/tutorial/unit-test/">How to do unit test</a></p></li>
+<li><p>Due to immutability, there is no way to manipulate event store when application
+evolves and events need to be transformed.</p></li>
 
-<li><p><a href="https://networknt.github.io/light-eventuate-4j/tutorial/end-to-end-test/">How to do end-to-end test</a></p></li>
+<li><p>No place to persist snapshots of entities/aggregates and replay will become slower
+and slower.</p></li>
 
-<li><p><a href="https://networknt.github.io/light-eventuate-4j/tutorial/integration-test/">How to do integration test</a></p></li>
+<li><p>Given Kafka partitions are distributed and they are hard to manage and backup
+compare with databases.</p></li>
 </ul>
+
+<p>Given above disadvantages, a database is used as event store instead in eventuate
+architecture.</p>
 
 
 			<aside class="copyright" role="note">
@@ -405,7 +412,7 @@
 <nav class="pagination" aria-label="Footer">
   <div class="previous">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/roadmap/" title="Roadmap">
+      <a href="https://networknt.github.io/light-eventuate-4j/design/dup-events/" title="How to handle duplicated events in Kafka">
         <span class="direction">
           Previous
         </span>
@@ -415,7 +422,7 @@
           </div>
           <div class="stretch">
             <div class="title">
-              Roadmap
+              How to handle duplicated events in Kafka
             </div>
           </div>
         </div>
@@ -425,14 +432,14 @@
 
   <div class="next">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/example/" title="Example">
+      <a href="https://networknt.github.io/light-eventuate-4j/architecture/cqrs/" title="cqrs">
         <span class="direction">
           Next
         </span>
         <div class="page">
           <div class="stretch">
             <div class="title">
-              Example
+              cqrs
             </div>
           </div>
           <div class="button button-next" role="button" aria-label="Next">
