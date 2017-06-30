@@ -55,6 +55,17 @@ Run the Event store and Mocroservices: Test and verify result: From command line
     </item>
     
     <item>
+      <title>Account Money Transfer Example</title>
+      <link>https://networknt.github.io/light-eventuate-4j/example/transfer/</link>
+      <pubDate>Sat, 22 Oct 2016 20:22:34 -0400</pubDate>
+      
+      <guid>https://networknt.github.io/light-eventuate-4j/example/transfer/</guid>
+      <description> Account Money transfer Introduction - Account Money Transfer example introduction
+ Account Money Transfer Integration Test - Account Money Transfer example integration test
+  </description>
+    </item>
+    
+    <item>
       <title>TodoList</title>
       <link>https://networknt.github.io/light-eventuate-4j/example/todo/</link>
       <pubDate>Sat, 22 Oct 2016 20:22:34 -0400</pubDate>
@@ -77,17 +88,6 @@ Event Store docker compose: Docker can simplify the application delivery. For li
 &amp;ndash; run docker-compose up
 system will start ALL required event store components (mysql, zookeeper, kafka)
 Prepare query side DB script: (DB script saved at: /light-eventuate-example/mysql; root user for mysql: root/rootpassword)</description>
-    </item>
-    
-    <item>
-      <title>TodoList</title>
-      <link>https://networknt.github.io/light-eventuate-4j/example/transfer/</link>
-      <pubDate>Sat, 22 Oct 2016 20:22:34 -0400</pubDate>
-      
-      <guid>https://networknt.github.io/light-eventuate-4j/example/transfer/</guid>
-      <description> Account Money transfer Introduction - Account Money Transfer example introduction
- Account Money Transfer Integration Test - Account Money Transfer example integration test
-  </description>
     </item>
     
     <item>
