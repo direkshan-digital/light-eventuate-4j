@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Released under the MIT license</copyright>
-    <lastBuildDate>Thu, 27 Apr 2017 09:37:50 -0400</lastBuildDate>
+    <lastBuildDate>Fri, 30 Jun 2017 20:22:34 -0400</lastBuildDate>
     
 	<atom:link href="https://networknt.github.io/light-eventuate-4j/example/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Account Money Transfer Introduction</title>
+      <link>https://networknt.github.io/light-eventuate-4j/example/transfer_introduction/</link>
+      <pubDate>Fri, 30 Jun 2017 20:22:34 -0400</pubDate>
+      
+      <guid>https://networknt.github.io/light-eventuate-4j/example/transfer_introduction/</guid>
+      <description>Introduction This example can be found at https://github.com/networknt/light-eventuate-example/account-management
+Account Money Transfer example is build on light-4j, light-rest-4j and light-eventuate-4j which use event sourcing as major idea to handle event process in multi microservice, Applications consist of loosely coupled components that communicate using events. Using an event-driven architecture to achieve data consistency - rather than using traditional distributed transaction to maintain database consistency this application uses an eventually consistent, event-driven approach These components can be deployed either as separate services or packaged as a monolithic application for simplified development and testing.</description>
+    </item>
     
     <item>
       <title>Example</title>
@@ -19,7 +29,31 @@
       
       <guid>https://networknt.github.io/light-eventuate-4j/example/</guid>
       <description>The following examples can be found in light-example-4j repository.
- TODO List - Todo list example  </description>
+ TODO List - Todo list example
+ Account Money Transfer - Account Money Transfer example
+  </description>
+    </item>
+    
+    <item>
+      <title>Account Money Transfer</title>
+      <link>https://networknt.github.io/light-eventuate-4j/example/transfer_integration/</link>
+      <pubDate>Sat, 22 Oct 2016 20:22:34 -0400</pubDate>
+      
+      <guid>https://networknt.github.io/light-eventuate-4j/example/transfer_integration/</guid>
+      <description>Integration Test Setting Build related projects: Checkout related projects.
+cd ~/networknt git clone git@github.com:networknt/light-4j.git git clone git@github.com:networknt/light-rest-4j.git git clone git@github.com:networknt/light-codegen.git git clone git@github.com:networknt/light-eventuate-4j.git ## Prepare workspace Go into the projects folder above, and build the project with maven  mvn clean install
+ ## Build Account-management example Get the example project from github: git clone git@github.com:networknt/light-eventuate-example.git cd ~/networknt/light-eventuate-example/account-management mvn clean install ## Run the Event store and Mocroservices: ![setting](/images/setting.png) # Test and verify result: ## From command line: ## Create new customer (C1):  curl -X POST http://localhost:8083/v1/createcustomer -H &amp;lsquo;cache-control: no-cache&amp;rsquo; -H &amp;lsquo;content-type: application/json&amp;rsquo; -d &amp;lsquo;{&amp;ldquo;name&amp;rdquo;:{&amp;ldquo;firstName&amp;rdquo;:&amp;ldquo;Google11”,”lastName&amp;rdquo;:&amp;ldquo;Com&amp;rdquo;},&amp;ldquo;email&amp;rdquo;:&amp;ldquo;aaa1.</description>
+    </item>
+    
+    <item>
+      <title>TodoList</title>
+      <link>https://networknt.github.io/light-eventuate-4j/example/moneytransfer/</link>
+      <pubDate>Sat, 22 Oct 2016 20:22:34 -0400</pubDate>
+      
+      <guid>https://networknt.github.io/light-eventuate-4j/example/moneytransfer/</guid>
+      <description> Account Money transfer Introduction - Account Money Transfer example introduction
+ Account Money Transfer Integration Test - Account Money Transfer example integration test
+  </description>
     </item>
     
     <item>

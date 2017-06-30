@@ -9,18 +9,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
-    <title>Unit Test - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
+    <title>Account Money Transfer Introduction - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
     <meta name="generator" content="Hugo 0.21" />
 
     
     <meta name="description" content="Light Eventuate Docs">
     
-    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/tutorial/unit-test/">
+    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/example/transfer_introduction/">
     
     <meta name="author" content="Steve Hu, Gavin Chen">
     
 
-    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/tutorial/unit-test/">
+    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/example/transfer_introduction/">
     <meta property="og:title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
     <meta property="og:image" content="https://networknt.github.io/light-eventuate-4j/images/logo.png">
     <meta name="apple-mobile-web-app-title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
@@ -97,7 +97,7 @@
     </div>
     <div class="stretch">
       <div class="title">
-        Unit Test
+        Account Money Transfer Introduction
       </div>
     </div>
 
@@ -371,17 +371,50 @@
 
 	<article class="article">
 		<div class="wrapper">
-			<h1>Unit Test </h1>
+			<h1>Account Money Transfer Introduction </h1>
 
 			
 
-<h2 id="junit-test">Junit test</h2>
+<h1 id="introduction">Introduction</h1>
 
-<p>Run the junit test test cases in the each component modules to unit test.</p>
+<p>This example can be found at <a href="https://github.com/networknt/light-eventuate-example/tree/master/account-management/account-service">https://github.com/networknt/light-eventuate-example/account-management</a></p>
 
-<h2 id="unit-test">Unit test</h2>
+<p>Account Money Transfer example is build on light-4j, light-rest-4j and light-eventuate-4j which use event sourcing as major idea to handle event process in multi microservice,
+Applications consist of loosely coupled components that communicate using events. Using an event-driven architecture to achieve data consistency - rather than using traditional distributed transaction to maintain database consistency this application uses an eventually consistent, event-driven approach
+These components can be deployed either as separate services or packaged as a monolithic application for simplified development and testing.</p>
 
-<p>Run EventuateEmbeddedTestAggregateStoreTest test case in testjdbc module to unit test the event process</p>
+<h1 id="structure-of-the-example">Structure of the example</h1>
+
+<p>Modules:</p>
+
+<p>common:  common module for the application. - the domain logic consists of Domain-Driven Design (DDD) aggregates that using event sourcing.
+command:  command side common components, include command, services
+query:   query side common components, include command, services
+e2etest: end to end test module</p>
+
+<p>There are the following services:</p>
+
+<p>Customers Service - REST API for creating customers</p>
+
+<p>Accounts Service - REST API for creating accounts</p>
+
+<p>Transactions Service - REST API for transferring money</p>
+
+<p>Customers View Service - subscribes to events and updates Local Postgres data Store, and provides an API for retrieving customers</p>
+
+<p>Accounts View Service - subscribes to events and updates Local Postgres Store, and provides an API for retrieving accounts</p>
+
+<h1 id="event-work-flow">Event work flow:</h1>
+
+<p>Customer/Account create and delete</p>
+
+<p><img src="https://networknt.github.io/light-eventuate-4j/images/account1.png" alt="account1" /></p>
+
+<p>Money Transfer:</p>
+
+<p><img src="https://networknt.github.io/light-eventuate-4j/images/account2.png" alt="account2" /></p>
+
+<h2 id="end">End</h2>
 
 
 			<aside class="copyright" role="note">
@@ -400,34 +433,18 @@
 <nav class="pagination" aria-label="Footer">
   <div class="previous">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/tutorial/integration-test/" title="Integration Test">
-        <span class="direction">
-          Previous
-        </span>
-        <div class="page">
-          <div class="button button-previous" role="button" aria-label="Previous">
-            <i class="icon icon-back"></i>
-          </div>
-          <div class="stretch">
-            <div class="title">
-              Integration Test
-            </div>
-          </div>
-        </div>
-      </a>
-  
   </div>
 
   <div class="next">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/tutorial/setup/" title="Framework Setup">
+      <a href="https://networknt.github.io/light-eventuate-4j/design/dup-events/" title="How to handle duplicated events in Kafka">
         <span class="direction">
           Next
         </span>
         <div class="page">
           <div class="stretch">
             <div class="title">
-              Framework Setup
+              How to handle duplicated events in Kafka
             </div>
           </div>
           <div class="button button-next" role="button" aria-label="Next">
