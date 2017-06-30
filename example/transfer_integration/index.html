@@ -381,247 +381,202 @@
 
 <p>Checkout related projects.</p>
 
-<pre><code>cd ~/networknt
+<p>cd ~/networknt
 git clone git@github.com:networknt/light-4j.git
 git clone git@github.com:networknt/light-rest-4j.git
 git clone git@github.com:networknt/light-codegen.git
-git clone git@github.com:networknt/light-eventuate-4j.git
+git clone git@github.com:networknt/light-eventuate-4j.git</p>
 
-## Prepare workspace
-Go into the projects folder above, and build the project with maven
+<h2 id="prepare-workspace">Prepare workspace</h2>
 
-</code></pre>
+<p>Go into the projects folder above, and build the project with maven</p>
 
 <p>mvn clean install</p>
 
-<pre><code>
-## Build Account-management example
+<h2 id="build-account-management-example">Build Account-management example</h2>
 
-Get the example project from github:
-git clone git@github.com:networknt/light-eventuate-example.git
+<p>Get the example project from github:
+git clone git@github.com:networknt/light-eventuate-example.git</p>
 
-cd ~/networknt/light-eventuate-example/account-management
+<p>cd ~/networknt/light-eventuate-example/account-management</p>
 
-mvn clean install
+<p>mvn clean install</p>
 
+<h2 id="run-the-event-store-and-mocroservices">Run the Event store and Mocroservices:</h2>
 
-## Run the Event store and Mocroservices:
+<p><img src="https://networknt.github.io/light-eventuate-4j/images/setting.png" alt="setting" /></p>
 
+<h1 id="test-and-verify-result">Test and verify result:</h1>
 
-![setting](/images/setting.png)
+<h2 id="from-command-line">From command line:</h2>
 
+<h2 id="create-new-customer-c1">Create new customer (C1):</h2>
 
+<pre><code>curl -X POST \
+  http://localhost:8083/v1/createcustomer \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{&quot;name&quot;:{&quot;firstName&quot;:&quot;Google11”,”lastName&quot;:&quot;Com&quot;},&quot;email&quot;:&quot;aaa1.bbb1@google.com&quot;,&quot;password&quot;:&quot;password&quot;,&quot;ssn&quot;:&quot;9999999999&quot;,&quot;phoneNumber&quot;:&quot;4166666666&quot;,&quot;address&quot;:{&quot;street1&quot;:&quot;Yonge St&quot;,&quot;street2&quot;:&quot;2556 unit&quot;,&quot;city&quot;:&quot;toronto&quot;,&quot;state&quot;:&quot;ON&quot;,&quot;zipCode&quot;:&quot;Canada&quot;,&quot;country&quot;:&quot;L3R 5F5&quot;}}'
 
+  Sample Result:
 
-
-# Test and verify result:
-
-
-
-## From command line:
-
-## Create new customer (C1):
-
+  {&quot;id&quot;:&quot;0000015cf50351d8-0242ac1200060000&quot;,&quot;customerInfo&quot;:{&quot;name&quot;:{&quot;firstName&quot;:&quot;Google22&quot;,&quot;lastName&quot;:&quot;Com&quot;},&quot;email&quot;:&quot;aaa1.bbb@google.com&quot;,&quot;password&quot;:&quot;password&quot;,&quot;ssn&quot;:&quot;9999999999&quot;,&quot;phoneNumber&quot;:&quot;4166666666&quot;,&quot;address&quot;:{&quot;street1&quot;:&quot;Yonge St&quot;,&quot;street2&quot;:&quot;2556 unit&quot;,&quot;city&quot;:&quot;toronto&quot;,&quot;state&quot;:&quot;ON&quot;,&quot;zipCode&quot;:&quot;Canada&quot;,&quot;country&quot;:&quot;L3R 5F5&quot;}}}
 </code></pre>
+
+<h2 id="create-an-account-with-the-customer-replace-the-customer-id-with-real-customer-id">Create an account with the customer (replace the customer id with real customer id):</h2>
 
 <p>curl -X POST <br />
-  <a href="http://localhost:8083/v1/createcustomer">http://localhost:8083/v1/createcustomer</a> <br />
+  <a href="http://localhost:8081/v1/openaccount">http://localhost:8081/v1/openaccount</a> <br />
   -H &lsquo;cache-control: no-cache&rsquo; <br />
   -H &lsquo;content-type: application/json&rsquo; <br />
-  -d &lsquo;{&ldquo;name&rdquo;:{&ldquo;firstName&rdquo;:&ldquo;Google11”,”lastName&rdquo;:&ldquo;Com&rdquo;},&ldquo;email&rdquo;:&ldquo;aaa1.bbb1@google.com&rdquo;,&ldquo;password&rdquo;:&ldquo;password&rdquo;,&ldquo;ssn&rdquo;:&ldquo;9999999999&rdquo;,&ldquo;phoneNumber&rdquo;:&ldquo;4166666666&rdquo;,&ldquo;address&rdquo;:{&ldquo;street1&rdquo;:&ldquo;Yonge St&rdquo;,&ldquo;street2&rdquo;:&ldquo;2556 unit&rdquo;,&ldquo;city&rdquo;:&ldquo;toronto&rdquo;,&ldquo;state&rdquo;:&ldquo;ON&rdquo;,&ldquo;zipCode&rdquo;:&ldquo;Canada&rdquo;,&ldquo;country&rdquo;:&ldquo;L3R 5F5&rdquo;}}&rsquo;</p>
+  -d &lsquo;{&ldquo;customerId&rdquo;:&ldquo;0000015cf50351d8-0242ac1200060000&rdquo;,&ldquo;title&rdquo;:&ldquo;RRSP account&rdquo;,&ldquo;description&rdquo;:&ldquo;account for testing&rdquo;,&ldquo;initialBalance&rdquo;:12355}&rsquo;</p>
 
-<p>Sample Result:</p>
+<p>Result:</p>
 
-<p>{&ldquo;id&rdquo;:&ldquo;0000015cf50351d8-0242ac1200060000&rdquo;,&ldquo;customerInfo&rdquo;:{&ldquo;name&rdquo;:{&ldquo;firstName&rdquo;:&ldquo;Google22&rdquo;,&ldquo;lastName&rdquo;:&ldquo;Com&rdquo;},&ldquo;email&rdquo;:&ldquo;aaa1.bbb@google.com&rdquo;,&ldquo;password&rdquo;:&ldquo;password&rdquo;,&ldquo;ssn&rdquo;:&ldquo;9999999999&rdquo;,&ldquo;phoneNumber&rdquo;:&ldquo;4166666666&rdquo;,&ldquo;address&rdquo;:{&ldquo;street1&rdquo;:&ldquo;Yonge St&rdquo;,&ldquo;street2&rdquo;:&ldquo;2556 unit&rdquo;,&ldquo;city&rdquo;:&ldquo;toronto&rdquo;,&ldquo;state&rdquo;:&ldquo;ON&rdquo;,&ldquo;zipCode&rdquo;:&ldquo;Canada&rdquo;,&ldquo;country&rdquo;:&ldquo;L3R 5F5&rdquo;}}}</p>
+<p>{&ldquo;accountId&rdquo;:&ldquo;0000015cf505ed48-0242ac1200090001&rdquo;,&ldquo;balance&rdquo;:12355}</p>
 
-<pre><code>
-
-
-## Create an account with the customer (replace the customer id with real customer id):
-
-curl -X POST \
-  http://localhost:8081/v1/openaccount \
-  -H 'cache-control: no-cache' \
-  -H 'content-type: application/json' \
-  -d '{&quot;customerId&quot;:&quot;0000015cf50351d8-0242ac1200060000&quot;,&quot;title&quot;:&quot;RRSP account&quot;,&quot;description&quot;:&quot;account for testing&quot;,&quot;initialBalance&quot;:12355}'
-
-Result:
-
-{&quot;accountId&quot;:&quot;0000015cf505ed48-0242ac1200090001&quot;,&quot;balance&quot;:12355}
-
-
-
-## Create an account (no link with customer)
-
-curl -X POST \\
-  http://localhost:8081/v1/openaccount \
-  -H 'cache-control: no-cache' \
-  -H 'content-type: application/json' \
-  -d '{&quot;title&quot;:&quot;RRSP account&quot;,&quot;description&quot;:&quot;account for testing&quot;,&quot;initialBalance&quot;:12355}'
-
-Result:
-
-{&quot;accountId&quot;:&quot;0000015cf5084627-0242ac1200090001&quot;,&quot;balance&quot;:12355}
-
-
-## Create new customer (C2):
-</code></pre>
+<h2 id="create-an-account-no-link-with-customer">Create an account (no link with customer)</h2>
 
 <p>curl -X POST <br />
-  <a href="http://localhost:8083/v1/createcustomer">http://localhost:8083/v1/createcustomer</a> <br />
+  <a href="http://localhost:8081/v1/openaccount">http://localhost:8081/v1/openaccount</a> <br />
   -H &lsquo;cache-control: no-cache&rsquo; <br />
   -H &lsquo;content-type: application/json&rsquo; <br />
-  -d &lsquo;{&ldquo;name&rdquo;:{&ldquo;firstName&rdquo;:&ldquo;Google11&rdquo;,&ldquo;lastName&rdquo;:&ldquo;Com&rdquo;},&ldquo;email&rdquo;:&ldquo;aaa2.bbb@google.com&rdquo;,&ldquo;password&rdquo;:&ldquo;password&rdquo;,&ldquo;ssn&rdquo;:&ldquo;9999999999&rdquo;,&ldquo;phoneNumber&rdquo;:&ldquo;4166666666&rdquo;,&ldquo;address&rdquo;:{&ldquo;street1&rdquo;:&ldquo;Yonge St&rdquo;,&ldquo;street2&rdquo;:&ldquo;2556 unit&rdquo;,&ldquo;city&rdquo;:&ldquo;toronto&rdquo;,&ldquo;state&rdquo;:&ldquo;ON&rdquo;,&ldquo;zipCode&rdquo;:&ldquo;Canada&rdquo;,&ldquo;country&rdquo;:&ldquo;L3R 5F5&rdquo;}}&rsquo;</p>
+  -d &lsquo;{&ldquo;title&rdquo;:&ldquo;RRSP account&rdquo;,&ldquo;description&rdquo;:&ldquo;account for testing&rdquo;,&ldquo;initialBalance&rdquo;:12355}&rsquo;</p>
 
-<pre><code>
-Result:
-</code></pre>
+<p>Result:</p>
 
-<p>{&ldquo;id&rdquo;:&ldquo;0000015cf50bfe50-0242ac1200060001&rdquo;,&ldquo;customerInfo&rdquo;:{&ldquo;name&rdquo;:{&ldquo;firstName&rdquo;:&ldquo;Google11&rdquo;,&ldquo;lastName&rdquo;:&ldquo;Com&rdquo;},&ldquo;email&rdquo;:&ldquo;aaa2.bbb@google.com&rdquo;,&ldquo;password&rdquo;:&ldquo;password&rdquo;,&ldquo;ssn&rdquo;:&ldquo;9999999999&rdquo;,&ldquo;phoneNumber&rdquo;:&ldquo;4166666666&rdquo;,&ldquo;address&rdquo;:{&ldquo;street1&rdquo;:&ldquo;Yonge St&rdquo;,&ldquo;street2&rdquo;:&ldquo;2556 unit&rdquo;,&ldquo;city&rdquo;:&ldquo;toronto&rdquo;,&ldquo;state&rdquo;:&ldquo;ON&rdquo;,&ldquo;zipCode&rdquo;:&ldquo;Canada&rdquo;,&ldquo;country&rdquo;:&ldquo;L3R 5F5&rdquo;}}}</p>
+<p>{&ldquo;accountId&rdquo;:&ldquo;0000015cf5084627-0242ac1200090001&rdquo;,&ldquo;balance&rdquo;:12355}</p>
 
-<pre><code>
+<h2 id="create-new-customer-c2">Create new customer (C2):</h2>
 
-## Link account to customer (replace the customer id and account with real Id):
-
-curl -X POST \
-  http://localhost:8083/v1/customers/toaccounts/{customerId} \
+<pre><code>curl -X POST \
+  http://localhost:8083/v1/createcustomer \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
-  -d '{&quot;id&quot;:&quot;0000015cf5084627-0242ac1200090001&quot;,&quot;title&quot;:&quot;title&quot;,&quot;owner&quot;:&quot;google&quot;,&quot;description&quot;:&quot;test case&quot;}'
-
-
-Result: 0000015cf50bfe50-0242ac1200060001
-
-
-## Transfer money from account (replace the from account and to account id with real id):
-
-curl -X POST \
-  http://localhost:8085/v1/transfers \
-  -H 'cache-control: no-cache' \
-  -H 'content-type: application/json' \
-  -d '{&quot;fromAccountId&quot;:&quot;0000015cf505ed48-0242ac1200090001&quot;,&quot;toAccountId&quot;:&quot;0000015cf5084627-0242ac1200090001&quot;,&quot;amount&quot;:5000,&quot;description&quot;:&quot;test&quot;}'
-
-
-Result:
-
-{&quot;moneyTransferId&quot;:&quot;0000015cf5118e64-0242ac1200080000&quot;}
-
-
-
-## Delete account:
-
-curl -X DELETE \
-  http://localhost:8081/v1/delete/0000015cf4bec29b-0242ac1200070001 \
-  -H 'cache-control: no-cache' \
-  -H 'content-type: application/json' \
-  -H 'postman-token: 13652607-03c2-6c76-3674-19c280b59bfc'
-
-
-
-
-
-## Customer and Account view:
-
---View the new customer by email (provide wildcard search):
-
-  http://localhost:8084/v1/customers/aaa1.bbb1@google.com
-
-Result:
-
+  -d '{&quot;name&quot;:{&quot;firstName&quot;:&quot;Google11&quot;,&quot;lastName&quot;:&quot;Com&quot;},&quot;email&quot;:&quot;aaa2.bbb@google.com&quot;,&quot;password&quot;:&quot;password&quot;,&quot;ssn&quot;:&quot;9999999999&quot;,&quot;phoneNumber&quot;:&quot;4166666666&quot;,&quot;address&quot;:{&quot;street1&quot;:&quot;Yonge St&quot;,&quot;street2&quot;:&quot;2556 unit&quot;,&quot;city&quot;:&quot;toronto&quot;,&quot;state&quot;:&quot;ON&quot;,&quot;zipCode&quot;:&quot;Canada&quot;,&quot;country&quot;:&quot;L3R 5F5&quot;}}'
 </code></pre>
 
-<p>{&ldquo;customers&rdquo;:[{&ldquo;id&rdquo;:&ldquo;0000015cf50351d8-0242ac1200060000&rdquo;,&ldquo;name&rdquo;:{&ldquo;firstName&rdquo;:&ldquo;Google22&rdquo;,&ldquo;lastName&rdquo;:&ldquo;Com&rdquo;},&ldquo;email&rdquo;:&ldquo;aaa1.bbb@google.com&rdquo;,&ldquo;password&rdquo;:&ldquo;password&rdquo;,&ldquo;ssn&rdquo;:&ldquo;9999999999&rdquo;,&ldquo;phoneNumber&rdquo;:&ldquo;4166666666&rdquo;,&ldquo;address&rdquo;:{&ldquo;street1&rdquo;:&ldquo;Yonge St&rdquo;,&ldquo;street2&rdquo;:&ldquo;2556 unit&rdquo;,&ldquo;city&rdquo;:&ldquo;toronto&rdquo;,&ldquo;state&rdquo;:&ldquo;ON&rdquo;,&ldquo;zipCode&rdquo;:&ldquo;Canada&rdquo;,&ldquo;country&rdquo;:&ldquo;L3R 5F5&rdquo;},&ldquo;toAccounts&rdquo;:null}]}</p>
+<p>Result:</p>
 
-<pre><code>
-
---View the new customer by customer Id (replace the customer id with real customer id,. You can use copy from result of create customer)
-
-  http://localhost:8084/v1/customer/{customerId}
-
-Result:
-
+<pre><code>{&quot;id&quot;:&quot;0000015cf50bfe50-0242ac1200060001&quot;,&quot;customerInfo&quot;:{&quot;name&quot;:{&quot;firstName&quot;:&quot;Google11&quot;,&quot;lastName&quot;:&quot;Com&quot;},&quot;email&quot;:&quot;aaa2.bbb@google.com&quot;,&quot;password&quot;:&quot;password&quot;,&quot;ssn&quot;:&quot;9999999999&quot;,&quot;phoneNumber&quot;:&quot;4166666666&quot;,&quot;address&quot;:{&quot;street1&quot;:&quot;Yonge St&quot;,&quot;street2&quot;:&quot;2556 unit&quot;,&quot;city&quot;:&quot;toronto&quot;,&quot;state&quot;:&quot;ON&quot;,&quot;zipCode&quot;:&quot;Canada&quot;,&quot;country&quot;:&quot;L3R 5F5&quot;}}}
 </code></pre>
-
-<p>{&ldquo;id&rdquo;:&ldquo;0000015cf50351d8-0242ac1200060000&rdquo;,&ldquo;name&rdquo;:{&ldquo;firstName&rdquo;:&ldquo;Google22&rdquo;,&ldquo;lastName&rdquo;:&ldquo;Com&rdquo;},&ldquo;email&rdquo;:&ldquo;aaa1.bbb@google.com&rdquo;,&ldquo;password&rdquo;:&ldquo;password&rdquo;,&ldquo;ssn&rdquo;:&ldquo;9999999999&rdquo;,&ldquo;phoneNumber&rdquo;:&ldquo;4166666666&rdquo;,&ldquo;address&rdquo;:{&ldquo;street1&rdquo;:&ldquo;Yonge St&rdquo;,&ldquo;street2&rdquo;:&ldquo;2556 unit&rdquo;,&ldquo;city&rdquo;:&ldquo;toronto&rdquo;,&ldquo;state&rdquo;:&ldquo;ON&rdquo;,&ldquo;zipCode&rdquo;:&ldquo;Canada&rdquo;,&ldquo;country&rdquo;:&ldquo;L3R 5F5&rdquo;},&ldquo;toAccounts&rdquo;:null}</p>
-
-<pre><code>
--- view account by Id (replace the Id with real account Id)
-
-http://localhost:8082/v1/accounts/{accountId}
-
-Result:
-
-{&quot;accountId&quot;:&quot;0000015cf505ed48-0242ac1200090001&quot;,&quot;balance&quot;:73550000,&quot;title&quot;:&quot;RRSP account&quot;,&quot;description&quot;:&quot;account for testing&quot;}
-
-
--- View account transaction history:
-
-http://localhost:8082/v1/accounts/0000015cf910e31b-0242ac1200080000/history
-
-Result:
-
-</code></pre>
-
-<p>[{&ldquo;date&rdquo;:&ldquo;2017-06-30&rdquo;,&ldquo;entryType&rdquo;:null,&ldquo;transactionId&rdquo;:&ldquo;0000015cf914b22e-0242ac1200070001&rdquo;,&ldquo;fromAccountId&rdquo;:&ldquo;0000015cf910e31b-0242ac1200080000&rdquo;,&ldquo;toAccountId&rdquo;:&ldquo;0000015cf9115782-0242ac1200080001&rdquo;,&ldquo;amount&rdquo;:50000000,&ldquo;description&rdquo;:&ldquo;test&rdquo;,&ldquo;status&rdquo;:&ldquo;COMPLETED&rdquo;}]</p>
-
-<pre><code>
-
-
-
-
-
-## Use Postman:
-
-
-## Create new customer (C1):
-
-POST URL: http://localhost:8083/v1/createcustomer
-Header: Content-Type: application/json
-Body:
-</code></pre>
-
-<p>{&ldquo;name&rdquo;:{&ldquo;firstName&rdquo;:&ldquo;Google1222&rdquo;,&ldquo;lastName&rdquo;:&ldquo;Com1&rdquo;},&ldquo;email&rdquo;:&ldquo;aaa1.bbb1@google.com&rdquo;,&ldquo;password&rdquo;:&ldquo;password&rdquo;,&ldquo;ssn&rdquo;:&ldquo;9999999999&rdquo;,&ldquo;phoneNumber&rdquo;:&ldquo;4166666666&rdquo;,&ldquo;address&rdquo;:{&ldquo;street1&rdquo;:&ldquo;Yonge St&rdquo;,&ldquo;street2&rdquo;:&ldquo;2556 unit&rdquo;,&ldquo;city&rdquo;:&ldquo;toronto&rdquo;,&ldquo;state&rdquo;:&ldquo;ON&rdquo;,&ldquo;zipCode&rdquo;:&ldquo;Canada&rdquo;,&ldquo;country&rdquo;:&ldquo;L3R 5F5&rdquo;}}</p>
-
-<pre><code>
-## Create an account with the customer (replace the customer id with real customer id):
-POST URL: http://localhost:8081/v1/openaccount
-Header: Content-Type: application/json
-Body:
-{&quot;customerId&quot;:&quot;0000015cf4be6114-0242ac1200060001&quot;,&quot;title&quot;:&quot;RRSP account&quot;,&quot;description&quot;:&quot;account for testing&quot;,&quot;initialBalance&quot;:12355}
-
-
-## Create an account (no link with customer)
-POST URL: http://localhost:8081/v1/openaccount
-Header: Content-Type: application/json
-Body:
-{&quot;title&quot;:&quot;RRSP account&quot;,&quot;description&quot;:&quot;account for testing&quot;,&quot;initialBalance&quot;:12355}
-
-
-## Create new customer (C2):
-
-POST URL: http://localhost:8083/v1/createcustomer
-Header: Content-Type: application/json
-Body:
-</code></pre>
-
-<p>{&ldquo;name&rdquo;:{&ldquo;firstName&rdquo;:&ldquo;Google12&rdquo;,&ldquo;lastName&rdquo;:&ldquo;Com1&rdquo;},&ldquo;email&rdquo;:&ldquo;aaa2.bbb2@google.com&rdquo;,&ldquo;password&rdquo;:&ldquo;password&rdquo;,&ldquo;ssn&rdquo;:&ldquo;9999999999&rdquo;,&ldquo;phoneNumber&rdquo;:&ldquo;4166666666&rdquo;,&ldquo;address&rdquo;:{&ldquo;street1&rdquo;:&ldquo;Yonge St&rdquo;,&ldquo;street2&rdquo;:&ldquo;2556 unit&rdquo;,&ldquo;city&rdquo;:&ldquo;toronto&rdquo;,&ldquo;state&rdquo;:&ldquo;ON&rdquo;,&ldquo;zipCode&rdquo;:&ldquo;Canada&rdquo;,&ldquo;country&rdquo;:&ldquo;L3R 5F5&rdquo;}}
-```</p>
 
 <h2 id="link-account-to-customer-replace-the-customer-id-and-account-with-real-id">Link account to customer (replace the customer id and account with real Id):</h2>
+
+<p>curl -X POST <br />
+  <a href="http://localhost:8083/v1/customers/toaccounts/{customerId">http://localhost:8083/v1/customers/toaccounts/{customerId</a>} <br />
+  -H &lsquo;cache-control: no-cache&rsquo; <br />
+  -H &lsquo;content-type: application/json&rsquo; <br />
+  -d &lsquo;{&ldquo;id&rdquo;:&ldquo;0000015cf5084627-0242ac1200090001&rdquo;,&ldquo;title&rdquo;:&ldquo;title&rdquo;,&ldquo;owner&rdquo;:&ldquo;google&rdquo;,&ldquo;description&rdquo;:&ldquo;test case&rdquo;}&rsquo;</p>
+
+<p>Result: 0000015cf50bfe50-0242ac1200060001</p>
+
+<h2 id="transfer-money-from-account-replace-the-from-account-and-to-account-id-with-real-id">Transfer money from account (replace the from account and to account id with real id):</h2>
+
+<p>curl -X POST <br />
+  <a href="http://localhost:8085/v1/transfers">http://localhost:8085/v1/transfers</a> <br />
+  -H &lsquo;cache-control: no-cache&rsquo; <br />
+  -H &lsquo;content-type: application/json&rsquo; <br />
+  -d &lsquo;{&ldquo;fromAccountId&rdquo;:&ldquo;0000015cf505ed48-0242ac1200090001&rdquo;,&ldquo;toAccountId&rdquo;:&ldquo;0000015cf5084627-0242ac1200090001&rdquo;,&ldquo;amount&rdquo;:5000,&ldquo;description&rdquo;:&ldquo;test&rdquo;}&rsquo;</p>
+
+<p>Result:</p>
+
+<p>{&ldquo;moneyTransferId&rdquo;:&ldquo;0000015cf5118e64-0242ac1200080000&rdquo;}</p>
+
+<h2 id="delete-account">Delete account:</h2>
+
+<p>curl -X DELETE <br />
+  <a href="http://localhost:8081/v1/delete/0000015cf4bec29b-0242ac1200070001">http://localhost:8081/v1/delete/0000015cf4bec29b-0242ac1200070001</a> <br />
+  -H &lsquo;cache-control: no-cache&rsquo; <br />
+  -H &lsquo;content-type: application/json&rsquo; <br />
+  -H &lsquo;postman-token: 13652607-03c2-6c76-3674-19c280b59bfc&rsquo;</p>
+
+<h2 id="customer-and-account-view">Customer and Account view:</h2>
+
+<p>&ndash;View the new customer by email (provide wildcard search):</p>
+
+<p><a href="http://localhost:8084/v1/customers/aaa1.bbb1@google.com">http://localhost:8084/v1/customers/aaa1.bbb1@google.com</a></p>
+
+<p>Result:</p>
+
+<pre><code>{&quot;customers&quot;:[{&quot;id&quot;:&quot;0000015cf50351d8-0242ac1200060000&quot;,&quot;name&quot;:{&quot;firstName&quot;:&quot;Google22&quot;,&quot;lastName&quot;:&quot;Com&quot;},&quot;email&quot;:&quot;aaa1.bbb@google.com&quot;,&quot;password&quot;:&quot;password&quot;,&quot;ssn&quot;:&quot;9999999999&quot;,&quot;phoneNumber&quot;:&quot;4166666666&quot;,&quot;address&quot;:{&quot;street1&quot;:&quot;Yonge St&quot;,&quot;street2&quot;:&quot;2556 unit&quot;,&quot;city&quot;:&quot;toronto&quot;,&quot;state&quot;:&quot;ON&quot;,&quot;zipCode&quot;:&quot;Canada&quot;,&quot;country&quot;:&quot;L3R 5F5&quot;},&quot;toAccounts&quot;:null}]}
+</code></pre>
+
+<p>&ndash;View the new customer by customer Id (replace the customer id with real customer id,. You can use copy from result of create customer)</p>
+
+<p><a href="http://localhost:8084/v1/customer/{customerId">http://localhost:8084/v1/customer/{customerId</a>}</p>
+
+<p>Result:</p>
+
+<pre><code>{&quot;id&quot;:&quot;0000015cf50351d8-0242ac1200060000&quot;,&quot;name&quot;:{&quot;firstName&quot;:&quot;Google22&quot;,&quot;lastName&quot;:&quot;Com&quot;},&quot;email&quot;:&quot;aaa1.bbb@google.com&quot;,&quot;password&quot;:&quot;password&quot;,&quot;ssn&quot;:&quot;9999999999&quot;,&quot;phoneNumber&quot;:&quot;4166666666&quot;,&quot;address&quot;:{&quot;street1&quot;:&quot;Yonge St&quot;,&quot;street2&quot;:&quot;2556 unit&quot;,&quot;city&quot;:&quot;toronto&quot;,&quot;state&quot;:&quot;ON&quot;,&quot;zipCode&quot;:&quot;Canada&quot;,&quot;country&quot;:&quot;L3R 5F5&quot;},&quot;toAccounts&quot;:null}
+</code></pre>
+
+<p>&ndash; view account by Id (replace the Id with real account Id)</p>
+
+<p><a href="http://localhost:8082/v1/accounts/{accountId">http://localhost:8082/v1/accounts/{accountId</a>}</p>
+
+<p>Result:</p>
+
+<p>{&ldquo;accountId&rdquo;:&ldquo;0000015cf505ed48-0242ac1200090001&rdquo;,&ldquo;balance&rdquo;:73550000,&ldquo;title&rdquo;:&ldquo;RRSP account&rdquo;,&ldquo;description&rdquo;:&ldquo;account for testing&rdquo;}</p>
+
+<p>&ndash; View account transaction history:</p>
+
+<p><a href="http://localhost:8082/v1/accounts/0000015cf910e31b-0242ac1200080000/history">http://localhost:8082/v1/accounts/0000015cf910e31b-0242ac1200080000/history</a></p>
+
+<p>Result:</p>
+
+<pre><code>[{&quot;date&quot;:&quot;2017-06-30&quot;,&quot;entryType&quot;:null,&quot;transactionId&quot;:&quot;0000015cf914b22e-0242ac1200070001&quot;,&quot;fromAccountId&quot;:&quot;0000015cf910e31b-0242ac1200080000&quot;,&quot;toAccountId&quot;:&quot;0000015cf9115782-0242ac1200080001&quot;,&quot;amount&quot;:50000000,&quot;description&quot;:&quot;test&quot;,&quot;status&quot;:&quot;COMPLETED&quot;}]
+</code></pre>
+
+<h2 id="use-postman">Use Postman:</h2>
+
+<h2 id="create-new-customer-c1-1">Create new customer (C1):</h2>
+
+<p>POST URL: <a href="http://localhost:8083/v1/createcustomer">http://localhost:8083/v1/createcustomer</a>
+Header: Content-Type: application/json
+Body:</p>
+
+<pre><code>{&quot;name&quot;:{&quot;firstName&quot;:&quot;Google1222&quot;,&quot;lastName&quot;:&quot;Com1&quot;},&quot;email&quot;:&quot;aaa1.bbb1@google.com&quot;,&quot;password&quot;:&quot;password&quot;,&quot;ssn&quot;:&quot;9999999999&quot;,&quot;phoneNumber&quot;:&quot;4166666666&quot;,&quot;address&quot;:{&quot;street1&quot;:&quot;Yonge St&quot;,&quot;street2&quot;:&quot;2556 unit&quot;,&quot;city&quot;:&quot;toronto&quot;,&quot;state&quot;:&quot;ON&quot;,&quot;zipCode&quot;:&quot;Canada&quot;,&quot;country&quot;:&quot;L3R 5F5&quot;}}
+</code></pre>
+
+<h2 id="create-an-account-with-the-customer-replace-the-customer-id-with-real-customer-id-1">Create an account with the customer (replace the customer id with real customer id):</h2>
+
+<p>POST URL: <a href="http://localhost:8081/v1/openaccount">http://localhost:8081/v1/openaccount</a>
+Header: Content-Type: application/json
+Body:
+{&ldquo;customerId&rdquo;:&ldquo;0000015cf4be6114-0242ac1200060001&rdquo;,&ldquo;title&rdquo;:&ldquo;RRSP account&rdquo;,&ldquo;description&rdquo;:&ldquo;account for testing&rdquo;,&ldquo;initialBalance&rdquo;:12355}</p>
+
+<h2 id="create-an-account-no-link-with-customer-1">Create an account (no link with customer)</h2>
+
+<p>POST URL: <a href="http://localhost:8081/v1/openaccount">http://localhost:8081/v1/openaccount</a>
+Header: Content-Type: application/json
+Body:
+{&ldquo;title&rdquo;:&ldquo;RRSP account&rdquo;,&ldquo;description&rdquo;:&ldquo;account for testing&rdquo;,&ldquo;initialBalance&rdquo;:12355}</p>
+
+<h2 id="create-new-customer-c2-1">Create new customer (C2):</h2>
+
+<p>POST URL: <a href="http://localhost:8083/v1/createcustomer">http://localhost:8083/v1/createcustomer</a>
+Header: Content-Type: application/json
+Body:</p>
+
+<pre><code>{&quot;name&quot;:{&quot;firstName&quot;:&quot;Google12&quot;,&quot;lastName&quot;:&quot;Com1&quot;},&quot;email&quot;:&quot;aaa2.bbb2@google.com&quot;,&quot;password&quot;:&quot;password&quot;,&quot;ssn&quot;:&quot;9999999999&quot;,&quot;phoneNumber&quot;:&quot;4166666666&quot;,&quot;address&quot;:{&quot;street1&quot;:&quot;Yonge St&quot;,&quot;street2&quot;:&quot;2556 unit&quot;,&quot;city&quot;:&quot;toronto&quot;,&quot;state&quot;:&quot;ON&quot;,&quot;zipCode&quot;:&quot;Canada&quot;,&quot;country&quot;:&quot;L3R 5F5&quot;}}
+</code></pre>
+
+<h2 id="link-account-to-customer-replace-the-customer-id-and-account-with-real-id-1">Link account to customer (replace the customer id and account with real Id):</h2>
 
 <p>POST URL: <a href="http://localhost:8083/v1/customers/toaccounts/0000015cf4b840f3-0242ac1200070000">http://localhost:8083/v1/customers/toaccounts/0000015cf4b840f3-0242ac1200070000</a>
 Header: Content-Type: application/json
 Body:
 {&ldquo;id&rdquo;:&ldquo;0000015cf4b080c7-0242ac1200070001&rdquo;,&ldquo;title&rdquo;:&ldquo;title&rdquo;,&ldquo;owner&rdquo;:&ldquo;google&rdquo;,&ldquo;description&rdquo;:&ldquo;test case&rdquo;}</p>
 
-<h2 id="transfer-money-from-account-replace-the-from-account-and-to-account-id-with-real-id">Transfer money from account (replace the from account and to account id with real id):</h2>
+<h2 id="transfer-money-from-account-replace-the-from-account-and-to-account-id-with-real-id-1">Transfer money from account (replace the from account and to account id with real id):</h2>
 
 <p>POST URL: <a href="http://localhost:8085/v1/transfers">http://localhost:8085/v1/transfers</a>
 Header: Content-Type: application/json
 Body:
 {&ldquo;fromAccountId&rdquo;:&ldquo;2222-22222&rdquo;,&ldquo;toAccountId&rdquo;:&ldquo;2222-22223&rdquo;,&ldquo;amount&rdquo;:5000,&ldquo;description&rdquo;:&ldquo;test&rdquo;}</p>
 
-<h2 id="delete-account">Delete account:</h2>
+<h2 id="delete-account-1">Delete account:</h2>
 
 <p>DELETE URL: <a href="http://localhost:8081/v1/delete/0000015cf4bec29b-0242ac1200070001">http://localhost:8081/v1/delete/0000015cf4bec29b-0242ac1200070001</a>
 Header: Content-Type: application/json</p>
@@ -683,7 +638,7 @@ Header: Content-Type: application/json</p>
 
   <div class="next">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/example/moneytransfer/" title="TodoList">
+      <a href="https://networknt.github.io/light-eventuate-4j/example/todo/" title="TodoList">
         <span class="direction">
           Next
         </span>
