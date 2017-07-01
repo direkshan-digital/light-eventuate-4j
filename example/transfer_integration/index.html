@@ -492,8 +492,7 @@ git clone git@github.com:networknt/light-eventuate-example.git</p>
 <p>curl -X DELETE <br />
   <a href="http://localhost:8081/v1/delete/0000015cf4bec29b-0242ac1200070001">http://localhost:8081/v1/delete/0000015cf4bec29b-0242ac1200070001</a> <br />
   -H &lsquo;cache-control: no-cache&rsquo; <br />
-  -H &lsquo;content-type: application/json&rsquo; <br />
-  -H &lsquo;postman-token: 13652607-03c2-6c76-3674-19c280b59bfc&rsquo;</p>
+  -H &lsquo;content-type: application/json&rsquo; </p>
 
 <h2 id="customer-and-account-view">Customer and Account view:</h2>
 
@@ -536,54 +535,63 @@ git clone git@github.com:networknt/light-eventuate-example.git</p>
 
 <h2 id="create-new-customer-c1-1">Create new customer (C1):</h2>
 
-<p>POST URL: <a href="http://localhost:8083/v1/createcustomer">http://localhost:8083/v1/createcustomer</a>
-Header: Content-Type: application/json
-Body:</p>
+<p>POST URL: <a href="http://localhost:8083/v1/createcustomer">http://localhost:8083/v1/createcustomer</a></p>
+
+<p>Header: Content-Type: application/json</p>
+
+<p>Body:</p>
 
 <pre><code>{&quot;name&quot;:{&quot;firstName&quot;:&quot;Google1222&quot;,&quot;lastName&quot;:&quot;Com1&quot;},&quot;email&quot;:&quot;aaa1.bbb1@google.com&quot;,&quot;password&quot;:&quot;password&quot;,&quot;ssn&quot;:&quot;9999999999&quot;,&quot;phoneNumber&quot;:&quot;4166666666&quot;,&quot;address&quot;:{&quot;street1&quot;:&quot;Yonge St&quot;,&quot;street2&quot;:&quot;2556 unit&quot;,&quot;city&quot;:&quot;toronto&quot;,&quot;state&quot;:&quot;ON&quot;,&quot;zipCode&quot;:&quot;Canada&quot;,&quot;country&quot;:&quot;L3R 5F5&quot;}}
 </code></pre>
 
 <h2 id="create-an-account-with-the-customer-replace-the-customer-id-with-real-customer-id-1">Create an account with the customer (replace the customer id with real customer id):</h2>
 
-<p>POST URL: <a href="http://localhost:8081/v1/openaccount">http://localhost:8081/v1/openaccount</a>
-Header: Content-Type: application/json
-Body:
-{&ldquo;customerId&rdquo;:&ldquo;0000015cf4be6114-0242ac1200060001&rdquo;,&ldquo;title&rdquo;:&ldquo;RRSP account&rdquo;,&ldquo;description&rdquo;:&ldquo;account for testing&rdquo;,&ldquo;initialBalance&rdquo;:12355}</p>
+<p>POST URL: <a href="http://localhost:8081/v1/openaccount">http://localhost:8081/v1/openaccount</a></p>
+
+<p>Header: Content-Type: application/json</p>
+
+<p>Body: {&ldquo;customerId&rdquo;:&ldquo;0000015cf4be6114-0242ac1200060001&rdquo;,&ldquo;title&rdquo;:&ldquo;RRSP account&rdquo;,&ldquo;description&rdquo;:&ldquo;account for testing&rdquo;,&ldquo;initialBalance&rdquo;:12355}</p>
 
 <h2 id="create-an-account-no-link-with-customer-1">Create an account (no link with customer)</h2>
 
-<p>POST URL: <a href="http://localhost:8081/v1/openaccount">http://localhost:8081/v1/openaccount</a>
-Header: Content-Type: application/json
-Body:
-{&ldquo;title&rdquo;:&ldquo;RRSP account&rdquo;,&ldquo;description&rdquo;:&ldquo;account for testing&rdquo;,&ldquo;initialBalance&rdquo;:12355}</p>
+<p>POST URL: <a href="http://localhost:8081/v1/openaccount">http://localhost:8081/v1/openaccount</a></p>
+
+<p>Header: Content-Type: application/json</p>
+
+<p>Body: {&ldquo;title&rdquo;:&ldquo;RRSP account&rdquo;,&ldquo;description&rdquo;:&ldquo;account for testing&rdquo;,&ldquo;initialBalance&rdquo;:12355}</p>
 
 <h2 id="create-new-customer-c2-1">Create new customer (C2):</h2>
 
-<p>POST URL: <a href="http://localhost:8083/v1/createcustomer">http://localhost:8083/v1/createcustomer</a>
-Header: Content-Type: application/json
-Body:</p>
+<p>POST URL: <a href="http://localhost:8083/v1/createcustomer">http://localhost:8083/v1/createcustomer</a></p>
+
+<p>Header: Content-Type: application/json</p>
+
+<p>Body:</p>
 
 <pre><code>{&quot;name&quot;:{&quot;firstName&quot;:&quot;Google12&quot;,&quot;lastName&quot;:&quot;Com1&quot;},&quot;email&quot;:&quot;aaa2.bbb2@google.com&quot;,&quot;password&quot;:&quot;password&quot;,&quot;ssn&quot;:&quot;9999999999&quot;,&quot;phoneNumber&quot;:&quot;4166666666&quot;,&quot;address&quot;:{&quot;street1&quot;:&quot;Yonge St&quot;,&quot;street2&quot;:&quot;2556 unit&quot;,&quot;city&quot;:&quot;toronto&quot;,&quot;state&quot;:&quot;ON&quot;,&quot;zipCode&quot;:&quot;Canada&quot;,&quot;country&quot;:&quot;L3R 5F5&quot;}}
 </code></pre>
 
 <h2 id="link-account-to-customer-replace-the-customer-id-and-account-with-real-id-1">Link account to customer (replace the customer id and account with real Id):</h2>
 
-<p>POST URL: <a href="http://localhost:8083/v1/customers/toaccounts/0000015cf4b840f3-0242ac1200070000">http://localhost:8083/v1/customers/toaccounts/0000015cf4b840f3-0242ac1200070000</a>
-Header: Content-Type: application/json
-Body:
-{&ldquo;id&rdquo;:&ldquo;0000015cf4b080c7-0242ac1200070001&rdquo;,&ldquo;title&rdquo;:&ldquo;title&rdquo;,&ldquo;owner&rdquo;:&ldquo;google&rdquo;,&ldquo;description&rdquo;:&ldquo;test case&rdquo;}</p>
+<p>POST URL: <a href="http://localhost:8083/v1/customers/toaccounts/0000015cf4b840f3-0242ac1200070000">http://localhost:8083/v1/customers/toaccounts/0000015cf4b840f3-0242ac1200070000</a></p>
+
+<p>Header: Content-Type: application/json</p>
+
+<p>Body: {&ldquo;id&rdquo;:&ldquo;0000015cf4b080c7-0242ac1200070001&rdquo;,&ldquo;title&rdquo;:&ldquo;title&rdquo;,&ldquo;owner&rdquo;:&ldquo;google&rdquo;,&ldquo;description&rdquo;:&ldquo;test case&rdquo;}</p>
 
 <h2 id="transfer-money-from-account-replace-the-from-account-and-to-account-id-with-real-id-1">Transfer money from account (replace the from account and to account id with real id):</h2>
 
-<p>POST URL: <a href="http://localhost:8085/v1/transfers">http://localhost:8085/v1/transfers</a>
-Header: Content-Type: application/json
-Body:
-{&ldquo;fromAccountId&rdquo;:&ldquo;2222-22222&rdquo;,&ldquo;toAccountId&rdquo;:&ldquo;2222-22223&rdquo;,&ldquo;amount&rdquo;:5000,&ldquo;description&rdquo;:&ldquo;test&rdquo;}</p>
+<p>POST URL: <a href="http://localhost:8085/v1/transfers">http://localhost:8085/v1/transfers</a></p>
+
+<p>Header: Content-Type: application/json</p>
+
+<p>Body:{&ldquo;fromAccountId&rdquo;:&ldquo;2222-22222&rdquo;,&ldquo;toAccountId&rdquo;:&ldquo;2222-22223&rdquo;,&ldquo;amount&rdquo;:5000,&ldquo;description&rdquo;:&ldquo;test&rdquo;}</p>
 
 <h2 id="delete-account-1">Delete account:</h2>
 
-<p>DELETE URL: <a href="http://localhost:8081/v1/delete/0000015cf4bec29b-0242ac1200070001">http://localhost:8081/v1/delete/0000015cf4bec29b-0242ac1200070001</a>
-Header: Content-Type: application/json</p>
+<p>DELETE URL: <a href="http://localhost:8081/v1/delete/0000015cf4bec29b-0242ac1200070001">http://localhost:8081/v1/delete/0000015cf4bec29b-0242ac1200070001</a></p>
+
+<p>Header: Content-Type: application/json</p>
 
 <h2 id="customer-and-account-view-use-any-browser">Customer and Account view (use any browser)</h2>
 
