@@ -433,11 +433,12 @@ git clone git@github.com:networknt/light-eventuate-example.git</p>
 <li>On account view side, system subscrible the  AccountOpenedEvent by registered event handles. On the example, system will process event and save account and account/customer relationship to local database.</li>
 </ul>
 
-<p>curl -X POST <br />
-  <a href="http://localhost:8081/v1/openaccount">http://localhost:8081/v1/openaccount</a> <br />
-  -H &lsquo;cache-control: no-cache&rsquo; <br />
-  -H &lsquo;content-type: application/json&rsquo; <br />
-  -d &lsquo;{&ldquo;customerId&rdquo;:&ldquo;0000015cf50351d8-0242ac1200060000&rdquo;,&ldquo;title&rdquo;:&ldquo;RRSP account&rdquo;,&ldquo;description&rdquo;:&ldquo;account for testing&rdquo;,&ldquo;initialBalance&rdquo;:12355}&rsquo;</p>
+<pre><code>curl -X POST \
+  http://localhost:8081/v1/openaccount \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{&quot;customerId&quot;:&quot;0000015cf50351d8-0242ac1200060000&quot;,&quot;title&quot;:&quot;RRSP account&quot;,&quot;description&quot;:&quot;account for testing&quot;,&quot;initialBalance&quot;:12355}'
+</code></pre>
 
 <p>Result:</p>
 
@@ -450,11 +451,12 @@ git clone git@github.com:networknt/light-eventuate-example.git</p>
 <li>On account view side, system subscrible the  AccountOpenedEvent by registered event handles. On the example, system will process event and save account to local database.</li>
 </ul>
 
-<p>curl -X POST <br />
-  <a href="http://localhost:8081/v1/openaccount">http://localhost:8081/v1/openaccount</a> <br />
-  -H &lsquo;cache-control: no-cache&rsquo; <br />
-  -H &lsquo;content-type: application/json&rsquo; <br />
-  -d &lsquo;{&ldquo;title&rdquo;:&ldquo;RRSP account&rdquo;,&ldquo;description&rdquo;:&ldquo;account for testing&rdquo;,&ldquo;initialBalance&rdquo;:12355}&rsquo;</p>
+<pre><code>curl -X POST \\
+  http://localhost:8081/v1/openaccount \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{&quot;title&quot;:&quot;RRSP account&quot;,&quot;description&quot;:&quot;account for testing&quot;,&quot;initialBalance&quot;:12355}'
+</code></pre>
 
 <p>Result:</p>
 
@@ -486,11 +488,12 @@ git clone git@github.com:networknt/light-eventuate-example.git</p>
 <li>On customer view side, system subscrible the  CustomerAddedToAccount event by registered event handles. On the example, system will process event and save customer/account relationship to local database.</li>
 </ul>
 
-<p>curl -X POST <br />
-  <a href="http://localhost:8083/v1/customers/toaccounts/{customerId">http://localhost:8083/v1/customers/toaccounts/{customerId</a>} <br />
-  -H &lsquo;cache-control: no-cache&rsquo; <br />
-  -H &lsquo;content-type: application/json&rsquo; <br />
-  -d &lsquo;{&ldquo;id&rdquo;:&ldquo;0000015cf5084627-0242ac1200090001&rdquo;,&ldquo;title&rdquo;:&ldquo;title&rdquo;,&ldquo;owner&rdquo;:&ldquo;google&rdquo;,&ldquo;description&rdquo;:&ldquo;test case&rdquo;}&rsquo;</p>
+<pre><code>curl -X POST \
+  http://localhost:8083/v1/customers/toaccounts/{customerId} \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{&quot;id&quot;:&quot;0000015cf5084627-0242ac1200090001&quot;,&quot;title&quot;:&quot;title&quot;,&quot;owner&quot;:&quot;google&quot;,&quot;description&quot;:&quot;test case&quot;}'
+</code></pre>
 
 <p>Result: 0000015cf50bfe50-0242ac1200060001</p>
 
@@ -506,11 +509,12 @@ if subscribed event is AccountDebitFailedDueToInsufficientFundsEvent, system wil
 if subscribed even FailedDebitRecordedEvent, system will update transaction status to FAILED_DUE_TO_INSUFFICIENT_FUNDS.</li>
 </ul>
 
-<p>curl -X POST <br />
-  <a href="http://localhost:8085/v1/transfers">http://localhost:8085/v1/transfers</a> <br />
-  -H &lsquo;cache-control: no-cache&rsquo; <br />
-  -H &lsquo;content-type: application/json&rsquo; <br />
-  -d &lsquo;{&ldquo;fromAccountId&rdquo;:&ldquo;0000015cf505ed48-0242ac1200090001&rdquo;,&ldquo;toAccountId&rdquo;:&ldquo;0000015cf5084627-0242ac1200090001&rdquo;,&ldquo;amount&rdquo;:5000,&ldquo;description&rdquo;:&ldquo;test&rdquo;}&rsquo;</p>
+<pre><code>curl -X POST \
+  http://localhost:8085/v1/transfers \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{&quot;fromAccountId&quot;:&quot;0000015cf505ed48-0242ac1200090001&quot;,&quot;toAccountId&quot;:&quot;0000015cf5084627-0242ac1200090001&quot;,&quot;amount&quot;:5000,&quot;description&quot;:&quot;test&quot;}'
+</code></pre>
 
 <p>Result:</p>
 
@@ -524,10 +528,11 @@ if subscribed even FailedDebitRecordedEvent, system will update transaction stat
 <li>On customer view side, system subscrible the  AccountDeletedEvent event by registered event handles. On the example, system will process event and delete customer/account relationship to local database.</li>
 </ul>
 
-<p>curl -X DELETE <br />
-  <a href="http://localhost:8081/v1/delete/0000015cf4bec29b-0242ac1200070001">http://localhost:8081/v1/delete/0000015cf4bec29b-0242ac1200070001</a> <br />
-  -H &lsquo;cache-control: no-cache&rsquo; <br />
-  -H &lsquo;content-type: application/json&rsquo; </p>
+<pre><code>curl -X DELETE \
+  http://localhost:8081/v1/delete/0000015cf4bec29b-0242ac1200070001 \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+</code></pre>
 
 <h2 id="customer-and-account-view">Customer and Account view:</h2>
 
