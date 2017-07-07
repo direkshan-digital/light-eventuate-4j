@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
     <title>Account Money Transfer - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
-    <meta name="generator" content="Hugo 0.21" />
+    <meta name="generator" content="Hugo 0.20.6" />
 
     
     <meta name="description" content="Light Eventuate Docs">
@@ -451,7 +451,7 @@ git clone git@github.com:networknt/light-eventuate-example.git</p>
 <li>On account view side, system subscrible the  AccountOpenedEvent by registered event handles. On the example, system will process event and save account to local database.</li>
 </ul>
 
-<pre><code>curl -X POST \
+<pre><code>curl -X POST \\
   http://localhost:8081/v1/openaccount \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
@@ -460,7 +460,8 @@ git clone git@github.com:networknt/light-eventuate-example.git</p>
 
 <p>Result:</p>
 
-<p>{&ldquo;accountId&rdquo;:&ldquo;0000015cf5084627-0242ac1200090001&rdquo;,&ldquo;balance&rdquo;:12355}</p>
+<pre><code>{&quot;accountId&quot;:&quot;0000015cf5084627-0242ac1200090001&quot;,&quot;balance&quot;:12355}
+</code></pre>
 
 <h2 id="create-new-customer-c2">Create new customer (C2):</h2>
 
@@ -518,7 +519,8 @@ if subscribed even FailedDebitRecordedEvent, system will update transaction stat
 
 <p>Result:</p>
 
-<p>{&ldquo;moneyTransferId&rdquo;:&ldquo;0000015cf5118e64-0242ac1200080000&rdquo;}</p>
+<pre><code>{&quot;moneyTransferId&quot;:&quot;0000015cf5118e64-0242ac1200080000&quot;}
+</code></pre>
 
 <h2 id="delete-account">Delete account:</h2>
 
@@ -538,7 +540,8 @@ if subscribed even FailedDebitRecordedEvent, system will update transaction stat
 
 <p>&ndash;View the new customer by email (provide wildcard search):</p>
 
-<p><a href="http://localhost:8084/v1/customers/aaa1.bbb1@google.com">http://localhost:8084/v1/customers/aaa1.bbb1@google.com</a></p>
+<pre><code>  http://localhost:8084/v1/customers/aaa1.bbb1@google.com
+</code></pre>
 
 <p>Result:</p>
 
@@ -547,7 +550,8 @@ if subscribed even FailedDebitRecordedEvent, system will update transaction stat
 
 <p>&ndash;View the new customer by customer Id (replace the customer id with real customer id,. You can use copy from result of create customer)</p>
 
-<p><a href="http://localhost:8084/v1/customer/{customerId">http://localhost:8084/v1/customer/{customerId</a>}</p>
+<pre><code>  http://localhost:8084/v1/customer/{customerId}
+</code></pre>
 
 <p>Result:</p>
 
@@ -560,11 +564,13 @@ if subscribed even FailedDebitRecordedEvent, system will update transaction stat
 
 <p>Result:</p>
 
-<p>{&ldquo;accountId&rdquo;:&ldquo;0000015cf505ed48-0242ac1200090001&rdquo;,&ldquo;balance&rdquo;:73550000,&ldquo;title&rdquo;:&ldquo;RRSP account&rdquo;,&ldquo;description&rdquo;:&ldquo;account for testing&rdquo;}</p>
+<pre><code>{&quot;accountId&quot;:&quot;0000015cf505ed48-0242ac1200090001&quot;,&quot;balance&quot;:73550000,&quot;title&quot;:&quot;RRSP account&quot;,&quot;description&quot;:&quot;account for testing&quot;}
+</code></pre>
 
 <p>&ndash; View account transaction history:</p>
 
-<p><a href="http://localhost:8082/v1/accounts/0000015cf910e31b-0242ac1200080000/history">http://localhost:8082/v1/accounts/0000015cf910e31b-0242ac1200080000/history</a></p>
+<pre><code>http://localhost:8082/v1/accounts/0000015cf910e31b-0242ac1200080000/history
+</code></pre>
 
 <p>Result:</p>
 
