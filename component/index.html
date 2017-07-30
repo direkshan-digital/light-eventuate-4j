@@ -9,18 +9,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
-    <title>Unit Test - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
+    <title>Components - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
     <meta name="generator" content="Hugo 0.20.6" />
 
     
     <meta name="description" content="Light Eventuate Docs">
     
-    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/tutorial/unit-test/">
+    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/component/">
     
     <meta name="author" content="Steve Hu, Gavin Chen">
     
 
-    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/tutorial/unit-test/">
+    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/component/">
     <meta property="og:title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
     <meta property="og:image" content="https://networknt.github.io/light-eventuate-4j/images/logo.png">
     <meta name="apple-mobile-web-app-title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
@@ -97,7 +97,7 @@
     </div>
     <div class="stretch">
       <div class="title">
-        Unit Test
+        Components
       </div>
     </div>
 
@@ -234,11 +234,14 @@
 
 
 
-<a  title="Component" href="https://networknt.github.io/light-eventuate-4j/component/">
+<a class="current" title="Component" href="https://networknt.github.io/light-eventuate-4j/component/">
 	
 	Component
 </a>
 
+
+<ul id="scrollspy">
+</ul>
 
 
   
@@ -389,17 +392,110 @@
 
 	<article class="article">
 		<div class="wrapper">
-			<h1>Unit Test </h1>
+			<h1>Components </h1>
 
 			
 
-<h2 id="junit-test">Junit test</h2>
+<p>There are too many components in light-eventuate-4j and they can be categorized
+to four groups.</p>
 
-<p>Run the junit test test cases in the each component modules to unit test.</p>
+<h2 id="data-change-capture">Data change capture</h2>
 
-<h2 id="unit-test">Unit test</h2>
+<h3 id="cdc-common">cdc-common</h3>
 
-<p>Run EventuateEmbeddedTestAggregateStoreTest test case in testjdbc module to unit test the event process</p>
+<p>This module contains some common classes and configuration for data change capture.</p>
+
+<h3 id="cdc-mysql">cdc-mysql</h3>
+
+<p>This module contains Mysql related classes for data change capture. It is based on
+<a href="https://github.com/shyiko/mysql-binlog-connector-java">Mysql binlog connector for Java</a></p>
+
+<h3 id="cdc-server">cdc-server</h3>
+
+<p>This is a microservice implemented on top of light-rest-4j framework. It constantly
+monitors Mysql binlog and pushes EVENTS table changes to Kafka topic. This server can be
+started with a docker-compose file in <a href="https://github.com/networknt/light-docker">light-docker</a></p>
+
+<p>Assume you are using ~/networknt as your working directory.</p>
+
+<pre><code>git clone git@github.com:networknt/light-docker.git
+docker-compose -f docker-compose-cdcserver.yml up
+</code></pre>
+
+<h3 id="cdc-service">cdc-service</h3>
+
+<p>This is a microservice implemented on top of light-hybrid-4j framework. It monitors Mysql
+binlog and pushes EVENTS table changes to Kafka topic. Unlike the cdc-server above, this
+service cannot be started standalone. It must be embedded into hybrid-command server
+described below.</p>
+
+<p>Note: the entire light-eventuate-4j platform only need one Data Change Capture service and
+you can choose the restful cdc-server or hybrid cdc-service but make sure that only one of
+them is running.</p>
+
+<h2 id="event-store-and-client">Event store and client</h2>
+
+<h3 id="eventuate-common">eventuate-common</h3>
+
+<p>This module contains some classes that shared by all other modules. It defines interfaces
+and provides implementations for most of them.</p>
+
+<h3 id="eventuate-event">eventuate-event</h3>
+
+<p>This module contains all the classes for event dispatcher and handler.</p>
+
+<h3 id="eventuate-kafka">eventuate-kafka</h3>
+
+<p>This module is responsible for Kafka publishing and consuming.</p>
+
+<h3 id="eventuate-client">eventuate-client</h3>
+
+<p>This is the module that user services will be using to communicate with light-eventuate-4j
+platform.</p>
+
+<h3 id="eventuate-jdbc">eventuate-jdbc</h3>
+
+<p>This module contains classes related to database communications.</p>
+
+<h3 id="eventuate-test">eventuate-test</h3>
+
+<p>A test module that test some of the features and concept for light-eventuate-4j. Some of the
+tests are located in this module due to cycle dependency or the test across several modules.</p>
+
+<h3 id="eventuate-console">eventuate-console</h3>
+
+<p>This is a Javascript Single Page Application that is used to monitor the light-eventuate-4j
+platform.</p>
+
+<h2 id="test-module-and-utility">Test module and utility</h2>
+
+<h3 id="test-util">test-util</h3>
+
+<p>This module contains some utility classes to facilitate testing.</p>
+
+<h3 id="test-domain">test-domain</h3>
+
+<p>Account management domain object defined for some test cases.</p>
+
+<h3 id="test-example">test-example</h3>
+
+<p>Example classes that uses test-domain classes</p>
+
+<h3 id="test-jdbc">test-jdbc</h3>
+
+<p>Testing JDBC classes for db repository.</p>
+
+<h2 id="hybrid-command-and-query-servers">Hybrid command and query servers</h2>
+
+<h3 id="hybrid-command">hybrid-command</h3>
+
+<p>Hybrid server platform for command side services. You can have multiple command side services
+that are deployed with one instance of the hybrid-command.</p>
+
+<h3 id="hybrid-query">hybrid-query</h3>
+
+<p>Hybrid server platform for query side services. You can have multiple query side services
+that are deployed with one instance of the hybrid-query.</p>
 
 
 			<aside class="copyright" role="note">
@@ -418,7 +514,7 @@
 <nav class="pagination" aria-label="Footer">
   <div class="previous">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/tutorial/integration-test/" title="Integration Test">
+      <a href="https://networknt.github.io/light-eventuate-4j/tutorial/eventuate-dev/" title="Workspace setup for developing light-eventuate-4j component">
         <span class="direction">
           Previous
         </span>
@@ -428,7 +524,7 @@
           </div>
           <div class="stretch">
             <div class="title">
-              Integration Test
+              Workspace setup for developing light-eventuate-4j component
             </div>
           </div>
         </div>
@@ -438,14 +534,14 @@
 
   <div class="next">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/tutorial/setup/" title="Workspace Setup">
+      <a href="https://networknt.github.io/light-eventuate-4j/example/transfer_introduction/" title="Account Money Transfer Introduction">
         <span class="direction">
           Next
         </span>
         <div class="page">
           <div class="stretch">
             <div class="title">
-              Workspace Setup
+              Account Money Transfer Introduction
             </div>
           </div>
           <div class="button button-next" role="button" aria-label="Next">

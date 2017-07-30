@@ -9,18 +9,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
-    <title>Workspace Setup - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
+    <title>Workspace setup for developing light-eventuate-4j component - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
     <meta name="generator" content="Hugo 0.20.6" />
 
     
     <meta name="description" content="Light Eventuate Docs">
     
-    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/tutorial/setup/">
+    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/tutorial/eventuate-dev/">
     
     <meta name="author" content="Steve Hu, Gavin Chen">
     
 
-    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/tutorial/setup/">
+    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/tutorial/eventuate-dev/">
     <meta property="og:title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
     <meta property="og:image" content="https://networknt.github.io/light-eventuate-4j/images/logo.png">
     <meta name="apple-mobile-web-app-title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
@@ -97,7 +97,7 @@
     </div>
     <div class="stretch">
       <div class="title">
-        Workspace Setup
+        Workspace setup for developing light-eventuate-4j component
       </div>
     </div>
 
@@ -389,7 +389,7 @@
 
 	<article class="article">
 		<div class="wrapper">
-			<h1>Workspace Setup </h1>
+			<h1>Workspace setup for developing light-eventuate-4j component </h1>
 
 			
 
@@ -411,7 +411,11 @@ and Command Query Responsibility Segregation (CQRS).</p>
 <p>light-eventuate-4j consists of a scalable, distributed event store server and client
 libraries for frameworks like light-rest-4j, light-graphql-4j and light-hybrid-4.</p>
 
-<h2 id="prepare-workspace">Prepare workspace</h2>
+<p>The following assume you are going to update or add new feature to the light-eventuate-4j
+framework and install every component manually so that you have better control in order
+to debug into each of them.</p>
+
+<h2 id="prepare-workspace">Prepare Workspace</h2>
 
 <p>All specifications and code of the services are on github.com but we are going to
 redo it again by following the steps in the tutorial. Let&rsquo;s first create a workspace.</p>
@@ -419,96 +423,191 @@ redo it again by following the steps in the tutorial. Let&rsquo;s first create a
 <p>I have created a directory named networknt under user directory. So my workspace is
 ~/networknt</p>
 
-<p>Checkout related projects.</p>
+<h2 id="checkout-and-build-related-projects">Checkout and build related projects.</h2>
 
 <pre><code>cd ~/networknt
 git clone git@github.com:networknt/light-4j.git
 git clone git@github.com:networknt/light-rest-4j.git
+git clone git@github.com:networknt/light-hybrid-4j.git
 git clone git@github.com:networknt/light-codegen.git
 git clone git@github.com:networknt/light-eventuate-4j.git
 git clone git@github.com:networknt/light-eventuate-example.git
-git clone git@github.com:networknt/light-hybrid-4j.git
-
-
-## Prepare workspace
-
-Go into the projects folder above, and build the project with maven
 
 </code></pre>
 
-<p>mvn clean install</p>
+<p>In fact, only light-eventuate-4j is needed; however, other projects provides source code
+so that you can read and understand how services built on top of each frameworks will be
+interacting with light-eventuate-4j.</p>
 
-<pre><code>
-## Prepare and start event store (without docker)
+<p>Go into the project folders above one by one, and build the each project with maven</p>
 
-The light event sourcing framework build on event store which used to save and dispatch events for calling microservices.
-The event store is build upon the database (mysql or postgresql) and distributed stream system (Kafka). For the local environment (wothout docker). Please follow below step to setup event store.
+<pre><code>mvn clean install
 
-
---- Mysql (by default: use mysql as database to save event/entity/snapshot records):
-
--- Download mysql database (version: 5.7.18 and above) and install it in local environment.
-
--- start mysql database: &gt;mysqld
-
--- get and run DB setup script from folder: /light-eventuate-4j/client/src/main/resources/mysql-event-store-schema.sql
-
-
-
---- Kafka:
-
---Download Kafka (distributed steam system) from for version (2.11-0.10.2.0 or above):
-  http://www.us.apache.org/dist/kafka/0.10.2.0/kafka_2.11-0.10.2.0.tgz
-
--- Start zookeeper server and Kafka server:
-   Kafka uses ZooKeeper so you need to first start a ZooKeeper server if you don't already have one. You can use the convenience script packaged with kafka to get a quick-and-dirty single-node ZooKeeper instance.
-  &gt; bin/zookeeper-server-start.sh config/zookeeper.properties
-
---- Start Kafka server
-  &gt;bin/kafka-server-start.sh config/server.properties
-
---- postgresql (if user select postgreSql as database to save event/entity/snapshot records)
-  --TODO
-
-
-
-## Prepare and start event sourcing CDC (capture data change service).
-
-CDC service use database replication to populate data from database (mysql) to distributed stream system (kafka).
-
--- go to cdcservice project module:
-  cd cdcservice
-
--- run command line:
 </code></pre>
 
-<p>java -cp target/eventuate-command-1.3.4.jar com.networknt.server.Server
-  ```</p>
+<h2 id="install-and-start-kafka-zookeeper-and-mysql-without-docker">Install and start Kafka, Zookeeper and Mysql without Docker</h2>
+
+<p>For most people, you don&rsquo;t need to manually install Kafka, Zookeeper and Mysql on your
+computer. It is easy to use docker-compose from <a href="https://github.com/networknt/light-docker">light-docker</a></p>
+
+<p>The following steps are for two types of developers:</p>
+
+<ul>
+<li><p>DevOps guy that need to install above software package into official environments
+including prod.</p></li>
+
+<li><p>Hardcore developer that don&rsquo;t want to install Docker and want fully control of each
+component so that they can debug into them with configuration changes at ease.</p></li>
+</ul>
+
+<p>The light-eventuate-4j event sourcing/CQRS framework build on event store which used to save
+and dispatch events for subscribing microservices.</p>
+
+<p>The event store is build upon the database Mysql (Postgres and Oracle in the future) and
+distributed stream system (Kafka). Zookeeper is require to run Kafka cluster. For the local
+environment without Docker, please follow below step to setup the infrastructure components.</p>
+
+<h3 id="install-mysql">Install Mysql</h3>
+
+<p>&ndash; Mysql (by default: we use mysql as database to save event/entity/snapshot records):</p>
+
+<p>&ndash; Download mysql database (version: 5.7.18 and above) and install it in local environment.</p>
+
+<p>&ndash; start mysql database: &gt;mysqld</p>
+
+<p>&ndash; get and run DB setup script from folder: /light-eventuate-4j/eventuate-client/src/main/resources/mysql-event-store-schema.sql</p>
+
+<h3 id="install-kafka">Install Kafka</h3>
+
+<p>&ndash;Download Kafka (distributed steam system) from for version (2.11-0.10.2.0 or above):
+  <a href="http://www.us.apache.org/dist/kafka/0.10.2.0/kafka_2.11-0.10.2.0.tgz">http://www.us.apache.org/dist/kafka/0.10.2.0/kafka_2.11-0.10.2.0.tgz</a></p>
+
+<p>&ndash; Start zookeeper server and Kafka server:
+   Kafka uses ZooKeeper so you need to first start a ZooKeeper server if you don&rsquo;t already have one. You can use the convenience script packaged with kafka to get a quick-and-dirty single-node ZooKeeper instance.
+  &gt; bin/zookeeper-server-start.sh config/zookeeper.properties</p>
+
+<p>&mdash; Start Kafka server
+  &gt;bin/kafka-server-start.sh config/server.properties</p>
+
+<h2 id="install-and-start-kafka-zookeeper-and-mysql-with-docker">Install and start Kafka, Zookeeper and Mysql with Docker</h2>
+
+<p>If you want to develop light-eventuate-4j and don&rsquo;t want to install above software package
+one by one, you can install and start them in one docker-compose command.</p>
+
+<p>First you need to checkout light-docker which contains all docker related files and run the
+command. Make sure you have Docker installed before running docker-compose.</p>
+
+<pre><code class="language-$xslt">git clone git@github.com:networknt/light-docker.git
+cd ~/networknt/light-docker
+docker-compose -f docker-compose-eventuate.yml up
+</code></pre>
+
+<p>The above docker-compose command will start Mysql, Zookeeper and Kafka all together.</p>
+
+<p>When you want to shutdown, you open another terminal and run.</p>
+
+<pre><code class="language-$xslt">cd ~/networknt/light-docker
+docker-compose -f docker-compose-eventuate.yml down
+</code></pre>
+
+<p>You can kill the docker-compose from the same terminal by issuing CTRL+C but should run
+the following command anyway in order to cleanup these docker containers.</p>
+
+<pre><code class="language-$xslt">docker-compose -f docker-compose-eventuate.yml down 
+</code></pre>
+
+<h2 id="prepare-and-start-cdc-change-data-capture-restful-server">Prepare and start CDC (Change Data Capture) RESTful server</h2>
+
+<p>CDC services use database binlog to populate data from database (mysql) to distributed
+stream system (kafka).</p>
+
+<p>They are two different types of CDC service and one is a standalone Restful server
+(cdc-server) and another one is a hybrid service(cdc-service).</p>
+
+<p>The easiest way is to use the RESTful server as there is no extra dependencies.</p>
+
+<p>You can start it manually by following these steps.</p>
+
+<pre><code class="language-$xslt">cd ~/networknt/light-eventuate-4j/cdc-server
+java -jar target/cdc-server-1.3.4.jar
+</code></pre>
 
 <p>or</p>
 
-<p>mvn exec:exec</p>
+<pre><code class="language-$xslt">cd ~/networknt/light-eventuate-4j/cdc-server
+java -cp target/cdc-server-1.3.4.jar com.networknt.server.Server
+</code></pre>
 
-<h2 id="prepare-and-start-event-sourcing-command-side-service-and-query-side-service">Prepare and start event sourcing command side service and query side service.</h2>
+<p>or</p>
 
-<p>Normally event sourcing system will have at least two microservices:</p>
+<pre><code class="language-$xslt">cd ~/networknt/light-eventuate-4j/cdc-server
+mvn exec:exec
+</code></pre>
 
-<p>command side service</p>
+<p>Another way to start CDC RESTful server is by using docker-compose.</p>
 
-<p>query side service</p>
+<pre><code class="language-$xslt">cd ~/networknt/light-docker
+docker-compose -f docker-compose-cdcserver.yml up
+</code></pre>
 
-<p>For example, to use our simple todo-list example:</p>
+<p>Normally, you only need to start CDC server manually when you are update CDC
+components. Docker is much easier and convenient.</p>
 
-<p>Go to light-eventuate-example/todo-list
- Build the project from command line:
-   &ndash;mvn clean install</p>
+<h2 id="prepare-and-start-cqrs-command-server-with-command-services">Prepare and start CQRS command server with command services</h2>
 
-<h2 id="command-side-service">Command side service</h2>
+<p>light-eventuate-4j provides two hybrid servers that can be used to host all services
+developed on top of light-hybrid-4j framework that communicate with light-eventuate-4j.</p>
 
-<p>Go command-service module, run command line:
-   &ndash; mvn package exec:exec</p>
+<p>Also, it provides cdc-service which is a replacement for above cdc-server and it can be
+hosted with command server along with other command services. In this case, you don&rsquo;t
+need to start a separate Java instance.</p>
 
-<h2 id="query-side-service">Query side service</h2>
+<p>Normally application built on top of light-eventuate-4j will have at least two microservices:</p>
+
+<ul>
+<li><p>command side service</p></li>
+
+<li><p>query side service</p></li>
+</ul>
+
+<p>These services can be built on top of light-rest-4j, light-graphql-4j or light-hybrid-4j.</p>
+
+<p>If they are built with light-rest-4j or light-graphql-4j, they can be started as normal
+standalone servers.</p>
+
+<p>However, if they are built with light-hybrid-4j, they can be started with hybrid-command
+or hybrid-query server platforms.</p>
+
+<p>Here is the way to start command server with command services manually. Assuming all your
+services and their dependencies are located at ~/networknt/light-eventuate-4j/docker/command/service</p>
+
+<pre><code class="language-$xslt">cd ~/networknt/light-eventuate-4j/hybrid-command
+java -cp ~/networknt/light-eventuate-4j/docker/command/service/*:target/hybrid-command-1.3.4.jar com.networknt.server.Server
+</code></pre>
+
+<h2 id="prepare-and-start-cqrs-query-server-with-query-services">Prepare and start CQRS query server with query services</h2>
+
+<p>If all your query side services are built on light-hybrid-4j framework, you can copy
+them into ~/networknt/light-eventuate-4j/docker/query/service folder along with all
+the dependencies that is not included in hybrid-query server.</p>
+
+<p>To start the query server manually.</p>
+
+<pre><code class="language-$xslt">cd ~/networknt/light-eventuate-4j/hybrid-query
+java -cp ~/networknt/light-eventuate-4j/docker/query/service/*:target/hybrid-query-1.3.4.jar com.networknt.server.Server
+
+</code></pre>
+
+<h2 id="start-command-server-and-query-server-together-with-docker">Start command server and query server together with Docker</h2>
+
+<p>You can start both command server and query server along with their services
+with docker-compose.</p>
+
+<pre><code class="language-$xslt">cd ~/networknt/light-docker
+docker-compose -f docker-compose-hybrid.yml up
+</code></pre>
+
+<h2 id="test-with-todo-list-example-application">Test with todo-list example application</h2>
 
 <p>Prepare query side DB script: (DB script saved at: /light-eventuate-example/mysql; root user for mysql: root/rootpassword)</p>
 
@@ -529,68 +628,6 @@ GRANT ALL PRIVILEGES ON todo_db.* TO 'mysqluser' IDENTIFIED BY 'mysqlpw';
 <p>Go query-service module, run command line:
    &ndash; mvn package exec:exec</p>
 
-<h1 id="dockerization">Dockerization</h1>
-
-<ul>
-<li><a href="https://networknt.github.io/light-eventuate-4j/tutorial/docker/">How to build and create event store docker images for light-eventuate-4j framework</a></li>
-</ul>
-
-<h2 id="event-store-docker-compose">Event Store docker compose:</h2>
-
-<p>Docker can simplify the application delivery. For light event sourcing system, to start event store by dockerization:</p>
-
-<p>&ndash; From light-eventuate-4j project root folder: /light-eventuate-4j</p>
-
-<p>&ndash; run docker-compose up</p>
-
-<p>system will start ALL required event store components (mysql, zookeeper, kafka)</p>
-
-<p>For todo-list example:</p>
-
-<p>Prepare query side DB script: (DB script saved at: /light-eventuate-example/mysql; root user for mysql: root/rootpassword)</p>
-
-<pre><code>  create database todo_db;
-
-  CREATE  TABLE TODO (
-    ID varchar(255),
-    TITLE varchar(255),
-    COMPLETED BOOLEAN,
-    ORDER_ID INTEGER,
-    ACTIVE_FLG varchar(1) DEFAULT 'Y',
-    PRIMARY KEY(ID)
-  );
-
-  GRANT ALL PRIVILEGES ON todo_db.* TO 'mysqluser' IDENTIFIED BY 'mysqlpw';
-</code></pre>
-
-<h2 id="for-restful-services">For Restful Services</h2>
-
-<p>Start CDC service:</p>
-
-<p>&ndash; From light-eventuate-4j project root folder: /light-eventuate-4j</p>
-
-<p>&ndash; run docker-compose -f docker-compose-cdcservice.yml up</p>
-
-<p>Run Command/Query side service:</p>
-
-<p>&ndash; From todo-list example root folder: /light-eventuate-example/todo-list</p>
-
-<p>&ndash; run docker-compose up</p>
-
-<h2 id="for-hybrid-api-services">For Hybrid API Services</h2>
-
-<p>&ndash; From light-eventuate-4j project root folder: /light-eventuate-4j</p>
-
-<p>&ndash; Run docker-compose -f docker-compose-service.yml up</p>
-
-<h2 id="integration">Integration</h2>
-
-<h2 id="performance">Performance</h2>
-
-<h2 id="production">Production</h2>
-
-<h2 id="conclusion">Conclusion</h2>
-
 
 			<aside class="copyright" role="note">
 				
@@ -608,7 +645,7 @@ GRANT ALL PRIVILEGES ON todo_db.* TO 'mysqluser' IDENTIFIED BY 'mysqlpw';
 <nav class="pagination" aria-label="Footer">
   <div class="previous">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/tutorial/unit-test/" title="Unit Test">
+      <a href="https://networknt.github.io/light-eventuate-4j/tutorial/service-dev/" title="Workspace setup for developing light-eventuate-4j services">
         <span class="direction">
           Previous
         </span>
@@ -618,7 +655,7 @@ GRANT ALL PRIVILEGES ON todo_db.* TO 'mysqluser' IDENTIFIED BY 'mysqlpw';
           </div>
           <div class="stretch">
             <div class="title">
-              Unit Test
+              Workspace setup for developing light-eventuate-4j services
             </div>
           </div>
         </div>
@@ -627,6 +664,22 @@ GRANT ALL PRIVILEGES ON todo_db.* TO 'mysqluser' IDENTIFIED BY 'mysqlpw';
   </div>
 
   <div class="next">
+  
+      <a href="https://networknt.github.io/light-eventuate-4j/component/" title="Components">
+        <span class="direction">
+          Next
+        </span>
+        <div class="page">
+          <div class="stretch">
+            <div class="title">
+              Components
+            </div>
+          </div>
+          <div class="button button-next" role="button" aria-label="Next">
+            <i class="icon icon-forward"></i>
+          </div>
+        </div>
+      </a>
   
   </div>
 </nav>

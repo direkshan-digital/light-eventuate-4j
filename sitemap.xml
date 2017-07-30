@@ -2,6 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://networknt.github.io/light-eventuate-4j/tutorial/todo-list/</loc>
+    <lastmod>2017-07-30T10:45:03-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://networknt.github.io/light-eventuate-4j/tutorial/service-dev/</loc>
+    <lastmod>2017-07-29T22:02:00-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://networknt.github.io/light-eventuate-4j/tutorial/eventuate-dev/</loc>
+    <lastmod>2017-07-29T22:01:45-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://networknt.github.io/light-eventuate-4j/component/</loc>
+    <lastmod>2017-07-29T18:51:48-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://networknt.github.io/light-eventuate-4j/example/transfer_introduction/</loc>
     <lastmod>2017-06-30T20:22:34-04:00</lastmod>
   </url>
@@ -34,11 +54,6 @@
   <url>
     <loc>https://networknt.github.io/light-eventuate-4j/architecture/comm-pattern/</loc>
     <lastmod>2017-06-09T14:39:01-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://networknt.github.io/light-eventuate-4j/design/component/</loc>
-    <lastmod>2017-06-09T13:15:31-04:00</lastmod>
   </url>
   
   <url>
@@ -138,6 +153,12 @@
   </url>
   
   <url>
+    <loc>https://networknt.github.io/light-eventuate-4j/component/</loc>
+    <lastmod>2017-07-29T18:51:48-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://networknt.github.io/light-eventuate-4j/design/</loc>
     <lastmod>2017-06-19T08:18:08-04:00</lastmod>
     <priority>0</priority>
@@ -157,7 +178,7 @@
   
   <url>
     <loc>https://networknt.github.io/light-eventuate-4j/</loc>
-    <lastmod>2017-06-30T20:22:34-04:00</lastmod>
+    <lastmod>2017-07-30T10:45:03-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -174,7 +195,7 @@
   
   <url>
     <loc>https://networknt.github.io/light-eventuate-4j/tutorial/</loc>
-    <lastmod>2017-04-27T09:38:08-04:00</lastmod>
+    <lastmod>2017-07-30T10:45:03-04:00</lastmod>
     <priority>0</priority>
   </url>
   

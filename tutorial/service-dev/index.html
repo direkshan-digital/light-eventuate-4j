@@ -9,18 +9,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
-    <title>Unit Test - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
+    <title>Workspace setup for developing light-eventuate-4j services - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
     <meta name="generator" content="Hugo 0.20.6" />
 
     
     <meta name="description" content="Light Eventuate Docs">
     
-    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/tutorial/unit-test/">
+    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/tutorial/service-dev/">
     
     <meta name="author" content="Steve Hu, Gavin Chen">
     
 
-    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/tutorial/unit-test/">
+    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/tutorial/service-dev/">
     <meta property="og:title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
     <meta property="og:image" content="https://networknt.github.io/light-eventuate-4j/images/logo.png">
     <meta name="apple-mobile-web-app-title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
@@ -97,7 +97,7 @@
     </div>
     <div class="stretch">
       <div class="title">
-        Unit Test
+        Workspace setup for developing light-eventuate-4j services
       </div>
     </div>
 
@@ -389,17 +389,27 @@
 
 	<article class="article">
 		<div class="wrapper">
-			<h1>Unit Test </h1>
+			<h1>Workspace setup for developing light-eventuate-4j services </h1>
 
 			
 
-<h2 id="junit-test">Junit test</h2>
+<h2 id="introduction">Introduction</h2>
 
-<p>Run the junit test test cases in the each component modules to unit test.</p>
+<p>Microservices enable businesses to innovate faster and stay ahead of the competitions.
+But one major challenge with the microservices architecture is the management of
+distributed data. Each microservice has its own private database. It is difficult to
+implement business transactions that maintain data consistency across multiple services
+as well as queries that retrieve data from multiple services.</p>
 
-<h2 id="unit-test">Unit test</h2>
+<p>The light-eventuate-4j is an event sourcing and CQRS framework provides a simple yet
+powerful event-driven programming model that solves the distributed data management
+problems inherent in a microservice architecture.</p>
 
-<p>Run EventuateEmbeddedTestAggregateStoreTest test case in testjdbc module to unit test the event process</p>
+<p>The programming model is based on two well established patterns: Event Sourcing (ES)
+and Command Query Responsibility Segregation (CQRS).</p>
+
+<p>light-eventuate-4j consists of a scalable, distributed event store server and client
+libraries for frameworks like light-rest-4j, light-graphql-4j and light-hybrid-4.</p>
 
 
 			<aside class="copyright" role="note">
@@ -418,7 +428,7 @@
 <nav class="pagination" aria-label="Footer">
   <div class="previous">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/tutorial/integration-test/" title="Integration Test">
+      <a href="https://networknt.github.io/light-eventuate-4j/tutorial/todo-list/" title="Todo list tutorial">
         <span class="direction">
           Previous
         </span>
@@ -428,7 +438,7 @@
           </div>
           <div class="stretch">
             <div class="title">
-              Integration Test
+              Todo list tutorial
             </div>
           </div>
         </div>
@@ -438,14 +448,14 @@
 
   <div class="next">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/tutorial/setup/" title="Workspace Setup">
+      <a href="https://networknt.github.io/light-eventuate-4j/tutorial/eventuate-dev/" title="Workspace setup for developing light-eventuate-4j component">
         <span class="direction">
           Next
         </span>
         <div class="page">
           <div class="stretch">
             <div class="title">
-              Workspace Setup
+              Workspace setup for developing light-eventuate-4j component
             </div>
           </div>
           <div class="button button-next" role="button" aria-label="Next">

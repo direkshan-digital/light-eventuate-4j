@@ -7,10 +7,52 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Released under the MIT license</copyright>
-    <lastBuildDate>Fri, 30 Jun 2017 20:22:34 -0400</lastBuildDate>
+    <lastBuildDate>Sun, 30 Jul 2017 10:45:03 -0400</lastBuildDate>
     
 	<atom:link href="https://networknt.github.io/light-eventuate-4j/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Todo list tutorial</title>
+      <link>https://networknt.github.io/light-eventuate-4j/tutorial/todo-list/</link>
+      <pubDate>Sun, 30 Jul 2017 10:45:03 -0400</pubDate>
+      
+      <guid>https://networknt.github.io/light-eventuate-4j/tutorial/todo-list/</guid>
+      <description>This is the most simple Hello World type of application with event sourcing and CQRS on top of light-eventuate-4j. It has command side service that add new todo item, update existing todo item and remove todo item(s). It also has query side service to retrieve all the todo items for display in the web single page application.
+The following steps will assume you know the basic about light-eventuate-4j as well as light-rest-4j and light-hybrid-4j as we are going to build services in RESTful style and Hybrid style.</description>
+    </item>
+    
+    <item>
+      <title>Workspace setup for developing light-eventuate-4j services</title>
+      <link>https://networknt.github.io/light-eventuate-4j/tutorial/service-dev/</link>
+      <pubDate>Sat, 29 Jul 2017 22:02:00 -0400</pubDate>
+      
+      <guid>https://networknt.github.io/light-eventuate-4j/tutorial/service-dev/</guid>
+      <description>Introduction Microservices enable businesses to innovate faster and stay ahead of the competitions. But one major challenge with the microservices architecture is the management of distributed data. Each microservice has its own private database. It is difficult to implement business transactions that maintain data consistency across multiple services as well as queries that retrieve data from multiple services.
+The light-eventuate-4j is an event sourcing and CQRS framework provides a simple yet powerful event-driven programming model that solves the distributed data management problems inherent in a microservice architecture.</description>
+    </item>
+    
+    <item>
+      <title>Workspace setup for developing light-eventuate-4j component</title>
+      <link>https://networknt.github.io/light-eventuate-4j/tutorial/eventuate-dev/</link>
+      <pubDate>Sat, 29 Jul 2017 22:01:45 -0400</pubDate>
+      
+      <guid>https://networknt.github.io/light-eventuate-4j/tutorial/eventuate-dev/</guid>
+      <description>Introduction Microservices enable businesses to innovate faster and stay ahead of the competitions. But one major challenge with the microservices architecture is the management of distributed data. Each microservice has its own private database. It is difficult to implement business transactions that maintain data consistency across multiple services as well as queries that retrieve data from multiple services.
+The light-eventuate-4j is an event sourcing and CQRS framework provides a simple yet powerful event-driven programming model that solves the distributed data management problems inherent in a microservice architecture.</description>
+    </item>
+    
+    <item>
+      <title>Components</title>
+      <link>https://networknt.github.io/light-eventuate-4j/component/</link>
+      <pubDate>Sat, 29 Jul 2017 18:51:48 -0400</pubDate>
+      
+      <guid>https://networknt.github.io/light-eventuate-4j/component/</guid>
+      <description>There are too many components in light-eventuate-4j and they can be categorized to four groups.
+Data change capture cdc-common This module contains some common classes and configuration for data change capture.
+cdc-mysql This module contains Mysql related classes for data change capture. It is based on Mysql binlog connector for Java
+cdc-server This is a microservice implemented on top of light-rest-4j framework. It constantly monitors Mysql binlog and pushes EVENTS table changes to Kafka topic.</description>
+    </item>
     
     <item>
       <title>Account Money Transfer Introduction</title>
@@ -89,20 +131,6 @@ Synchronous The client expects a timely response from the service and might even
     </item>
     
     <item>
-      <title>Components</title>
-      <link>https://networknt.github.io/light-eventuate-4j/design/component/</link>
-      <pubDate>Fri, 09 Jun 2017 13:15:31 -0400</pubDate>
-      
-      <guid>https://networknt.github.io/light-eventuate-4j/design/component/</guid>
-      <description>light-eventuate-4 components: eventuate-cdccore : Provide API for publishing / subscribing events from Kafka
-eventuate-cdcservice: Handle MySQL replication stream and publishes them to Apache Kafka;
-eventuate-client/eventuate-common : Eventuate domain and core interface
-eventuate-event: Eventuate event handle interface and implementation
-eventuate-jdbc: Eventuate database API for persisting event to database tables
-command: Command side service which use to work as container to run command side hybrid services. Copy the command side services jar files in to the /service folder in this module.</description>
-    </item>
-    
-    <item>
       <title>Roadmap</title>
       <link>https://networknt.github.io/light-eventuate-4j/roadmap/</link>
       <pubDate>Thu, 27 Apr 2017 09:38:52 -0400</pubDate>
@@ -122,6 +150,7 @@ create example project top of Light 4J and Light Eventuate 4J.</description>
       
       <guid>https://networknt.github.io/light-eventuate-4j/tutorial/</guid>
       <description>The following tutorials will help users to get started and more will be added later.
+ [How to setup workspace for light-eventuate-4j development]()
  How to build, setting local and docker environment for light-eventuate-4j framework
  How to do unit test
  How to do end-to-end test
@@ -315,13 +344,13 @@ Unit test Run EventuateEmbeddedTestAggregateStoreTest test case in testjdbc modu
     </item>
     
     <item>
-      <title>Framework Setup</title>
+      <title>Workspace Setup</title>
       <link>https://networknt.github.io/light-eventuate-4j/tutorial/setup/</link>
       <pubDate>Sun, 09 Oct 2016 08:01:56 -0400</pubDate>
       
       <guid>https://networknt.github.io/light-eventuate-4j/tutorial/setup/</guid>
-      <description>Introduction Microservices enable businesses to innovate faster and stay ahead of the competition. But one major challenge with the microservices architecture is the management of distributed data. Each microservice has its own private database. It is difficult to implement business transactions that maintain data consistency across multiple services as well as queries that retrieve data from multiple services.
-The light event sourcing framework provides a simple yet powerful event-driven programming model that solves the distributed data management problems inherent in a microservice architecture.</description>
+      <description>Introduction Microservices enable businesses to innovate faster and stay ahead of the competitions. But one major challenge with the microservices architecture is the management of distributed data. Each microservice has its own private database. It is difficult to implement business transactions that maintain data consistency across multiple services as well as queries that retrieve data from multiple services.
+The light-eventuate-4j is an event sourcing and CQRS framework provides a simple yet powerful event-driven programming model that solves the distributed data management problems inherent in a microservice architecture.</description>
     </item>
     
   </channel>

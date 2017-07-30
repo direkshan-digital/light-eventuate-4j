@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Components on Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
+    <link>https://networknt.github.io/light-eventuate-4j/component/</link>
+    <description>Recent content in Components on Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Released under the MIT license</copyright>
+    <lastBuildDate>Sat, 29 Jul 2017 18:51:48 -0400</lastBuildDate>
+    
+	<atom:link href="https://networknt.github.io/light-eventuate-4j/component/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Components</title>
+      <link>https://networknt.github.io/light-eventuate-4j/component/</link>
+      <pubDate>Sat, 29 Jul 2017 18:51:48 -0400</pubDate>
+      
+      <guid>https://networknt.github.io/light-eventuate-4j/component/</guid>
+      <description>There are too many components in light-eventuate-4j and they can be categorized to four groups.
+Data change capture cdc-common This module contains some common classes and configuration for data change capture.
+cdc-mysql This module contains Mysql related classes for data change capture. It is based on Mysql binlog connector for Java
+cdc-server This is a microservice implemented on top of light-rest-4j framework. It constantly monitors Mysql binlog and pushes EVENTS table changes to Kafka topic.</description>
+    </item>
+    
+  </channel>
+</rss>
