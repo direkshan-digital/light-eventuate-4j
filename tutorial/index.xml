@@ -49,11 +49,12 @@ The light-eventuate-4j is an event sourcing and CQRS framework provides a simple
       
       <guid>https://networknt.github.io/light-eventuate-4j/tutorial/</guid>
       <description>The following tutorials will help users to get started and more will be added later.
- [How to setup workspace for light-eventuate-4j development]()
- How to build, setting local and docker environment for light-eventuate-4j framework
+ How to setup workspace for light-eventuate-4j development
+ How to start light-eventuate-4j for serivce development
  How to do unit test
  How to do end-to-end test
  How to do integration test
+ Todo List Application
   </description>
     </item>
     
@@ -116,16 +117,6 @@ This request will send request which will call backe-end service to generate a &
       <guid>https://networknt.github.io/light-eventuate-4j/tutorial/unit-test/</guid>
       <description>Junit test Run the junit test test cases in the each component modules to unit test.
 Unit test Run EventuateEmbeddedTestAggregateStoreTest test case in testjdbc module to unit test the event process</description>
-    </item>
-    
-    <item>
-      <title>Workspace Setup</title>
-      <link>https://networknt.github.io/light-eventuate-4j/tutorial/setup/</link>
-      <pubDate>Sun, 09 Oct 2016 08:01:56 -0400</pubDate>
-      
-      <guid>https://networknt.github.io/light-eventuate-4j/tutorial/setup/</guid>
-      <description>Introduction Microservices enable businesses to innovate faster and stay ahead of the competitions. But one major challenge with the microservices architecture is the management of distributed data. Each microservice has its own private database. It is difficult to implement business transactions that maintain data consistency across multiple services as well as queries that retrieve data from multiple services.
-The light-eventuate-4j is an event sourcing and CQRS framework provides a simple yet powerful event-driven programming model that solves the distributed data management problems inherent in a microservice architecture.</description>
     </item>
     
   </channel>

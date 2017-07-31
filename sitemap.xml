@@ -137,11 +137,6 @@
   </url>
   
   <url>
-    <loc>https://networknt.github.io/light-eventuate-4j/tutorial/setup/</loc>
-    <lastmod>2016-10-09T08:01:56-04:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://networknt.github.io/light-eventuate-4j/architecture/</loc>
     <lastmod>2017-06-19T08:14:44-04:00</lastmod>
     <priority>0</priority>

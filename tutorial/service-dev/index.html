@@ -411,6 +411,50 @@ and Command Query Responsibility Segregation (CQRS).</p>
 <p>light-eventuate-4j consists of a scalable, distributed event store server and client
 libraries for frameworks like light-rest-4j, light-graphql-4j and light-hybrid-4.</p>
 
+<p>This tutorial is for developers who are interested in building services that leverage
+light-eventuate-4j framework for service to service communication. If you want to work
+on the components in light-eventuate-4j, please follow this <a href="https://networknt.github.io/light-eventuate-4j/tutorial/eventuate-dev/">tutorial</a>
+to set up your working environment.</p>
+
+<p>Also, the following steps assume that you have docker installed on your computer.</p>
+
+<h2 id="start-mysql-zookeeper-and-kafka">Start Mysql, Zookeeper and Kafka</h2>
+
+<p>Assume you have a working directory under your home directory called networknt</p>
+
+<pre><code class="language-$xslt">cd ~/networknt
+git clone git@github.com:networknt/light-docker.git
+cd light-docker
+docker-compose -f docker-compose-eventuate.yml down
+docker-compose -f docker-compose-eventuate.yml up
+</code></pre>
+
+<p>In case the last time docker-compose is not shutdown cleanly, we run
+docker-compose down first before up.</p>
+
+<h2 id="start-cdc-server">Start CDC server</h2>
+
+<p>Open another terminal</p>
+
+<pre><code class="language-$xslt">cd ~/networknt/light-docker
+docker-compose -f docker-compose-cdcserver.yml up
+</code></pre>
+
+<h2 id="start-hybrid-command-and-query-servers">Start Hybrid Command and Query servers</h2>
+
+<p>If you are using light-hybrid-4j to develop microservices, you don&rsquo;t need to start CDC server
+in the above step. There is a cdc-service available and it can be started with other command
+side services and share the same hybrid command server.</p>
+
+<p>Here is the steps to start both command server and query server.</p>
+
+<pre><code class="language-$xslt">cd ~/networknt/light-docker
+docker-compose -f docker-compose-hybrid.yml up
+</code></pre>
+
+<p>Once you have your dev environment setup, you can follow the <a href="https://networknt.github.io/light-eventuate-4j/tutorial/todo-list/">todo-list</a>
+tutorial to get started.</p>
+
 
 			<aside class="copyright" role="note">
 				

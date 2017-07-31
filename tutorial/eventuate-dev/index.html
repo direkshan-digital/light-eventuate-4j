@@ -607,26 +607,8 @@ with docker-compose.</p>
 docker-compose -f docker-compose-hybrid.yml up
 </code></pre>
 
-<h2 id="test-with-todo-list-example-application">Test with todo-list example application</h2>
-
-<p>Prepare query side DB script: (DB script saved at: /light-eventuate-example/mysql; root user for mysql: root/rootpassword)</p>
-
-<pre><code>create database todo_db;
-
-CREATE  TABLE TODO (
-  ID varchar(255),
-  TITLE varchar(255),
-  COMPLETED BOOLEAN,
-  ORDER_ID INTEGER,
-  ACTIVE_FLG varchar(1) DEFAULT 'Y',
-  PRIMARY KEY(ID)
-);
-
-GRANT ALL PRIVILEGES ON todo_db.* TO 'mysqluser' IDENTIFIED BY 'mysqlpw';
-</code></pre>
-
-<p>Go query-service module, run command line:
-   &ndash; mvn package exec:exec</p>
+<p>Once you have your dev environment setup, you can follow the <a href="https://networknt.github.io/light-eventuate-4j/tutorial/todo-list/">todo-list</a>
+tutorial to get started.</p>
 
 
 			<aside class="copyright" role="note">
