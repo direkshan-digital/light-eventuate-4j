@@ -138,7 +138,7 @@
         </div>
       
       <div class="name">
-        <strong>Light Eventuate 4J - An event sourcing and CQRS framework with Kafka <span class="version">1.3.4</span></strong>
+        <strong>Light Eventuate 4J - An event sourcing and CQRS framework with Kafka <span class="version">1.3.5</span></strong>
         
           <br>
           networknt/light-eventuate-4j
@@ -516,7 +516,7 @@ light-codegen folder.</p>
 
 <p>First we need to update dependencies for this project by adding the following.</p>
 
-<pre><code class="language-$xslt">        &lt;version.light-eventuate-4j&gt;1.3.4&lt;/version.light-eventuate-4j&gt;
+<pre><code class="language-$xslt">        &lt;version.light-eventuate-4j&gt;1.3.5&lt;/version.light-eventuate-4j&gt;
 
 
         &lt;dependency&gt;
@@ -769,7 +769,7 @@ light-codegen folder.</p>
 
 <p>First we need to update dependencies for this project by adding the following.</p>
 
-<pre><code class="language-$xslt">        &lt;version.light-eventuate-4j&gt;1.3.4&lt;/version.light-eventuate-4j&gt;
+<pre><code class="language-$xslt">        &lt;version.light-eventuate-4j&gt;1.3.5&lt;/version.light-eventuate-4j&gt;
 
 
         &lt;dependency&gt;
@@ -1170,30 +1170,1060 @@ java -jar target/rest-query-1.0.0.jar
 
 <h2 id="command-side-hybrid-service">Command side hybrid service</h2>
 
+<p>So far, we have tried to implement both Command and Query services with Restful
+APIs. From this step, we are going to implement these service with light-hybrid-4j
+framework. Although we can put cdc-service, hybrid-command, hybrid-query into the
+same hybrid server instance, we are going to use two hybrid server instances to
+show case Command Query Responsibility Segregation(CQRS).</p>
+
+<p>If we use hybrid framework, we don&rsquo;t need the RESTful CDC service anymore. We can
+put the cdc-service into the hybrid-command server.</p>
+
+<p>To create command side hybrid server, we are going to use light-codegen to generate
+the project in todo-list. Before generating the project, we need to create a config.json
+to control how generator works and a schema.json to define the service contract.</p>
+
+<p>These two files can be found in model-config/hybrid/todo-command folder.</p>
+
+<p>config.json</p>
+
+<pre><code>{
+  &quot;rootPackage&quot;: &quot;com.networknt.todolist.command&quot;,
+  &quot;handlerPackage&quot;:&quot;com.networknt.todolist.command.handler&quot;,
+  &quot;modelPackage&quot;:&quot;com.networknt.todolist.command.model&quot;,
+  &quot;artifactId&quot;: &quot;hybrid-command&quot;,
+  &quot;groupId&quot;: &quot;com.networknt&quot;,
+  &quot;name&quot;: &quot;hybrid-command&quot;,
+  &quot;version&quot;: &quot;0.1.0&quot;,
+  &quot;overwriteHandler&quot;: true,
+  &quot;overwriteHandlerTest&quot;: true
+}
+
+</code></pre>
+
+<p>schema.json</p>
+
+<pre><code>{
+  &quot;host&quot;: &quot;lightapi.net&quot;,
+  &quot;service&quot;: &quot;todo&quot;,
+  &quot;action&quot;: [
+   {
+    &quot;name&quot;: &quot;delete&quot;,
+    &quot;version&quot;: &quot;0.1.0&quot;,
+    &quot;handler&quot;: &quot;DeleteTodo&quot;,
+    &quot;scope&quot; : &quot;todo.w&quot;,    
+    &quot;schema&quot; : {
+      &quot;title&quot; : &quot;Service&quot;,
+      &quot;type&quot; : &quot;object&quot;,
+      &quot;properties&quot; : {
+        &quot;id&quot; : {
+          &quot;type&quot; : &quot;string&quot;
+        }
+      },
+      &quot;required&quot; : [ &quot;id&quot;]
+    },
+    &quot;scope&quot; : &quot;todo.w&quot;
+  },
+  {
+      &quot;name&quot;: &quot;create&quot;,
+      &quot;version&quot;: &quot;0.1.0&quot;,
+      &quot;handler&quot;: &quot;CreateTodo&quot;,
+      &quot;scope&quot; : &quot;todo.w&quot;,
+      &quot;schema&quot; : {
+      &quot;title&quot; : &quot;Service&quot;,
+      &quot;type&quot; : &quot;object&quot;,
+      &quot;properties&quot; : {
+        &quot;title&quot; : {
+          &quot;type&quot; : &quot;string&quot;
+        },
+        &quot;completed&quot; : {
+          &quot;type&quot; : &quot;boolean&quot;
+        },
+        &quot;order&quot; : {
+          &quot;description&quot; : &quot;order of todo in the todo list&quot;,
+          &quot;type&quot; : &quot;integer&quot;,
+          &quot;minimum&quot; : 0
+        }
+      },
+      &quot;required&quot; : [ &quot;title&quot; ]
+    },
+    &quot;scope&quot; : &quot;todo.w&quot;
+  },
+{
+      &quot;name&quot;: &quot;update&quot;,
+      &quot;version&quot;: &quot;0.1.0&quot;,
+      &quot;handler&quot;: &quot;UpdateTodo&quot;,
+      &quot;scope&quot; : &quot;todo.w&quot;,
+      &quot;schema&quot; : {
+      &quot;title&quot; : &quot;Service&quot;,
+      &quot;type&quot; : &quot;object&quot;,
+      &quot;properties&quot; : {
+        &quot;id&quot; : {
+          &quot;type&quot; : &quot;string&quot;
+        },
+        &quot;title&quot; : {
+          &quot;type&quot; : &quot;string&quot;
+        },
+        &quot;completed&quot; : {
+          &quot;type&quot; : &quot;boolean&quot;
+        },
+        &quot;order&quot; : {
+          &quot;description&quot; : &quot;order of todo in the todo list&quot;,
+          &quot;type&quot; : &quot;integer&quot;,
+          &quot;minimum&quot; : 0
+        }
+      },
+      &quot;required&quot; : [ &quot;id&quot; ]
+    },
+    &quot;scope&quot; : &quot;todo.w&quot;
+  }
+  ]
+}
+</code></pre>
+
+<p>Now let&rsquo;s run the light-codegen command line to generate the project.</p>
+
+<pre><code>java -jar codegen-cli/target/codegen-cli.jar -f light-hybrid-4j-service -o ../light-example-4j/eventuate/todo-list/hybrid-command -m ../model-config/hybrid/todo-command/schema.json -c ../model-config/hybrid/todo-command/config.json
+</code></pre>
+
+<p>Let&rsquo;s add this newly generated project to the parent pom.xml and build all
+modules.</p>
+
+<pre><code>    &lt;modules&gt;
+        &lt;module&gt;common&lt;/module&gt;
+        &lt;module&gt;command&lt;/module&gt;
+        &lt;module&gt;query&lt;/module&gt;
+        &lt;module&gt;rest-command&lt;/module&gt;
+        &lt;module&gt;rest-query&lt;/module&gt;
+        &lt;module&gt;hybrid-command&lt;/module&gt;
+    &lt;/modules&gt;
+</code></pre>
+
+<pre><code>            &lt;dependency&gt;
+                &lt;groupId&gt;com.networknt&lt;/groupId&gt;
+                &lt;artifactId&gt;hybrid-command&lt;/artifactId&gt;
+                &lt;version&gt;${project.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+
+</code></pre>
+
+<p>Rebuild all modules from root folder.</p>
+
+<pre><code>mvn clean install
+
+</code></pre>
+
+<p>Now let&rsquo;s change the dependencies to add light-eventuate-4j modules and todo-list
+modules.</p>
+
+<pre><code>        &lt;version.light-eventuate-4j&gt;1.3.5&lt;/version.light-eventuate-4j&gt;
+
+</code></pre>
+
+<pre><code>        &lt;dependency&gt;
+            &lt;groupId&gt;com.networknt&lt;/groupId&gt;
+            &lt;artifactId&gt;eventuate-common&lt;/artifactId&gt;
+            &lt;version&gt;${version.light-eventuate-4j}&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.networknt&lt;/groupId&gt;
+            &lt;artifactId&gt;test-jdbc&lt;/artifactId&gt;
+            &lt;version&gt;${version.light-eventuate-4j}&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.networknt&lt;/groupId&gt;
+            &lt;artifactId&gt;eventuate-jdbc&lt;/artifactId&gt;
+            &lt;version&gt;${version.light-eventuate-4j}&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.networknt&lt;/groupId&gt;
+            &lt;artifactId&gt;eventuate-client&lt;/artifactId&gt;
+            &lt;version&gt;${version.light-eventuate-4j}&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.networknt&lt;/groupId&gt;
+            &lt;artifactId&gt;todo-common&lt;/artifactId&gt;
+            &lt;version&gt;0.1.0&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.networknt&lt;/groupId&gt;
+            &lt;artifactId&gt;todo-command&lt;/artifactId&gt;
+            &lt;version&gt;0.1.0&lt;/version&gt;
+        &lt;/dependency&gt;
+
+</code></pre>
+
+<p>With all the dependencies are added, let&rsquo;s change the handler to wire in the
+right logic.</p>
+
+<pre><code>package com.networknt.todolist.command.handler;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.networknt.config.Config;
+import com.networknt.eventuate.common.AggregateRepository;
+import com.networknt.eventuate.common.EventuateAggregateStore;
+import com.networknt.eventuate.todolist.TodoCommandService;
+import com.networknt.eventuate.todolist.TodoCommandServiceImpl;
+import com.networknt.eventuate.todolist.common.model.TodoInfo;
+import com.networknt.eventuate.todolist.domain.TodoAggregate;
+import com.networknt.eventuate.todolist.domain.TodoBulkDeleteAggregate;
+import com.networknt.service.SingletonServiceFactory;
+import com.networknt.utility.NioUtils;
+import com.networknt.rpc.Handler;
+import com.networknt.rpc.router.ServiceHandler;
+import java.nio.ByteBuffer;
+import java.util.concurrent.CompletableFuture;
+
+@ServiceHandler(id=&quot;lightapi.net/todo/create/0.1.0&quot;)
+public class CreateTodo implements Handler {
+
+    private EventuateAggregateStore eventStore  = (EventuateAggregateStore) SingletonServiceFactory.getBean(EventuateAggregateStore.class);
+
+    private AggregateRepository todoRepository = new AggregateRepository(TodoAggregate.class, eventStore);
+    private AggregateRepository bulkDeleteAggregateRepository  = new AggregateRepository(TodoBulkDeleteAggregate.class, eventStore);
+
+    private TodoCommandService service = new TodoCommandServiceImpl(todoRepository, bulkDeleteAggregateRepository);
+
+    @Override
+    public ByteBuffer handle(Object input)  {
+
+        JsonNode inputPara = Config.getInstance().getMapper().valueToTree(input);
+
+        TodoInfo todo = new TodoInfo();
+        todo.setTitle(inputPara.findPath(&quot;title&quot;).asText());
+        todo.setCompleted(inputPara.findPath(&quot;completed&quot;).asBoolean());
+        todo.setOrder(inputPara.findPath(&quot;order&quot;).asInt());
+
+        CompletableFuture&lt;TodoInfo&gt; result = service.add(todo).thenApply((e) -&gt; {
+            TodoInfo m = e.getAggregate().getTodo();
+            return m;
+        });
+
+        return NioUtils.toByteBuffer(&quot;{\&quot;message\&quot;:&quot; + result + &quot;}&quot;);
+    }
+}
+
+</code></pre>
+
+<pre><code>package com.networknt.todolist.command.handler;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.networknt.config.Config;
+import com.networknt.eventuate.common.AggregateRepository;
+import com.networknt.eventuate.common.EventuateAggregateStore;
+import com.networknt.eventuate.todolist.TodoCommandService;
+import com.networknt.eventuate.todolist.TodoCommandServiceImpl;
+import com.networknt.eventuate.todolist.common.model.TodoInfo;
+import com.networknt.eventuate.todolist.domain.TodoAggregate;
+import com.networknt.eventuate.todolist.domain.TodoBulkDeleteAggregate;
+import com.networknt.service.SingletonServiceFactory;
+import com.networknt.utility.NioUtils;
+import com.networknt.rpc.Handler;
+import com.networknt.rpc.router.ServiceHandler;
+import java.nio.ByteBuffer;
+import java.util.concurrent.CompletableFuture;
+
+@ServiceHandler(id=&quot;lightapi.net/todo/delete/0.1.0&quot;)
+public class DeleteTodo implements Handler {
+
+    private EventuateAggregateStore eventStore  = (EventuateAggregateStore) SingletonServiceFactory.getBean(EventuateAggregateStore.class);
+
+    private AggregateRepository todoRepository = new AggregateRepository(TodoAggregate.class, eventStore);
+    private AggregateRepository bulkDeleteAggregateRepository  = new AggregateRepository(TodoBulkDeleteAggregate.class, eventStore);
+
+    private TodoCommandService service = new TodoCommandServiceImpl(todoRepository, bulkDeleteAggregateRepository);
+
+
+    @Override
+    public ByteBuffer handle(Object input)  {
+
+        JsonNode inputPara = Config.getInstance().getMapper().valueToTree(input);
+        // delete a todo-event
+        String id = inputPara.findPath(&quot;id&quot;).asText();
+
+        CompletableFuture&lt;TodoInfo&gt; result = service.remove(id).thenApply((e) -&gt; {
+            TodoInfo m = e.getAggregate().getTodo();
+            return m;
+        });
+
+
+        return NioUtils.toByteBuffer(&quot;{\&quot;message\&quot;:&quot; + result + &quot;}&quot;);
+    }
+}
+
+</code></pre>
+
+<pre><code>package com.networknt.todolist.command.handler;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.networknt.config.Config;
+import com.networknt.eventuate.common.AggregateRepository;
+import com.networknt.eventuate.common.EventuateAggregateStore;
+import com.networknt.eventuate.todolist.TodoCommandService;
+import com.networknt.eventuate.todolist.TodoCommandServiceImpl;
+import com.networknt.eventuate.todolist.common.model.TodoInfo;
+import com.networknt.eventuate.todolist.domain.TodoAggregate;
+import com.networknt.eventuate.todolist.domain.TodoBulkDeleteAggregate;
+import com.networknt.service.SingletonServiceFactory;
+import com.networknt.utility.NioUtils;
+import com.networknt.rpc.Handler;
+import com.networknt.rpc.router.ServiceHandler;
+import java.nio.ByteBuffer;
+import java.util.concurrent.CompletableFuture;
+
+@ServiceHandler(id=&quot;lightapi.net/todo/update/0.1.0&quot;)
+public class UpdateTodo implements Handler {
+
+    private EventuateAggregateStore eventStore  = (EventuateAggregateStore) SingletonServiceFactory.getBean(EventuateAggregateStore.class);
+
+    private AggregateRepository todoRepository = new AggregateRepository(TodoAggregate.class, eventStore);
+    private AggregateRepository bulkDeleteAggregateRepository  = new AggregateRepository(TodoBulkDeleteAggregate.class, eventStore);
+
+    private TodoCommandService service = new TodoCommandServiceImpl(todoRepository, bulkDeleteAggregateRepository);
+    @Override
+    public ByteBuffer handle(Object input)  {
+
+        JsonNode inputPara = Config.getInstance().getMapper().valueToTree(input);
+
+        String id = inputPara.findPath(&quot;id&quot;).asText();;
+        TodoInfo todo = new TodoInfo();
+        todo.setTitle(inputPara.findPath(&quot;title&quot;).asText());
+        todo.setCompleted(inputPara.findPath(&quot;completed&quot;).asBoolean());
+        todo.setOrder(inputPara.findPath(&quot;order&quot;).asInt());
+
+        CompletableFuture&lt;TodoInfo&gt; result = service.update(id, todo).thenApply((e) -&gt; {
+            TodoInfo m = e.getAggregate().getTodo();
+            return m;
+        });
+
+
+        return NioUtils.toByteBuffer(&quot;{\&quot;message\&quot;:&quot; + result + &quot;}&quot;);
+    }
+}
+
+</code></pre>
+
+<p>As we have to put the service jar into the hybrid server platform in order to run
+it, we cannot wait then to test it. So for hybrid service development, end-to-end
+test is very important to ensure what you have built is working.</p>
+
+<pre><code>package com.networknt.todolist.command.handler;
+
+import com.networknt.client.Client;
+import com.networknt.server.Server;
+import com.networknt.exception.ClientException;
+import com.networknt.exception.ApiException;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.*;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.jose4j.json.internal.json_simple.JSONObject;
+import org.junit.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+public class CreateTodoTest {
+    @ClassRule
+    public static TestServer server = TestServer.getInstance();
+
+    static final Logger logger = LoggerFactory.getLogger(CreateTodo.class);
+
+    @Test
+    public void testCreateTodo() throws ClientException, ApiException {
+        CloseableHttpClient client = Client.getInstance().getSyncClient();
+        HttpPost httpPost = new HttpPost(&quot;http://localhost:8080/api/json&quot;);
+
+        Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();
+        map.put(&quot;host&quot;, &quot;lightapi.net&quot;);
+        map.put(&quot;service&quot;, &quot;todo&quot;);
+        map.put(&quot;action&quot;, &quot;create&quot;);
+        map.put(&quot;version&quot;, &quot;0.1.0&quot;);
+        map.put(&quot;title&quot;, &quot;create todo from hybrid service unit test&quot;);
+        map.put(&quot;completed&quot;, false);
+        map.put(&quot;order&quot;, 1);
+        JSONObject json = new JSONObject();
+        json.putAll( map );
+        System.out.printf( &quot;JSON: %s&quot;, json.toString() );
+
+
+        //Client.getInstance().addAuthorization(httpPost);
+        try {
+            httpPost.setEntity(new StringEntity(json.toString()));
+            httpPost.setHeader(&quot;Content-type&quot;, &quot;application/json&quot;);
+            CloseableHttpResponse response = client.execute(httpPost);
+            Assert.assertEquals(200, response.getStatusLine().getStatusCode());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+}
+</code></pre>
+
+<pre><code>package com.networknt.todolist.command.handler;
+
+import com.networknt.client.Client;
+import com.networknt.server.Server;
+import com.networknt.exception.ClientException;
+import com.networknt.exception.ApiException;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.*;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.jose4j.json.internal.json_simple.JSONObject;
+import org.junit.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+public class DeleteTodoTest {
+    @ClassRule
+    public static TestServer server = TestServer.getInstance();
+
+    static final Logger logger = LoggerFactory.getLogger(DeleteTodo.class);
+
+    @Test
+    public void testDeleteTodo() throws ClientException, ApiException {
+        CloseableHttpClient client = Client.getInstance().getSyncClient();
+        HttpPost httpPost = new HttpPost(&quot;http://localhost:8080/api/json&quot;);
+        Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();
+        map.put(&quot;host&quot;, &quot;lightapi.net&quot;);
+        map.put(&quot;service&quot;, &quot;todo&quot;);
+        map.put(&quot;action&quot;, &quot;delete&quot;);
+        map.put(&quot;version&quot;, &quot;0.1.0&quot;);
+        map.put(&quot;id&quot;, &quot;101010&quot;);
+
+        JSONObject json = new JSONObject();
+        json.putAll( map );
+        System.out.printf( &quot;JSON: %s&quot;, json.toString() );
+
+
+        try {
+            httpPost.setEntity(new StringEntity(json.toString()));
+            httpPost.setHeader(&quot;Content-type&quot;, &quot;application/json&quot;);
+            CloseableHttpResponse response = client.execute(httpPost);
+            Assert.assertEquals(200, response.getStatusLine().getStatusCode());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+}
+</code></pre>
+
+<pre><code>package com.networknt.todolist.command.handler;
+
+import com.networknt.client.Client;
+import com.networknt.server.Server;
+import com.networknt.exception.ClientException;
+import com.networknt.exception.ApiException;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.*;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.jose4j.json.internal.json_simple.JSONObject;
+import org.junit.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+public class UpdateTodoTest {
+    @ClassRule
+    public static TestServer server = TestServer.getInstance();
+
+    static final Logger logger = LoggerFactory.getLogger(UpdateTodo.class);
+
+    @Test
+    public void testUpdateTodo() throws ClientException, ApiException {
+        CloseableHttpClient client = Client.getInstance().getSyncClient();
+        HttpPost httpPost = new HttpPost(&quot;http://localhost:8080/api/json&quot;);
+
+        Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();
+        map.put(&quot;host&quot;, &quot;lightapi.net&quot;);
+        map.put(&quot;service&quot;, &quot;todo&quot;);
+        map.put(&quot;action&quot;, &quot;update&quot;);
+        map.put(&quot;version&quot;, &quot;0.1.0&quot;);
+        map.put(&quot;id&quot;, &quot;101010&quot;);
+        map.put(&quot;title&quot;, &quot;create todo from hybrid service unit test&quot;);
+        map.put(&quot;completed&quot;, false);
+        map.put(&quot;order&quot;, 1);
+        JSONObject json = new JSONObject();
+        json.putAll( map );
+        System.out.printf( &quot;JSON: %s&quot;, json.toString() );
+
+
+        //Client.getInstance().addAuthorization(httpPost);
+        try {
+            httpPost.setEntity(new StringEntity(json.toString()));
+            httpPost.setHeader(&quot;Content-type&quot;, &quot;application/json&quot;);
+            CloseableHttpResponse response = client.execute(httpPost);
+            Assert.assertEquals(200, response.getStatusLine().getStatusCode());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+
+<p>In order to make the test case works, we need to add a service.yml in
+src/test/resources/config folder</p>
+
+<pre><code>singletons:
+- javax.sql.DataSource:
+  - com.zaxxer.hikari.HikariDataSource:
+      DriverClassName: org.h2.jdbcx.JdbcDataSource
+      jdbcUrl: jdbc:h2:~/test
+      username: sa
+      password: sa
+- com.networknt.eventuate.common.impl.sync.AggregateCrud:
+    - com.networknt.eventuate.test.jdbc.EventuateEmbeddedTestAggregateStore
+- com.networknt.eventuate.common.impl.sync.AggregateEvents:
+    - com.networknt.eventuate.client.EventuateLocalAggregatesEvents
+- com.networknt.eventuate.common.impl.AggregateCrud:
+  - com.networknt.eventuate.common.impl.adapters.SyncToAsyncAggregateCrudAdapter
+- com.networknt.eventuate.common.impl.AggregateEvents:
+  - com.networknt.eventuate.common.impl.adapters.SyncToAsyncAggregateEventsAdapter
+- com.networknt.eventuate.common.SnapshotManager:
+  - com.networknt.eventuate.common.SnapshotManagerImpl
+- com.networknt.eventuate.common.MissingApplyEventMethodStrategy:
+  - com.networknt.eventuate.common.DefaultMissingApplyEventMethodStrategy
+- com.networknt.eventuate.common.EventuateAggregateStore:
+  - com.networknt.eventuate.common.impl.EventuateAggregateStoreImpl
+- com.networknt.eventuate.common.sync.EventuateAggregateStore:
+  - com.networknt.eventuate.common.impl.sync.EventuateAggregateStoreImpl
+- com.networknt.eventuate.todolist.domain.TodoAggregate:
+  - com.networknt.eventuate.todolist.domain.TodoAggregate
+- com.networknt.eventuate.todolist.domain.TodoBulkDeleteAggregate:
+  - com.networknt.eventuate.todolist.domain.TodoBulkDeleteAggregate
+
+</code></pre>
+
+<p>Before running the tests, we need to add the following test dependencies into
+pom.xml</p>
+
+<pre><code class="language-xml">        &lt;version.hikaricp&gt;2.5.1&lt;/version.hikaricp&gt;
+        &lt;version.h2&gt;1.3.176&lt;/version.h2&gt;
+
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.zaxxer&lt;/groupId&gt;
+            &lt;artifactId&gt;HikariCP&lt;/artifactId&gt;
+            &lt;version&gt;${version.hikaricp}&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!-- Test Dependencies --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.h2database&lt;/groupId&gt;
+            &lt;artifactId&gt;h2&lt;/artifactId&gt;
+            &lt;version&gt;${version.h2}&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+
+</code></pre>
+
+<p>Now you can build the entire project from root folder of todo-list</p>
+
+<pre><code>mvn clean install
+</code></pre>
+
 <h2 id="query-side-hybrid-service">Query side hybrid service</h2>
+
+<p>To create query side hybrid service, we are going to use light-codegen to generate
+the project in todo-list. Before generating the project, we need to create a config.json
+to control how generator works and a schema.json to define the service contract.</p>
+
+<p>These two files can be found in model-config/hybrid/todo-query folder.</p>
+
+<p>config.json</p>
+
+<pre><code>{
+  &quot;rootPackage&quot;: &quot;com.networknt.todolist.query&quot;,
+  &quot;handlerPackage&quot;:&quot;com.networknt.todolist.query.handler&quot;,
+  &quot;modelPackage&quot;:&quot;com.networknt.todolist.query.model&quot;,
+  &quot;artifactId&quot;: &quot;hybrid-query&quot;,
+  &quot;groupId&quot;: &quot;com.networknt&quot;,
+  &quot;name&quot;: &quot;hybrid-query&quot;,
+  &quot;version&quot;: &quot;0.1.0&quot;,
+  &quot;overwriteHandler&quot;: true,
+  &quot;overwriteHandlerTest&quot;: true
+}
+</code></pre>
+
+<p>schema.json</p>
+
+<pre><code>{
+  &quot;host&quot;: &quot;lightapi.net&quot;,
+  &quot;service&quot;: &quot;todo&quot;,
+  &quot;action&quot;: [
+ {
+    &quot;name&quot;: &quot;gettodo&quot;,
+    &quot;version&quot;: &quot;0.1.0&quot;,
+    &quot;handler&quot;: &quot;GetTodoById&quot;,
+    &quot;scope&quot; : &quot;todo.r&quot;, 
+    &quot;schema&quot; : {
+      &quot;title&quot; : &quot;Service&quot;,
+      &quot;type&quot; : &quot;object&quot;,
+      &quot;properties&quot; : {
+        &quot;id&quot; : {
+          &quot;type&quot; : &quot;string&quot;
+        }
+      },
+      &quot;required&quot; : [ &quot;id&quot; ]
+    },
+    &quot;scope&quot; : &quot;todo.r&quot;
+  },
+ {
+     &quot;name&quot;: &quot;gettodos&quot;,
+     &quot;version&quot;: &quot;0.1.0&quot;,
+     &quot;handler&quot;: &quot;GetAllTodos&quot;,
+    &quot;scope&quot; : &quot;todo.r&quot;, 
+    &quot;schema&quot; : {
+      &quot;title&quot; : &quot;Service&quot;
+    },
+    &quot;scope&quot; : &quot;todo.r&quot;
+  }
+  ]
+}
+</code></pre>
+
+<p>Now let&rsquo;s run the light-codegen command line to generate the project.</p>
+
+<pre><code>java -jar codegen-cli/target/codegen-cli.jar -f light-hybrid-4j-service -o ../light-example-4j/eventuate/todo-list/hybrid-query -m ../model-config/hybrid/todo-query/schema.json -c ../model-config/hybrid/todo-query/config.json
+</code></pre>
+
+<p>Let&rsquo;s add this newly generated project to the parent pom.xml and build all
+modules.</p>
+
+<pre><code>    &lt;modules&gt;
+        &lt;module&gt;common&lt;/module&gt;
+        &lt;module&gt;command&lt;/module&gt;
+        &lt;module&gt;query&lt;/module&gt;
+        &lt;module&gt;rest-command&lt;/module&gt;
+        &lt;module&gt;rest-query&lt;/module&gt;
+        &lt;module&gt;hybrid-command&lt;/module&gt;
+        &lt;module&gt;hybrid-query&lt;/module&gt;
+    &lt;/modules&gt;
+</code></pre>
+
+<pre><code>            &lt;dependency&gt;
+                &lt;groupId&gt;com.networknt&lt;/groupId&gt;
+                &lt;artifactId&gt;hybrid-query&lt;/artifactId&gt;
+                &lt;version&gt;${project.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+
+</code></pre>
+
+<p>Rebuild all modules from root folder.</p>
+
+<pre><code>mvn clean install
+
+</code></pre>
+
+<p>Now let&rsquo;s change the dependencies to add light-eventuate-4j modules and todo-list
+modules.</p>
+
+<pre><code>        &lt;version.light-eventuate-4j&gt;1.3.5&lt;/version.light-eventuate-4j&gt;
+
+</code></pre>
+
+<pre><code>        &lt;dependency&gt;
+            &lt;groupId&gt;com.networknt&lt;/groupId&gt;
+            &lt;artifactId&gt;eventuate-common&lt;/artifactId&gt;
+            &lt;version&gt;${version.light-eventuate-4j}&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.networknt&lt;/groupId&gt;
+            &lt;artifactId&gt;test-jdbc&lt;/artifactId&gt;
+            &lt;version&gt;${version.light-eventuate-4j}&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.networknt&lt;/groupId&gt;
+            &lt;artifactId&gt;eventuate-jdbc&lt;/artifactId&gt;
+            &lt;version&gt;${version.light-eventuate-4j}&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.networknt&lt;/groupId&gt;
+            &lt;artifactId&gt;eventuate-client&lt;/artifactId&gt;
+            &lt;version&gt;${version.light-eventuate-4j}&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.networknt&lt;/groupId&gt;
+            &lt;artifactId&gt;todo-common&lt;/artifactId&gt;
+            &lt;version&gt;0.1.0&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.networknt&lt;/groupId&gt;
+            &lt;artifactId&gt;todo-command&lt;/artifactId&gt;
+            &lt;version&gt;0.1.0&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.networknt&lt;/groupId&gt;
+            &lt;artifactId&gt;todo-query&lt;/artifactId&gt;
+            &lt;version&gt;0.1.0&lt;/version&gt;
+        &lt;/dependency&gt;
+
+</code></pre>
+
+<p>With all the dependencies are added, let&rsquo;s change the handler to wire in the
+right logic.</p>
+
+<pre><code>package com.networknt.todolist.query.handler;
+
+import com.networknt.config.Config;
+import com.networknt.eventuate.todolist.TodoQueryService;
+import com.networknt.eventuate.todolist.common.model.TodoInfo;
+import com.networknt.service.SingletonServiceFactory;
+import com.networknt.utility.NioUtils;
+import com.networknt.rpc.Handler;
+import com.networknt.rpc.router.ServiceHandler;
+import java.nio.ByteBuffer;
+import java.util.List;
+import java.util.Map;
+
+@ServiceHandler(id=&quot;lightapi.net/todo/gettodos/0.1.0&quot;)
+public class GetAllTodos implements Handler {
+    TodoQueryService service =
+            (TodoQueryService) SingletonServiceFactory.getBean(TodoQueryService.class);
+
+    @Override
+    public ByteBuffer handle(Object input)  {
+
+        List&lt;Map&lt;String, TodoInfo&gt;&gt; resultAll = service.getAll();
+        String returnMessage = null;
+        try {
+            returnMessage = Config.getInstance().getMapper().writeValueAsString(resultAll);
+        } catch ( Exception e) {
+
+        }
+        return NioUtils.toByteBuffer(&quot;{\&quot;message\&quot;:&quot; +returnMessage + &quot;}&quot;);
+
+    }
+}
+
+</code></pre>
+
+<pre><code>package com.networknt.todolist.query.handler;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.networknt.config.Config;
+import com.networknt.eventuate.todolist.TodoQueryService;
+import com.networknt.eventuate.todolist.common.model.TodoInfo;
+import com.networknt.service.SingletonServiceFactory;
+import com.networknt.utility.NioUtils;
+import com.networknt.rpc.Handler;
+import com.networknt.rpc.router.ServiceHandler;
+import java.nio.ByteBuffer;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+
+@ServiceHandler(id=&quot;lightapi.net/todo/gettodo/0.1.0&quot;)
+public class GetTodoById implements Handler {
+    TodoQueryService service =
+            (TodoQueryService) SingletonServiceFactory.getBean(TodoQueryService.class);
+
+    @Override
+    public ByteBuffer handle(Object input) {
+
+        JsonNode inputPara = Config.getInstance().getMapper().valueToTree(input);
+
+        String id = inputPara.findPath(&quot;id&quot;).asText();
+
+
+        CompletableFuture&lt;Map&lt;String, TodoInfo&gt;&gt; result = service.findById(id);
+        String returnMessage = null;
+        try {
+            returnMessage = Config.getInstance().getMapper().writeValueAsString(result);
+        } catch (Exception e) {
+
+        }
+        return NioUtils.toByteBuffer(&quot;{\&quot;message\&quot;:&quot; + returnMessage + &quot;}&quot;);
+    }
+}
+
+</code></pre>
+
+<p>As we have to put the service jar into the hybrid server platform in order to run
+it, we cannot wait then to test it. So for hybrid service development, end-to-end
+test is very important to ensure what you have built is working.</p>
+
+<p>Here are the two tests.</p>
+
+<pre><code class="language-java">package com.networknt.todolist.query.handler;
+
+import com.networknt.client.Client;
+import com.networknt.server.Server;
+import com.networknt.exception.ClientException;
+import com.networknt.exception.ApiException;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.*;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.jose4j.json.internal.json_simple.JSONObject;
+import org.junit.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+public class GetAllTodosTest {
+    @ClassRule
+    public static TestServer server = TestServer.getInstance();
+
+    static final Logger logger = LoggerFactory.getLogger(GetAllTodos.class);
+
+    @Test
+    public void testGetAllTodos() throws ClientException, ApiException {
+        CloseableHttpClient client = Client.getInstance().getSyncClient();
+        HttpPost httpPost = new HttpPost(&quot;http://localhost:8082/api/json&quot;);
+        Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();
+        map.put(&quot;host&quot;, &quot;lightapi.net&quot;);
+        map.put(&quot;service&quot;, &quot;todo&quot;);
+        map.put(&quot;action&quot;, &quot;gettodos&quot;);
+        map.put(&quot;version&quot;, &quot;0.1.0&quot;);
+
+        JSONObject json = new JSONObject();
+        json.putAll( map );
+        System.out.printf( &quot;JSON: %s&quot;, json.toString() );
+        //Client.getInstance().addAuthorization(httpPost);
+        try {
+            httpPost.setEntity(new StringEntity(json.toString()));
+            httpPost.setHeader(&quot;Content-type&quot;, &quot;application/json&quot;);
+            CloseableHttpResponse response = client.execute(httpPost);
+            Assert.assertEquals(200, response.getStatusLine().getStatusCode());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">package com.networknt.todolist.query.handler;
+
+import com.networknt.client.Client;
+import com.networknt.server.Server;
+import com.networknt.exception.ClientException;
+import com.networknt.exception.ApiException;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.*;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.jose4j.json.internal.json_simple.JSONObject;
+import org.junit.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+public class GetTodoByIdTest {
+    @ClassRule
+    public static TestServer server = TestServer.getInstance();
+
+    static final Logger logger = LoggerFactory.getLogger(GetTodoById.class);
+
+    @Test
+    public void testGetTodoById() throws ClientException, ApiException {
+        CloseableHttpClient client = Client.getInstance().getSyncClient();
+        HttpPost httpPost = new HttpPost(&quot;http://localhost:8082/api/json&quot;);
+        Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();
+        map.put(&quot;host&quot;, &quot;lightapi.net&quot;);
+        map.put(&quot;service&quot;, &quot;todo&quot;);
+        map.put(&quot;action&quot;, &quot;gettodo&quot;);
+        map.put(&quot;version&quot;, &quot;0.1.0&quot;);
+        map.put(&quot;id&quot;, &quot;101010&quot;);
+
+        JSONObject json = new JSONObject();
+        json.putAll( map );
+        System.out.printf( &quot;JSON: %s&quot;, json.toString() );
+
+        try {
+            httpPost.setEntity(new StringEntity(json.toString()));
+            httpPost.setHeader(&quot;Content-type&quot;, &quot;application/json&quot;);
+            CloseableHttpResponse response = client.execute(httpPost);
+            Assert.assertEquals(200, response.getStatusLine().getStatusCode());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+}
+</code></pre>
+
+<p>The test server will load some light-eventuate-4j classes and H2 database and it
+is defined in service.yml in src/test/resources/config folder.</p>
+
+<pre><code class="language-yaml">singletons:
+- javax.sql.DataSource:
+  - com.zaxxer.hikari.HikariDataSource:
+      DriverClassName: org.h2.jdbcx.JdbcDataSource
+      jdbcUrl: jdbc:h2:~/test
+      username: sa
+      password: sa
+- com.networknt.eventuate.common.impl.sync.AggregateCrud,com.networknt.eventuate.common.impl.sync.AggregateEvents:
+    - com.networknt.eventuate.test.jdbc.EventuateEmbeddedTestAggregateStore
+- com.networknt.eventuate.common.impl.AggregateCrud:
+  - com.networknt.eventuate.common.impl.adapters.SyncToAsyncAggregateCrudAdapter
+- com.networknt.eventuate.common.impl.AggregateEvents:
+  - com.networknt.eventuate.common.impl.adapters.SyncToAsyncAggregateEventsAdapter
+- com.networknt.eventuate.common.SnapshotManager:
+  - com.networknt.eventuate.common.SnapshotManagerImpl
+- com.networknt.eventuate.common.MissingApplyEventMethodStrategy:
+  - com.networknt.eventuate.common.DefaultMissingApplyEventMethodStrategy
+- com.networknt.eventuate.common.EventuateAggregateStore:
+  - com.networknt.eventuate.common.impl.EventuateAggregateStoreImpl
+- com.networknt.eventuate.common.sync.EventuateAggregateStore:
+  - com.networknt.eventuate.common.impl.sync.EventuateAggregateStoreImpl
+- com.networknt.eventuate.todolist.domain.TodoAggregate:
+  - com.networknt.eventuate.todolist.domain.TodoAggregate
+- com.networknt.eventuate.todolist.domain.TodoBulkDeleteAggregate:
+  - com.networknt.eventuate.todolist.domain.TodoBulkDeleteAggregate
+- com.networknt.eventuate.todolist.TodoQueryRepository:
+  - com.networknt.eventuate.todolist.TodoQueryRepositoryImpl
+- com.networknt.eventuate.todolist.TodoQueryService:
+  - com.networknt.eventuate.todolist.TodoQueryServiceImpl
+- com.networknt.eventuate.todolist.TodoQueryWorkflow:
+  - com.networknt.eventuate.todolist.TodoQueryWorkflow
+- com.networknt.eventuate.event.EventHandlerProcessor:
+  - com.networknt.eventuate.event.EventHandlerProcessorDispatchedEventReturningVoid
+  - com.networknt.eventuate.event.EventHandlerProcessorDispatchedEventReturningCompletableFuture
+  - com.networknt.eventuate.event.EventHandlerProcessorEventHandlerContextReturningCompletableFuture
+  - com.networknt.eventuate.event.EventHandlerProcessorEventHandlerContextReturningVoid
+- com.networknt.eventuate.client.SubscriptionsRegistry:
+  - com.networknt.eventuate.client.SubscriptionsRegistryImpl
+
+</code></pre>
+
+<p>Before running the tests, we need to add the following test dependencies into
+pom.xml</p>
+
+<pre><code class="language-xml">        &lt;version.hikaricp&gt;2.5.1&lt;/version.hikaricp&gt;
+        &lt;version.h2&gt;1.3.176&lt;/version.h2&gt;
+
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.zaxxer&lt;/groupId&gt;
+            &lt;artifactId&gt;HikariCP&lt;/artifactId&gt;
+            &lt;version&gt;${version.hikaricp}&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;!-- Test Dependencies --&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.h2database&lt;/groupId&gt;
+            &lt;artifactId&gt;h2&lt;/artifactId&gt;
+            &lt;version&gt;${version.h2}&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+
+</code></pre>
+
+<p>Now you can build the entire project from root folder of todo-list</p>
+
+<pre><code>mvn clean install
+</code></pre>
 
 <h2 id="test-hybrid-services">Test hybrid services</h2>
 
-<h2 id="test-with-todo-list-example-application">Test with todo-list example application</h2>
+<p>We will start hybrid-command server and hybrid-query server manually first and
+then start them together along with services in a docker-compose.</p>
 
-<p>Prepare query side DB script: (DB script saved at: /light-eventuate-example/mysql; root user for mysql: root/rootpassword)</p>
+<p>The first step is to make sure light-eventuate-4j platform is up and running.
+There is no need to start cdc-server though. Please follow this <a href="https://networknt.github.io/light-eventuate-4j/tutorial/service-dev/">tutorial</a></p>
 
-<pre><code>create database todo_db;
+<p>To start hybrid servers manually, we need to checkout light-eventuate-4j as these
+two servers are part of it.</p>
 
-CREATE  TABLE TODO (
-  ID varchar(255),
-  TITLE varchar(255),
-  COMPLETED BOOLEAN,
-  ORDER_ID INTEGER,
-  ACTIVE_FLG varchar(1) DEFAULT 'Y',
-  PRIMARY KEY(ID)
-);
-
-GRANT ALL PRIVILEGES ON todo_db.* TO 'mysqluser' IDENTIFIED BY 'mysqlpw';
+<pre><code>cd ~/networknt
+git clone git@github.com:networknt/light-eventuate-4j.git
+cd light-eventuate-4j
+mvn clean install
 </code></pre>
 
-<p>Go query-service module, run command line:
-   &ndash; mvn package exec:exec</p>
+<p>Next let&rsquo;s start hybrid-command server with cdc-service and todo-list hybrid-command
+service.</p>
+
+<p>As there are more jars that need to be on the classpath of hybrid-command server
+we are going to copy all of them into light-docker/</p>
+
+<pre><code>cd ~/networknt/light-docker/eventuate/hybrid-command/service
+cp ~/networknt/light-eventuate-4j/cdc-service/target/cdc-service-1.3.5.jar .
+cp ~/networknt/light-example-4j/eventuate/todo-list/common/target/todo-common-0.1.0.jar .
+cp ~/networknt/light-example-4j/eventuate/todo-list/command/target/todo-command-0.1.0.jar .
+cp ~/networknt/light-example-4j/eventuate/todo-list/hybrid-command/target/hybrid-command-0.1.0.jar .
+</code></pre>
+
+<pre><code>cd ~/networknt/light-eventuate-4j/hybrid-command
+java -cp ~/networknt/light-docker/eventuate/hybrid-command/service/*:target/hybrid-command-1.3.5.jar com.networknt.server.Server
+
+</code></pre>
+
+<p>Next let&rsquo;s start hybrid-query server with todo-list hybrid-query
+service.</p>
+
+<p>As there are more jars that need to be on the classpath of hybrid-query server
+we are going to copy all of them into light-docker/</p>
+
+<pre><code>cd ~/networknt/light-docker/eventuate/hybrid-query/service
+cp ~/networknt/light-example-4j/eventuate/todo-list/common/target/todo-common-0.1.0.jar .
+cp ~/networknt/light-example-4j/eventuate/todo-list/command/target/todo-command-0.1.0.jar .
+cp ~/networknt/light-example-4j/eventuate/todo-list/query/target/todo-query-0.1.0.jar .
+cp ~/networknt/light-example-4j/eventuate/todo-list/hybrid-query/target/hybrid-query-0.1.0.jar .
+</code></pre>
+
+<pre><code>cd ~/networknt/light-eventuate-4j/hybrid-query
+java -cp ~/networknt/light-docker/eventuate/hybrid-query/service/*:target/hybrid-query-1.3.5.jar com.networknt.server.Server
+
+</code></pre>
+
+<p>Now let&rsquo;s create a todo item on command service with the following command.</p>
+
+<pre><code>curl -X POST \
+  http://localhost:8083/api/json \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: a9a7dd04-c621-7f83-a92c-33cc69e1b5ac' \
+  -d '{&quot;host&quot;:&quot;lightapi.net&quot;,&quot;service&quot;:&quot;todo&quot;,&quot;action&quot;:&quot;create&quot;, &quot;version&quot;: &quot;0.1.0&quot;, &quot;title&quot;: &quot;create todo item from hybrid-command&quot;, &quot;completed&quot;: false, &quot;order&quot;: 1}'
+</code></pre>
+
+<p>Let&rsquo;s get all the todo items from query service with the following command</p>
+
+<pre><code>curl -X POST \
+  http://localhost:8082/api/json \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: e797a185-5e5d-2c22-6001-98629303bcbb' \
+  -d '{&quot;host&quot;:&quot;lightapi.net&quot;,&quot;service&quot;:&quot;todo&quot;,&quot;action&quot;:&quot;gettodos&quot;, &quot;version&quot;: &quot;0.1.0&quot;}'
+</code></pre>
+
+<h2 id="console">Console</h2>
 
 
 			<aside class="copyright" role="note">
