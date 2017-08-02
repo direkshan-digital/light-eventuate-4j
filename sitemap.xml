@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://networknt.github.io/light-eventuate-4j/tutorial/kafka/</loc>
+    <lastmod>2017-08-02T09:19:29-04:00</lastmod>
+  </url>
   
   <url>
     <loc>https://networknt.github.io/light-eventuate-4j/tutorial/todo-list/</loc>
@@ -173,7 +179,7 @@
   
   <url>
     <loc>https://networknt.github.io/light-eventuate-4j/</loc>
-    <lastmod>2017-07-30T10:45:03-04:00</lastmod>
+    <lastmod>2017-08-02T09:19:29-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -190,7 +196,7 @@
   
   <url>
     <loc>https://networknt.github.io/light-eventuate-4j/tutorial/</loc>
-    <lastmod>2017-07-30T10:45:03-04:00</lastmod>
+    <lastmod>2017-08-02T09:19:29-04:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
     <title>Todo list tutorial - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
-    <meta name="generator" content="Hugo 0.20.6" />
+    <meta name="generator" content="Hugo 0.21" />
 
     
     <meta name="description" content="Light Eventuate Docs">
@@ -458,7 +458,15 @@ cp -r ../todo-list.bak/query .
 
 </code></pre>
 
-<p>Now let&rsquo;s open pom.xml to remove other modules and only leave common, command and query.</p>
+<p>Now let&rsquo;s open pom.xml to remove other modules and only leave common, command and query:</p>
+
+<pre><code class="language-$xslt">    &lt;modules&gt;
+        &lt;module&gt;common&lt;/module&gt;
+        &lt;module&gt;command&lt;/module&gt;
+        &lt;module&gt;query&lt;/module&gt;
+    &lt;/modules&gt;
+
+</code></pre>
 
 <p>Let&rsquo;s run the maven build to make sure these three modules can be built.</p>
 
@@ -868,96 +876,6 @@ public class TodosIdGetHandler implements HttpHandler {
 
 </code></pre>
 
-<p>As rest-query is going to access Mysql database for material view. A class will
-be added and put into service.yml below.</p>
-
-<pre><code class="language-$xslt">package com.networknt.todolist.restquery;
-
-import com.networknt.eventuate.common.EventContext;
-import com.networknt.eventuate.common.SubscriberOptions;
-import com.networknt.eventuate.common.impl.EventIdTypeAndData;
-import com.networknt.eventuate.common.impl.SerializedEvent;
-import com.networknt.eventuate.common.impl.sync.AggregateCrud;
-import com.networknt.eventuate.common.impl.sync.AggregateEvents;
-import com.networknt.eventuate.jdbc.AbstractEventuateJdbcAggregateStore;
-
-import javax.sql.DataSource;
-import java.util.*;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.function.Function;
-
-public class EventuateLocalTestAggregateStore extends AbstractEventuateJdbcAggregateStore
-        implements AggregateCrud, AggregateEvents {
-
-  private AtomicLong eventOffset = new AtomicLong();
-  private final Map&lt;String, List&lt;Subscription&gt;&gt; aggregateTypeToSubscription = new HashMap&lt;&gt;();
-
-  public EventuateLocalTestAggregateStore(DataSource dataSource) {
-    super(dataSource);
-  }
-
-
-  protected void publish(String aggregateType, String aggregateId, List&lt;EventIdTypeAndData&gt; eventsWithIds) {
-    System.out.println(&quot;Handler:&quot; +  aggregateTypeToSubscription.size());
-    synchronized (aggregateTypeToSubscription) {
-      List&lt;Subscription&gt; subscriptions = aggregateTypeToSubscription.get(aggregateType);
-      if (subscriptions != null)
-        for (Subscription subscription : subscriptions) {
-          for (EventIdTypeAndData event : eventsWithIds) {
-            if (subscription.isInterestedIn(aggregateType, event.getEventType()))
-              subscription.handler.apply(new SerializedEvent(event.getId(), aggregateId, aggregateType, event.getEventData(), event.getEventType(),
-                      aggregateId.hashCode() % 8,
-                      eventOffset.getAndIncrement(),
-                      new EventContext(event.getId().asString()), event.getMetadata()));
-          }
-        }
-    }
-
-  }
-
-
-  class Subscription {
-
-    private final String subscriberId;
-    private final Map&lt;String, Set&lt;String&gt;&gt; aggregatesAndEvents;
-    private final Function&lt;SerializedEvent, CompletableFuture&lt;?&gt;&gt; handler;
-
-    public Subscription(String subscriberId, Map&lt;String, Set&lt;String&gt;&gt; aggregatesAndEvents, Function&lt;SerializedEvent, CompletableFuture&lt;?&gt;&gt; handler) {
-
-      this.subscriberId = subscriberId;
-      this.aggregatesAndEvents = aggregatesAndEvents;
-      this.handler = handler;
-    }
-
-    public boolean isInterestedIn(String aggregateType, String eventType) {
-      return aggregatesAndEvents.get(aggregateType) != null &amp;&amp; aggregatesAndEvents.get(aggregateType).contains(eventType);
-    }
-  }
-
-  @Override
-  public void subscribe(String subscriberId, Map&lt;String, Set&lt;String&gt;&gt; aggregatesAndEvents, SubscriberOptions options, Function&lt;SerializedEvent, CompletableFuture&lt;?&gt;&gt; handler) {
-    // TODO handle options
-    Subscription subscription = new Subscription(subscriberId, aggregatesAndEvents, handler);
-    synchronized (aggregateTypeToSubscription) {
-      for (String aggregateType : aggregatesAndEvents.keySet()) {
-        List&lt;Subscription&gt; existing = aggregateTypeToSubscription.get(aggregateType);
-        if (existing == null) {
-          existing = new LinkedList&lt;&gt;();
-          aggregateTypeToSubscription.put(aggregateType, existing);
-          System.out.println(&quot;add Handler:&quot; +  existing.size());
-
-        }
-        existing.add(subscription);
-      }
-    }
-  }
-
-
-}
-
-</code></pre>
-
 <p>Since we are going to create some eventuate class instances from interfaces. Let&rsquo;s create a
 service.yml under src/main/resources/config folder.</p>
 
@@ -969,7 +887,7 @@ service.yml under src/main/resources/config folder.</p>
       username: mysqluser
       password: mysqlpw
 - com.networknt.eventuate.common.impl.sync.AggregateCrud:
-  - com.networknt.todolist.restquery.EventuateLocalTestAggregateStore
+  - com.networknt.eventuate.jdbc.EventuateLocalAggregateStore
 - com.networknt.eventuate.common.impl.AggregateEvents:
   - com.networknt.eventuate.client.KafkaAggregateSubscriptions
 - com.networknt.eventuate.common.impl.AggregateCrud:
@@ -1048,7 +966,7 @@ our test cases.</p>
 <p>The rest-query will subscribe events from light-eventuate-4j so it need to
 config event handler registration in the StartupHookProvider.</p>
 
-<pre><code class="language-$xslt"># This is the place to plugin your startup hooks to initialize Spring application context,
+<pre><code># This is the place to plugin your startup hooks to initialize Spring application context,
 # set up db connection pools and allocate resources.
 
 # config event handle registration
@@ -1057,7 +975,7 @@ com.networknt.eventuate.client.EventuateClientStartupHookProvider
 
 <p>Now let&rsquo;s verify that all modules can be built.</p>
 
-<pre><code class="language-$xslt">mvn clean install
+<pre><code>mvn clean install
 </code></pre>
 
 <h2 id="test-restful-services">Test restful services</h2>
@@ -1077,7 +995,7 @@ are going to create another database called todo_db</p>
 <p>Here is the db script and you can use mysql command line or just using any GUI tools
 to run it against Mysql server.</p>
 
-<pre><code class="language-$xslt">create database todo_db;
+<pre><code class="language-mysql">create database todo_db;
 
 GRANT ALL PRIVILEGES ON todo_db.* TO 'mysqluser' IDENTIFIED BY 'mysqlpw';
 
@@ -1100,26 +1018,26 @@ CREATE  TABLE TODO (
 
 <p>Remember that Mysql root user and password as follows.</p>
 
-<pre><code class="language-$xslt">dbUser: root
+<pre><code>dbUser: root
 dbPass: rootpassword
 
 </code></pre>
 
 <p>Now let&rsquo;s start rest-command service</p>
 
-<pre><code class="language-$xslt">cd ~/networknt/light-example-4j/eventuate/todo-list/rest-command
+<pre><code>cd ~/networknt/light-example-4j/eventuate/todo-list/rest-command
 java -jar target/rest-command-1.0.0.jar
 </code></pre>
 
 <p>Now let&rsquo;s start rest-query service</p>
 
-<pre><code class="language-$xslt">cd ~/networknt/light-example-4j/eventuate/todo-list/rest-query
+<pre><code>cd ~/networknt/light-example-4j/eventuate/todo-list/rest-query
 java -jar target/rest-query-1.0.0.jar
 </code></pre>
 
 <p>Let&rsquo;s create a todo item with curl</p>
 
-<pre><code class="language-$xslt">curl -X POST \
+<pre><code>curl -X POST \
   http://localhost:8083/v1/todos \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
@@ -1128,7 +1046,7 @@ java -jar target/rest-query-1.0.0.jar
 
 <p>And the response will be</p>
 
-<pre><code class="language-$xslt">{
+<pre><code class="language-json">{
     &quot;cancelled&quot;: false,
     &quot;done&quot;: true,
     &quot;completedExceptionally&quot;: false,
@@ -1138,12 +1056,12 @@ java -jar target/rest-query-1.0.0.jar
 
 <p>Now let&rsquo;s access the rest-query service</p>
 
-<pre><code class="language-$xslt">curl -X GET http://localhost:8082/v1/todos
+<pre><code>curl -X GET http://localhost:8082/v1/todos
 </code></pre>
 
 <p>And the response will be something like this.</p>
 
-<pre><code class="language-$xslt">[
+<pre><code class="language-json">[
     {
         &quot;0000015d968eacee-0e23a9398a990001&quot;: {
             &quot;title&quot;: &quot;this is the test todo from postman&quot;,
@@ -2241,6 +2159,22 @@ java -cp ~/networknt/light-docker/eventuate/hybrid-query/service/*:target/hybrid
 
 <nav class="pagination" aria-label="Footer">
   <div class="previous">
+  
+      <a href="https://networknt.github.io/light-eventuate-4j/tutorial/kafka/" title="Debugging Kafka">
+        <span class="direction">
+          Previous
+        </span>
+        <div class="page">
+          <div class="button button-previous" role="button" aria-label="Previous">
+            <i class="icon icon-back"></i>
+          </div>
+          <div class="stretch">
+            <div class="title">
+              Debugging Kafka
+            </div>
+          </div>
+        </div>
+      </a>
   
   </div>
 
