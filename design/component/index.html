@@ -9,18 +9,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
-    <title>Integration Test - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
+    <title>Components - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
     <meta name="generator" content="Hugo 0.20.6" />
 
     
     <meta name="description" content="Light Eventuate Docs">
     
-    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/tutorial/integration-test/">
+    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/design/component/">
     
     <meta name="author" content="Steve Hu, Gavin Chen">
     
 
-    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/tutorial/integration-test/">
+    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/design/component/">
     <meta property="og:title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
     <meta property="og:image" content="https://networknt.github.io/light-eventuate-4j/images/logo.png">
     <meta name="apple-mobile-web-app-title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
@@ -97,7 +97,7 @@
     </div>
     <div class="stretch">
       <div class="title">
-        Integration Test
+        Components
       </div>
     </div>
 
@@ -138,7 +138,7 @@
         </div>
       
       <div class="name">
-        <strong>Light Eventuate 4J - An event sourcing and CQRS framework with Kafka <span class="version">1.3.5</span></strong>
+        <strong>Light Eventuate 4J - An event sourcing and CQRS framework with Kafka <span class="version">1.3.3</span></strong>
         
           <br>
           networknt/light-eventuate-4j
@@ -219,24 +219,6 @@
 <a  title="Design" href="https://networknt.github.io/light-eventuate-4j/design/">
 	
 	Design
-</a>
-
-
-
-  
-</li>
-
-
-
-<li>
-  
-    
-
-
-
-<a  title="Component" href="https://networknt.github.io/light-eventuate-4j/component/">
-	
-	Component
 </a>
 
 
@@ -389,66 +371,28 @@
 
 	<article class="article">
 		<div class="wrapper">
-			<h1>Integration Test </h1>
+			<h1>Components </h1>
 
 			
 
-<h2 id="integration-test">Integration Test</h2>
+<h1 id="light-eventuate-4-components">light-eventuate-4 components:</h1>
 
-<ol>
-<li>Following the steps on &ldquo;How to build, setting local and docker environment for light-eventuate-4j framework&rdquo;:</li>
-</ol>
+<p>eventuate-cdccore :                    Provide API for publishing / subscribing  events from Kafka</p>
 
-<p>To start event store, cdc service, and command/query side service</p>
+<p>eventuate-cdcservice:                  Handle MySQL replication stream and publishes them to Apache Kafka;</p>
 
-<ol>
-<li>Send request from command side the publish events:</li>
-</ol>
+<p>eventuate-client/eventuate-common :    Eventuate domain and core interface</p>
 
-<p>From postmand, send post request:</p>
+<p>eventuate-event:                       Eventuate event handle interface and implementation</p>
 
-<p>URL: <a href="http://localhost:8083/v1/todos">http://localhost:8083/v1/todos</a>;</p>
+<p>eventuate-jdbc:                        Eventuate database API for persisting event to database tables</p>
 
-<p>Headers:[{&ldquo;key&rdquo;:&ldquo;Content-Type&rdquo;,&ldquo;value&rdquo;:&ldquo;application/json&rdquo;,&ldquo;description&rdquo;:&ldquo;&rdquo;}];</p>
+<p>command:                               Command side service which use to work as container to  run command side hybrid services.
+                                       Copy the command side services jar files in to the /service folder in this module. And usually, we can put cdc service in the /service folder.
+                                       This module is generated based on light-codegen</p>
 
-<p>Body: {&ldquo;title&rdquo;:&rdquo; this is the test todo from postman1&rdquo;,&ldquo;completed&rdquo;:false,&ldquo;order&rdquo;:0};</p>
-
-<p>Response:
-{
-  &ldquo;done&rdquo;: true,
-  &ldquo;cancelled&rdquo;: false,
-  &ldquo;completedExceptionally&rdquo;: false,
-  &ldquo;numberOfDependents&rdquo;: 0
-};</p>
-
-<p>This request will send request which will call backe-end service to generate a &ldquo;create todo&rdquo; event and publish to event store.</p>
-
-<p>Event sourcing system will save the event into event store.</p>
-
-<p>CDC service will be triggered and will publish event to Kafka:</p>
-
-<ol>
-<li>Subscrible the event and process event on the query side:</li>
-</ol>
-
-<p>Event sourcing system will subscrible the events from event store and process user defined event handlers.</p>
-
-<p>For todo-list example, the event handle simply get the event and save the latest todo info into local TODO table.</p>
-
-<p>From Postman or from brower, send GET request:</p>
-
-<p><a href="http://localhost:8082/v1/todos:">http://localhost:8082/v1/todos:</a></p>
-
-<p>Reponse:
-[
-  {
-    &ldquo;0000015c8a1b67af-0242ac1200060000&rdquo;: {
-      &ldquo;title&rdquo;: &ldquo; this is the test todo from postman1&rdquo;,
-      &ldquo;completed&rdquo;: false,
-      &ldquo;order&rdquo;: 0
-    }
-  }
-];</p>
+<p>query:                                 Query side service which use to work as container to  run Query side hybrid  services.
+                                       Copy the query side services jar files in to the /service folder in this module; This module is generated based on light-codegen</p>
 
 
 			<aside class="copyright" role="note">
@@ -467,7 +411,7 @@
 <nav class="pagination" aria-label="Footer">
   <div class="previous">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/tutorial/end-to-end-test/" title="End to End Test">
+      <a href="https://networknt.github.io/light-eventuate-4j/architecture/comm-pattern/" title="Communication Patterns">
         <span class="direction">
           Previous
         </span>
@@ -477,7 +421,7 @@
           </div>
           <div class="stretch">
             <div class="title">
-              End to End Test
+              Communication Patterns
             </div>
           </div>
         </div>
@@ -487,14 +431,14 @@
 
   <div class="next">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/tutorial/unit-test/" title="Unit Test">
+      <a href="https://networknt.github.io/light-eventuate-4j/roadmap/" title="Roadmap">
         <span class="direction">
           Next
         </span>
         <div class="page">
           <div class="stretch">
             <div class="title">
-              Unit Test
+              Roadmap
             </div>
           </div>
           <div class="button button-next" role="button" aria-label="Next">
