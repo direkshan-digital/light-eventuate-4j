@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
     <title>Account Money Transfer - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
-    <meta name="generator" content="Hugo 0.21-DEV" />
+    <meta name="generator" content="Hugo 0.21" />
 
     
     <meta name="description" content="Light Eventuate Docs">
@@ -395,20 +395,6 @@
 
 <h1 id="integration-test-setting">Integration Test Setting</h1>
 
-<h2 id="build-related-projects">Build related projects:</h2>
-
-<p>Checkout light-eventuate-4j framework projects.</p>
-
-<p>cd ~/networknt</p>
-
-<p>git clone git@github.com:networknt/light-eventuate-4j.git</p>
-
-<h2 id="prepare-workspace">Prepare workspace</h2>
-
-<p>Go into the projects folder above, and build the project with maven</p>
-
-<p>mvn clean install</p>
-
 <h2 id="build-account-management-example">Build Account-management example</h2>
 
 <p>Get the example project from github:
@@ -420,7 +406,15 @@ git clone git@github.com:networknt/light-eventuate-example.git</p>
 
 <h2 id="run-the-event-store-and-mocroservices">Run the Event store and Mocroservices:</h2>
 
-<p><img src="https://networknt.github.io/light-eventuate-4j/images/setting.png" alt="setting" /></p>
+<p>Before starting any service, we need to make sure that light-eventuate-4j is
+up and running. Please follow this <a href="https://networknt.github.io/light-eventuate-4j/tutorial/service-dev/">tutorial</a>
+to set up.</p>
+
+<p>Start Account money transfer service with docker compose:</p>
+
+<p>cd ~/networknt/light-eventuate-example/account-management</p>
+
+<p>docker-compose up</p>
 
 <h1 id="test-and-verify-result">Test and verify result:</h1>
 

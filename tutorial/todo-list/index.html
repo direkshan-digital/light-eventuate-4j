@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
     <title>Todo list tutorial - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
-    <meta name="generator" content="Hugo 0.21-DEV" />
+    <meta name="generator" content="Hugo 0.21" />
 
     
     <meta name="description" content="Light Eventuate Docs">
@@ -422,7 +422,7 @@ recreate it in this tutorial.</p>
 <p>As other tutorials, we are going to use networknt under user&rsquo;s home directory as
 workspace.</p>
 
-<pre><code>cd ~/networknt
+<pre><code class="language-$xslt">cd ~/networknt
 git clone git@github.com:networknt/light-example-4j.git
 cd light-example-4j/eventuate
 mv todo-list todo-list.bak
@@ -435,7 +435,7 @@ mv todo-list todo-list.bak
 
 <p>Let&rsquo;s create a todo-list folder and copy the pom.xml from the existing project.</p>
 
-<pre><code>cd ~/networknt/light-example-4j/eventuate
+<pre><code class="language-$xslt">cd ~/networknt/light-example-4j/eventuate
 mkdir todo-list
 cd todo-list
 cp ../todo-list.bak/pom.xml .
@@ -451,7 +451,7 @@ one.</p>
 <li>query contains query side service</li>
 </ul>
 
-<pre><code>cd ~/networknt/light-example-4j/eventuate/todo-list
+<pre><code class="language-$xslt">cd ~/networknt/light-example-4j/eventuate/todo-list
 cp -r ../todo-list.bak/common .
 cp -r ../todo-list.bak/command .
 cp -r ../todo-list.bak/query .
@@ -460,7 +460,7 @@ cp -r ../todo-list.bak/query .
 
 <p>Now let&rsquo;s open pom.xml to remove other modules and only leave common, command and query:</p>
 
-<pre><code>    &lt;modules&gt;
+<pre><code class="language-$xslt">    &lt;modules&gt;
         &lt;module&gt;common&lt;/module&gt;
         &lt;module&gt;command&lt;/module&gt;
         &lt;module&gt;query&lt;/module&gt;
@@ -470,7 +470,7 @@ cp -r ../todo-list.bak/query .
 
 <p>Let&rsquo;s run the maven build to make sure these three modules can be built.</p>
 
-<pre><code>cd ~/networknt/light-example-4j/eventuate/todo-list
+<pre><code class="language-$xslt">cd ~/networknt/light-example-4j/eventuate/todo-list
 mvn clean install
 </code></pre>
 
@@ -481,7 +481,7 @@ for this service can be found at model-config repo.</p>
 
 <p>Let&rsquo;s first checkout model-config repo from github.</p>
 
-<pre><code>git clone git@github.com:networknt/model-config.git
+<pre><code class="language-$xslt">git clone git@github.com:networknt/model-config.git
 
 </code></pre>
 
@@ -492,7 +492,7 @@ which is used to control how light-codegen going to generate the code.</p>
 <p>In order to generate the rest-command service, let&rsquo;s first clone the light-codegen
 project and build it.</p>
 
-<pre><code>cd ~/networknt
+<pre><code class="language-$xslt">cd ~/networknt
 git clone git@github.com:networknt/light-codegen.git
 cd light-codegen
 mvn clean install
@@ -501,12 +501,12 @@ mvn clean install
 <p>Generate rest-command service with the following command line. Assume we are still in
 light-codegen folder.</p>
 
-<pre><code>java -jar codegen-cli/target/codegen-cli.jar -f light-rest-4j -o ../light-example-4j/eventuate/todo-list/rest-command -m ../model-config/rest/todo_command/1.0.0/swagger.json -c ../model-config/rest/todo_command/1.0.0/config.json
+<pre><code class="language-$xslt">java -jar codegen-cli/target/codegen-cli.jar -f light-rest-4j -o ../light-example-4j/eventuate/todo-list/rest-command -m ../model-config/rest/todo_command/1.0.0/swagger.json -c ../model-config/rest/todo_command/1.0.0/config.json
 </code></pre>
 
 <p>Now add this rest-command into pom.xml and build it with maven.</p>
 
-<pre><code class="language-xml">    &lt;modules&gt;
+<pre><code class="language-$xslt">    &lt;modules&gt;
         &lt;module&gt;common&lt;/module&gt;
         &lt;module&gt;command&lt;/module&gt;
         &lt;module&gt;query&lt;/module&gt;
@@ -515,7 +515,7 @@ light-codegen folder.</p>
 
 </code></pre>
 
-<pre><code>mvn clean install
+<pre><code class="language-$xslt">mvn clean install
 </code></pre>
 
 <p>The four modules should be built successfully.</p>
@@ -524,7 +524,7 @@ light-codegen folder.</p>
 
 <p>First we need to update dependencies for this project by adding the following.</p>
 
-<pre><code class="language-xml">        &lt;version.light-eventuate-4j&gt;1.3.5&lt;/version.light-eventuate-4j&gt;
+<pre><code class="language-$xslt">        &lt;version.light-eventuate-4j&gt;1.3.5&lt;/version.light-eventuate-4j&gt;
 
 
         &lt;dependency&gt;
@@ -562,7 +562,7 @@ light-codegen folder.</p>
 
 <p>And change the three handlers to the following.</p>
 
-<pre><code class="language-java">package com.networknt.todolist.restcommand.handler;
+<pre><code class="language-$xslt">package com.networknt.todolist.restcommand.handler;
 
 import com.networknt.body.BodyHandler;
 import com.networknt.config.Config;
@@ -606,7 +606,7 @@ public class TodosIdDeleteHandler implements HttpHandler {
 
 </code></pre>
 
-<pre><code class="language-java">package com.networknt.todolist.restcommand.handler;
+<pre><code class="language-$xslt">package com.networknt.todolist.restcommand.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.body.BodyHandler;
@@ -658,7 +658,7 @@ public class TodosPostHandler implements HttpHandler {
 
 </code></pre>
 
-<pre><code class="language-java">package com.networknt.todolist.restcommand.handler;
+<pre><code class="language-$xslt">package com.networknt.todolist.restcommand.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.body.BodyHandler;
@@ -710,7 +710,7 @@ public class TodosPutHandler implements HttpHandler {
 <p>Since we are going to create some eventuate class instances from interfaces. Let&rsquo;s create a
 service.yml under resources/config folder.</p>
 
-<pre><code class="language-yaml">singletons:
+<pre><code class="language-$xslt">singletons:
 - javax.sql.DataSource:
   - com.zaxxer.hikari.HikariDataSource:
       DriverClassName: com.mysql.jdbc.Driver
@@ -741,7 +741,7 @@ service.yml under resources/config folder.</p>
 
 <p>Now let&rsquo;s verify that all modules can be built.</p>
 
-<pre><code>mvn clean install
+<pre><code class="language-$xslt">mvn clean install
 </code></pre>
 
 <h2 id="query-side-restful-service">Query side restful service</h2>
@@ -753,12 +753,12 @@ which is used to control how light-codegen going to generate the code.</p>
 <p>Generate rest-query service with the following command line. Assume we are still in
 light-codegen folder.</p>
 
-<pre><code>java -jar codegen-cli/target/codegen-cli.jar -f light-rest-4j -o ../light-example-4j/eventuate/todo-list/rest-query -m ../model-config/rest/todo_query/1.0.0/swagger.json -c ../model-config/rest/todo_query/1.0.0/config.json
+<pre><code class="language-$xslt">java -jar codegen-cli/target/codegen-cli.jar -f light-rest-4j -o ../light-example-4j/eventuate/todo-list/rest-query -m ../model-config/rest/todo_query/1.0.0/swagger.json -c ../model-config/rest/todo_query/1.0.0/config.json
 </code></pre>
 
 <p>Now add this rest-query into parent pom.xml and build it with maven.</p>
 
-<pre><code class="language-xml">    &lt;modules&gt;
+<pre><code class="language-$xslt">    &lt;modules&gt;
         &lt;module&gt;common&lt;/module&gt;
         &lt;module&gt;command&lt;/module&gt;
         &lt;module&gt;query&lt;/module&gt;
@@ -768,7 +768,7 @@ light-codegen folder.</p>
 
 </code></pre>
 
-<pre><code>mvn clean install
+<pre><code class="language-$xslt">mvn clean install
 </code></pre>
 
 <p>The five modules should be built successfully.</p>
@@ -777,7 +777,7 @@ light-codegen folder.</p>
 
 <p>First we need to update dependencies for this project by adding the following.</p>
 
-<pre><code class="language-xml">        &lt;version.light-eventuate-4j&gt;1.3.5&lt;/version.light-eventuate-4j&gt;
+<pre><code class="language-$xslt">        &lt;version.light-eventuate-4j&gt;1.3.5&lt;/version.light-eventuate-4j&gt;
 
 
         &lt;dependency&gt;
@@ -820,7 +820,7 @@ light-codegen folder.</p>
 
 <p>Now update the two handler as following.</p>
 
-<pre><code class="language-java">package com.networknt.todolist.restquery.handler;
+<pre><code class="language-$xslt">package com.networknt.todolist.restquery.handler;
 
 import com.networknt.config.Config;
 import com.networknt.eventuate.todolist.TodoQueryService;
@@ -849,7 +849,7 @@ public class TodosGetHandler implements HttpHandler {
 
 </code></pre>
 
-<pre><code class="language-java">package com.networknt.todolist.restquery.handler;
+<pre><code class="language-$xslt">package com.networknt.todolist.restquery.handler;
 
 import com.networknt.config.Config;
 import com.networknt.eventuate.todolist.TodoQueryService;
@@ -879,7 +879,7 @@ public class TodosIdGetHandler implements HttpHandler {
 <p>Since we are going to create some eventuate class instances from interfaces. Let&rsquo;s create a
 service.yml under src/main/resources/config folder.</p>
 
-<pre><code class="language-yaml">singletons:
+<pre><code class="language-$xslt">singletons:
 - javax.sql.DataSource:
   - com.zaxxer.hikari.HikariDataSource:
       DriverClassName: com.mysql.jdbc.Driver
@@ -922,7 +922,7 @@ service.yml under src/main/resources/config folder.</p>
 service.yml in /src/test/resources/config folder to utilize H2 database for
 our test cases.</p>
 
-<pre><code class="language-yaml">singletons:
+<pre><code class="language-$xslt">singletons:
 - javax.sql.DataSource:
   - com.zaxxer.hikari.HikariDataSource:
       DriverClassName: org.h2.jdbcx.JdbcDataSource
@@ -1105,7 +1105,7 @@ to control how generator works and a schema.json to define the service contract.
 
 <p>config.json</p>
 
-<pre><code class="language-json">{
+<pre><code>{
   &quot;rootPackage&quot;: &quot;com.networknt.todolist.command&quot;,
   &quot;handlerPackage&quot;:&quot;com.networknt.todolist.command.handler&quot;,
   &quot;modelPackage&quot;:&quot;com.networknt.todolist.command.model&quot;,
@@ -1121,7 +1121,7 @@ to control how generator works and a schema.json to define the service contract.
 
 <p>schema.json</p>
 
-<pre><code class="language-json">{
+<pre><code>{
   &quot;host&quot;: &quot;lightapi.net&quot;,
   &quot;service&quot;: &quot;todo&quot;,
   &quot;action&quot;: [
@@ -1207,7 +1207,7 @@ to control how generator works and a schema.json to define the service contract.
 <p>Let&rsquo;s add this newly generated project to the parent pom.xml and build all
 modules.</p>
 
-<pre><code class="language-xml">    &lt;modules&gt;
+<pre><code>    &lt;modules&gt;
         &lt;module&gt;common&lt;/module&gt;
         &lt;module&gt;command&lt;/module&gt;
         &lt;module&gt;query&lt;/module&gt;
@@ -1217,7 +1217,7 @@ modules.</p>
     &lt;/modules&gt;
 </code></pre>
 
-<pre><code class="language-xml">            &lt;dependency&gt;
+<pre><code>            &lt;dependency&gt;
                 &lt;groupId&gt;com.networknt&lt;/groupId&gt;
                 &lt;artifactId&gt;hybrid-command&lt;/artifactId&gt;
                 &lt;version&gt;${project.version}&lt;/version&gt;
@@ -1234,11 +1234,11 @@ modules.</p>
 <p>Now let&rsquo;s change the dependencies to add light-eventuate-4j modules and todo-list
 modules.</p>
 
-<pre><code class="language-xml">        &lt;version.light-eventuate-4j&gt;1.3.5&lt;/version.light-eventuate-4j&gt;
+<pre><code>        &lt;version.light-eventuate-4j&gt;1.3.5&lt;/version.light-eventuate-4j&gt;
 
 </code></pre>
 
-<pre><code class="language-xml">        &lt;dependency&gt;
+<pre><code>        &lt;dependency&gt;
             &lt;groupId&gt;com.networknt&lt;/groupId&gt;
             &lt;artifactId&gt;eventuate-common&lt;/artifactId&gt;
             &lt;version&gt;${version.light-eventuate-4j}&lt;/version&gt;
@@ -1274,7 +1274,7 @@ modules.</p>
 <p>With all the dependencies are added, let&rsquo;s change the handler to wire in the
 right logic.</p>
 
-<pre><code class="language-java">package com.networknt.todolist.command.handler;
+<pre><code>package com.networknt.todolist.command.handler;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.networknt.config.Config;
@@ -1323,7 +1323,7 @@ public class CreateTodo implements Handler {
 
 </code></pre>
 
-<pre><code class="language-java">package com.networknt.todolist.command.handler;
+<pre><code>package com.networknt.todolist.command.handler;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.networknt.config.Config;
@@ -1371,7 +1371,7 @@ public class DeleteTodo implements Handler {
 
 </code></pre>
 
-<pre><code class="language-java">package com.networknt.todolist.command.handler;
+<pre><code>package com.networknt.todolist.command.handler;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.networknt.config.Config;
@@ -1425,7 +1425,7 @@ public class UpdateTodo implements Handler {
 it, we cannot wait then to test it. So for hybrid service development, end-to-end
 test is very important to ensure what you have built is working.</p>
 
-<pre><code class="language-java">package com.networknt.todolist.command.handler;
+<pre><code>package com.networknt.todolist.command.handler;
 
 import com.networknt.client.Client;
 import com.networknt.server.Server;
@@ -1486,7 +1486,7 @@ public class CreateTodoTest {
 }
 </code></pre>
 
-<pre><code class="language-java">package com.networknt.todolist.command.handler;
+<pre><code>package com.networknt.todolist.command.handler;
 
 import com.networknt.client.Client;
 import com.networknt.server.Server;
@@ -1543,7 +1543,7 @@ public class DeleteTodoTest {
 }
 </code></pre>
 
-<pre><code class="language-java">package com.networknt.todolist.command.handler;
+<pre><code>package com.networknt.todolist.command.handler;
 
 import com.networknt.client.Client;
 import com.networknt.server.Server;
@@ -1607,7 +1607,7 @@ public class UpdateTodoTest {
 <p>In order to make the test case works, we need to add a service.yml in
 src/test/resources/config folder</p>
 
-<pre><code class="language-yaml">singletons:
+<pre><code>singletons:
 - javax.sql.DataSource:
   - com.zaxxer.hikari.HikariDataSource:
       DriverClassName: org.h2.jdbcx.JdbcDataSource
@@ -1674,7 +1674,7 @@ to control how generator works and a schema.json to define the service contract.
 
 <p>config.json</p>
 
-<pre><code class="language-json">{
+<pre><code>{
   &quot;rootPackage&quot;: &quot;com.networknt.todolist.query&quot;,
   &quot;handlerPackage&quot;:&quot;com.networknt.todolist.query.handler&quot;,
   &quot;modelPackage&quot;:&quot;com.networknt.todolist.query.model&quot;,
@@ -1689,7 +1689,7 @@ to control how generator works and a schema.json to define the service contract.
 
 <p>schema.json</p>
 
-<pre><code class="language-json">{
+<pre><code>{
   &quot;host&quot;: &quot;lightapi.net&quot;,
   &quot;service&quot;: &quot;todo&quot;,
   &quot;action&quot;: [
@@ -1732,7 +1732,7 @@ to control how generator works and a schema.json to define the service contract.
 <p>Let&rsquo;s add this newly generated project to the parent pom.xml and build all
 modules.</p>
 
-<pre><code class="language-xml">    &lt;modules&gt;
+<pre><code>    &lt;modules&gt;
         &lt;module&gt;common&lt;/module&gt;
         &lt;module&gt;command&lt;/module&gt;
         &lt;module&gt;query&lt;/module&gt;
@@ -1743,7 +1743,7 @@ modules.</p>
     &lt;/modules&gt;
 </code></pre>
 
-<pre><code class="language-xml">            &lt;dependency&gt;
+<pre><code>            &lt;dependency&gt;
                 &lt;groupId&gt;com.networknt&lt;/groupId&gt;
                 &lt;artifactId&gt;hybrid-query&lt;/artifactId&gt;
                 &lt;version&gt;${project.version}&lt;/version&gt;
@@ -1760,11 +1760,11 @@ modules.</p>
 <p>Now let&rsquo;s change the dependencies to add light-eventuate-4j modules and todo-list
 modules.</p>
 
-<pre><code class="language-xml">        &lt;version.light-eventuate-4j&gt;1.3.5&lt;/version.light-eventuate-4j&gt;
+<pre><code>        &lt;version.light-eventuate-4j&gt;1.3.5&lt;/version.light-eventuate-4j&gt;
 
 </code></pre>
 
-<pre><code class="language-xml">        &lt;dependency&gt;
+<pre><code>        &lt;dependency&gt;
             &lt;groupId&gt;com.networknt&lt;/groupId&gt;
             &lt;artifactId&gt;eventuate-common&lt;/artifactId&gt;
             &lt;version&gt;${version.light-eventuate-4j}&lt;/version&gt;
@@ -1805,7 +1805,7 @@ modules.</p>
 <p>With all the dependencies are added, let&rsquo;s change the handler to wire in the
 right logic.</p>
 
-<pre><code class="language-java">package com.networknt.todolist.query.handler;
+<pre><code>package com.networknt.todolist.query.handler;
 
 import com.networknt.config.Config;
 import com.networknt.eventuate.todolist.TodoQueryService;
@@ -1840,7 +1840,7 @@ public class GetAllTodos implements Handler {
 
 </code></pre>
 
-<pre><code class="language-java">package com.networknt.todolist.query.handler;
+<pre><code>package com.networknt.todolist.query.handler;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.networknt.config.Config;
