@@ -244,7 +244,7 @@ mvn clean install
 Build Account-management example Get the example project from github: git clone git@github.com:networknt/light-eventuate-example.git
 cd ~/networknt/light-eventuate-example/account-management
 mvn clean install
-Run the Event store and Mocroservices: Test and verify result: From command line: Create new customer (C1):  On customer command side, system sent the cCreateCustomerCommand and apply CustomerCreatedEvent event.</description>
+Run the Event store and Microservices: First we need to make sure Mysql, Zookeeper, Kafka and CDC server are up and running.</description>
     </item>
     
     <item>

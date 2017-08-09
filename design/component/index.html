@@ -9,18 +9,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
-    <title>Why not use kafka as eventstore - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
+    <title>Components - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
     <meta name="generator" content="Hugo 0.21" />
 
     
     <meta name="description" content="Light Eventuate Docs">
     
-    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/architecture/kafka-eventstore/">
+    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/design/component/">
     
     <meta name="author" content="Steve Hu, Gavin Chen">
     
 
-    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/architecture/kafka-eventstore/">
+    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/design/component/">
     <meta property="og:title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
     <meta property="og:image" content="https://networknt.github.io/light-eventuate-4j/images/logo.png">
     <meta name="apple-mobile-web-app-title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
@@ -97,7 +97,7 @@
     </div>
     <div class="stretch">
       <div class="title">
-        Why not use kafka as eventstore
+        Components
       </div>
     </div>
 
@@ -138,7 +138,7 @@
         </div>
       
       <div class="name">
-        <strong>Light Eventuate 4J - An event sourcing and CQRS framework with Kafka <span class="version">1.3.5</span></strong>
+        <strong>Light Eventuate 4J - An event sourcing and CQRS framework with Kafka <span class="version">1.3.3</span></strong>
         
           <br>
           networknt/light-eventuate-4j
@@ -219,24 +219,6 @@
 <a  title="Design" href="https://networknt.github.io/light-eventuate-4j/design/">
 	
 	Design
-</a>
-
-
-
-  
-</li>
-
-
-
-<li>
-  
-    
-
-
-
-<a  title="Component" href="https://networknt.github.io/light-eventuate-4j/component/">
-	
-	Component
 </a>
 
 
@@ -389,29 +371,28 @@
 
 	<article class="article">
 		<div class="wrapper">
-			<h1>Why not use kafka as eventstore </h1>
+			<h1>Components </h1>
 
-			<p>When using Kafka as pipeline for event sourcing, people will ask why not use
-Kafka as event store. It can persist events and keep it for as long as it requires.</p>
+			
 
-<p>There are several drawbacks in doing so.</p>
+<h1 id="light-eventuate-4-components">light-eventuate-4 components:</h1>
 
-<ul>
-<li><p>Kafka only guarantees at least once deliver and there are duplicates in the event
-store that cannot be removed.</p></li>
+<p>eventuate-cdccore :                    Provide API for publishing / subscribing  events from Kafka</p>
 
-<li><p>Due to immutability, there is no way to manipulate event store when application
-evolves and events need to be transformed.</p></li>
+<p>eventuate-cdcservice:                  Handle MySQL replication stream and publishes them to Apache Kafka;</p>
 
-<li><p>No place to persist snapshots of entities/aggregates and replay will become slower
-and slower.</p></li>
+<p>eventuate-client/eventuate-common :    Eventuate domain and core interface</p>
 
-<li><p>Given Kafka partitions are distributed and they are hard to manage and backup
-compare with databases.</p></li>
-</ul>
+<p>eventuate-event:                       Eventuate event handle interface and implementation</p>
 
-<p>Given above disadvantages, a database is used as event store instead in eventuate
-architecture.</p>
+<p>eventuate-jdbc:                        Eventuate database API for persisting event to database tables</p>
+
+<p>command:                               Command side service which use to work as container to  run command side hybrid services.
+                                       Copy the command side services jar files in to the /service folder in this module. And usually, we can put cdc service in the /service folder.
+                                       This module is generated based on light-codegen</p>
+
+<p>query:                                 Query side service which use to work as container to  run Query side hybrid  services.
+                                       Copy the query side services jar files in to the /service folder in this module; This module is generated based on light-codegen</p>
 
 
 			<aside class="copyright" role="note">
@@ -430,7 +411,7 @@ architecture.</p>
 <nav class="pagination" aria-label="Footer">
   <div class="previous">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/design/dup-events/" title="How to handle duplicated events in Kafka">
+      <a href="https://networknt.github.io/light-eventuate-4j/architecture/comm-pattern/" title="Communication Patterns">
         <span class="direction">
           Previous
         </span>
@@ -440,7 +421,7 @@ architecture.</p>
           </div>
           <div class="stretch">
             <div class="title">
-              How to handle duplicated events in Kafka
+              Communication Patterns
             </div>
           </div>
         </div>
@@ -450,14 +431,14 @@ architecture.</p>
 
   <div class="next">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/architecture/cqrs/" title="cqrs">
+      <a href="https://networknt.github.io/light-eventuate-4j/roadmap/" title="Roadmap">
         <span class="direction">
           Next
         </span>
         <div class="page">
           <div class="stretch">
             <div class="title">
-              cqrs
+              Roadmap
             </div>
           </div>
           <div class="button button-next" role="button" aria-label="Next">

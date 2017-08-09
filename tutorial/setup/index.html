@@ -9,8 +9,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
-    <title>Microservices - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
-    <meta name="generator" content="Hugo 0.21-DEV" />
+    <title>Framework Setup - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
+    <meta name="generator" content="Hugo 0.21" />
 
     
     <meta name="description" content="Light Eventuate Docs">
@@ -97,7 +97,7 @@
     </div>
     <div class="stretch">
       <div class="title">
-        Microservices
+        Framework Setup
       </div>
     </div>
 
@@ -134,11 +134,11 @@
     <div class="banner">
       
         <div class="logo">
-          <img src="https://networknt.github.io/light-eventuate-4j/images/logo.png">
+          <img src="https://networknt.github.io/light-eventuate-4jimages/logo.png">
         </div>
       
       <div class="name">
-        <strong>Light Eventuate 4J - An event sourcing and CQRS framework with Kafka <span class="version">1.3.0</span></strong>
+        <strong>Light Eventuate 4J - An event sourcing and CQRS framework with Kafka <span class="version">1.3.3</span></strong>
         
           <br>
           networknt/light-eventuate-4j
@@ -171,24 +171,6 @@
         <ul>
           
 
-
-
-
-<li>
-  
-    
-
-
-
-<a  title="Introduction" href="https://networknt.github.io/light-eventuate-4j/index.html">
-	
-	Introduction
-</a>
-
-
-
-  
-</li>
 
 
 
@@ -252,9 +234,9 @@
 
 
 
-<a  title="Tutorials" href="https://networknt.github.io/light-eventuate-4j/tutorial/">
+<a  title="Tutorial" href="https://networknt.github.io/light-eventuate-4j/tutorial/">
 	
-	Tutorials
+	Tutorial
 </a>
 
 
@@ -270,9 +252,9 @@
 
 
 
-<a  title="Examples" href="https://networknt.github.io/light-eventuate-4j/example/">
+<a  title="Example" href="https://networknt.github.io/light-eventuate-4j/example/">
 	
-	Examples
+	Example
 </a>
 
 
@@ -335,6 +317,24 @@
 </li>
 
 
+
+<li>
+  
+    
+
+
+
+<a  title="Introduction" href="https://networknt.github.io/light-eventuate-4j/index.html">
+	
+	Introduction
+</a>
+
+
+
+  
+</li>
+
+
         </ul>
         
 
@@ -371,7 +371,7 @@
 
 	<article class="article">
 		<div class="wrapper">
-			<h1>Microservices </h1>
+			<h1>Framework Setup </h1>
 
 			
 
@@ -399,6 +399,8 @@ git clone git@github.com:networknt/light-rest-4j.git
 git clone git@github.com:networknt/light-codegen.git
 git clone git@github.com:networknt/light-eventuate-4j.git
 git clone git@github.com:networknt/light-eventuate-example.git
+git clone git@github.com:networknt/light-hybrid-4j.git
+
 
 ## Prepare workspace
 
@@ -409,7 +411,7 @@ Go into the projects folder above, and build the project with maven
 <p>mvn clean install</p>
 
 <pre><code>
-## Prepare and start event store
+## Prepare and start event store (without docker)
 
 The light event sourcing framework build on event store which used to save and dispatch events for calling microservices.
 The event store is build upon the database (mysql or postgresql) and distributed stream system (Kafka). For the local environment (wothout docker). Please follow below step to setup event store.
@@ -437,59 +439,121 @@ The event store is build upon the database (mysql or postgresql) and distributed
 --- Start Kafka server
   &gt;bin/kafka-server-start.sh config/server.properties
 
---- postgresql (if user select postgre as database to save event/entity/snapshot records)
+--- postgresql (if user select postgreSql as database to save event/entity/snapshot records)
   --TODO
 
 
 
+## Prepare and start event sourcing CDC (capture data change service).
 
+CDC service use database replication to populate data from database (mysql) to distributed stream system (kafka).
 
-## Prepare and start event sourcing command side service.
+-- go to cdcservice project module:
+  cd cdcservice
 
-The light event sourcing framework provide a server side command service to run CDC(capture data change) and work as service container to run user defined event sourcing command side microservices
-
- -- copy the cdc service jar file (/cdcservice/target/eventuate-cdcservice-1.3.0.jar) to command service container folder: /light-eventuate-4j/command/service
- -- copy user defined command side service jar into same folder: /light-eventuate-4j/command/service
-
-Run command side service:
-
+-- run command line:
 </code></pre>
 
-<p>java -cp ./service/*:target/eventuate-command-1.3.0.jar com.networknt.server.Server</p>
+<p>java -cp target/eventuate-command-1.3.3.jar com.networknt.server.Server
+  ```</p>
 
-<pre><code>
+<p>or</p>
 
+<p>mvn exec:exec</p>
 
-## Prepare and start event sourcing query side service.
+<h2 id="prepare-and-start-event-sourcing-command-side-service-and-query-side-service">Prepare and start event sourcing command side service and query side service.</h2>
 
-The light event sourcing framework provide a server side query service to  work as service container to run user defined event sourcing query side microservices
+<p>Normally event sourcing system will have at least two microservices:</p>
 
--- copy user defined query side service jar into same folder: /light-eventuate-4j/query/service
+<p>command side service</p>
 
+<p>query side service</p>
 
-Run query side service
+<p>For example, to use our simple todo-list example:</p>
 
+<p>Go to light-eventuate-example/todo-list
+ Build the project from command line:
+   &ndash;mvn clean install</p>
+
+<h2 id="command-side-service">Command side service</h2>
+
+<p>Go command-service module, run command line:
+   &ndash; mvn package exec:exec</p>
+
+<h2 id="query-side-service">Query side service</h2>
+
+<p>Prepare query side DB script: (DB script saved at: /light-eventuate-example/mysql; root user for mysql: root/rootpassword)</p>
+
+<pre><code>create database todo_db;
+
+CREATE  TABLE TODO (
+  ID varchar(255),
+  TITLE varchar(255),
+  COMPLETED BOOLEAN,
+  ORDER_ID INTEGER,
+  ACTIVE_FLG varchar(1) DEFAULT 'Y',
+  PRIMARY KEY(ID)
+);
+
+GRANT ALL PRIVILEGES ON todo_db.* TO 'mysqluser' IDENTIFIED BY 'mysqlpw';
 </code></pre>
 
-<p>java -cp ./service/*:target/eventuate-query-1.3.0.jar com.networknt.server.Server
-```</p>
+<p>Go query-service module, run command line:
+   &ndash; mvn package exec:exec</p>
 
-<h2 id="test-user-event-sourcing-services">Test user event sourcing services</h2>
+<h1 id="dockerization">Dockerization</h1>
 
-<p>User can use Postman or develop UI or test class to test the services based on the swaggen</p>
+<ul>
+<li><a href="https://networknt.github.io/light-eventuate-4j/tutorial/docker/">How to build and create event store docker images for light-eventuate-4j framework</a></li>
+</ul>
 
-<h2 id="dockerization">Dockerization</h2>
+<h2 id="event-store-docker-compose">Event Store docker compose:</h2>
 
-<p>Docker can simplify the application delivery. For light event sourcing system, to start event store by dockerization:
-  &ndash; go to project root folder: /light-eventuate-4j
-  &ndash; run docker-compose up
-    system will start ALL required event store components (mysql, zookeeper, kafka)</p>
+<p>Docker can simplify the application delivery. For light event sourcing system, to start event store by dockerization:</p>
 
-<p>&ndash; Same as local environment setup, copy the cdc service and user defined command side service to  /light-eventuate-4j/command/service
-    copy user defined query side services to /light-eventuate-4j/query/service.</p>
+<p>&ndash; From light-eventuate-4j project root folder: /light-eventuate-4j</p>
 
-<p>&mdash; go to docker module in the light-eventute-4j project: cd /light-eventuate-4j/docker
- &mdash; run docker-compose up to start the command and query side services</p>
+<p>&ndash; run docker-compose up</p>
+
+<p>system will start ALL required event store components (mysql, zookeeper, kafka)</p>
+
+<p>For todo-list example:</p>
+
+<p>Prepare query side DB script: (DB script saved at: /light-eventuate-example/mysql; root user for mysql: root/rootpassword)</p>
+
+<pre><code>  create database todo_db;
+
+  CREATE  TABLE TODO (
+    ID varchar(255),
+    TITLE varchar(255),
+    COMPLETED BOOLEAN,
+    ORDER_ID INTEGER,
+    ACTIVE_FLG varchar(1) DEFAULT 'Y',
+    PRIMARY KEY(ID)
+  );
+
+  GRANT ALL PRIVILEGES ON todo_db.* TO 'mysqluser' IDENTIFIED BY 'mysqlpw';
+</code></pre>
+
+<h2 id="for-restful-services">For Restful Services</h2>
+
+<p>Start CDC service:</p>
+
+<p>&ndash; From light-eventuate-4j project root folder: /light-eventuate-4j</p>
+
+<p>&ndash; run docker-compose -f docker-compose-cdcservice.yml up</p>
+
+<p>Run Command/Query side service:</p>
+
+<p>&ndash; From todo-list example root folder: /light-eventuate-example/todo-list</p>
+
+<p>&ndash; run docker-compose up</p>
+
+<h2 id="for-hybrid-api-services">For Hybrid API Services</h2>
+
+<p>&ndash; From light-eventuate-4j project root folder: /light-eventuate-4j</p>
+
+<p>&ndash; Run docker-compose -f docker-compose-service.yml up</p>
 
 <h2 id="integration">Integration</h2>
 
@@ -559,7 +623,7 @@ Run query side service
 
     <script>
     
-      var base_url = 'https:\/\/networknt.github.io\/light-eventuate-4j\/';
+      var base_url = 'https:\/\/networknt.github.io\/light-eventuate-4j';
       var repo_id  = 'networknt\/light-eventuate-4j';
     
     </script>

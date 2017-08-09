@@ -9,18 +9,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
-    <title>Why not use kafka as eventstore - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
+    <title>TodoList - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
     <meta name="generator" content="Hugo 0.21" />
 
     
     <meta name="description" content="Light Eventuate Docs">
     
-    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/architecture/kafka-eventstore/">
+    <link rel="canonical" href="https://networknt.github.io/light-eventuate-4j/example/moneytransfer/">
     
     <meta name="author" content="Steve Hu, Gavin Chen">
     
 
-    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/architecture/kafka-eventstore/">
+    <meta property="og:url" content="https://networknt.github.io/light-eventuate-4j/example/moneytransfer/">
     <meta property="og:title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
     <meta property="og:image" content="https://networknt.github.io/light-eventuate-4j/images/logo.png">
     <meta name="apple-mobile-web-app-title" content="Light Eventuate 4J - An event sourcing and CQRS framework with Kafka">
@@ -97,7 +97,7 @@
     </div>
     <div class="stretch">
       <div class="title">
-        Why not use kafka as eventstore
+        TodoList
       </div>
     </div>
 
@@ -138,7 +138,7 @@
         </div>
       
       <div class="name">
-        <strong>Light Eventuate 4J - An event sourcing and CQRS framework with Kafka <span class="version">1.3.5</span></strong>
+        <strong>Light Eventuate 4J - An event sourcing and CQRS framework with Kafka <span class="version">1.3.1</span></strong>
         
           <br>
           networknt/light-eventuate-4j
@@ -219,24 +219,6 @@
 <a  title="Design" href="https://networknt.github.io/light-eventuate-4j/design/">
 	
 	Design
-</a>
-
-
-
-  
-</li>
-
-
-
-<li>
-  
-    
-
-
-
-<a  title="Component" href="https://networknt.github.io/light-eventuate-4j/component/">
-	
-	Component
 </a>
 
 
@@ -389,29 +371,13 @@
 
 	<article class="article">
 		<div class="wrapper">
-			<h1>Why not use kafka as eventstore </h1>
+			<h1>TodoList </h1>
 
-			<p>When using Kafka as pipeline for event sourcing, people will ask why not use
-Kafka as event store. It can persist events and keep it for as long as it requires.</p>
+			<ul>
+<li><p><a href="https://networknt.github.io/light-eventuate-4j/example/transfer_introduction/">Account Money transfer Introduction</a> - Account Money Transfer example introduction</p></li>
 
-<p>There are several drawbacks in doing so.</p>
-
-<ul>
-<li><p>Kafka only guarantees at least once deliver and there are duplicates in the event
-store that cannot be removed.</p></li>
-
-<li><p>Due to immutability, there is no way to manipulate event store when application
-evolves and events need to be transformed.</p></li>
-
-<li><p>No place to persist snapshots of entities/aggregates and replay will become slower
-and slower.</p></li>
-
-<li><p>Given Kafka partitions are distributed and they are hard to manage and backup
-compare with databases.</p></li>
+<li><p><a href="https://networknt.github.io/light-eventuate-4j/example/transfer_integration/">Account Money Transfer Integration Test</a> - Account Money Transfer example integration test</p></li>
 </ul>
-
-<p>Given above disadvantages, a database is used as event store instead in eventuate
-architecture.</p>
 
 
 			<aside class="copyright" role="note">
@@ -430,7 +396,7 @@ architecture.</p>
 <nav class="pagination" aria-label="Footer">
   <div class="previous">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/design/dup-events/" title="How to handle duplicated events in Kafka">
+      <a href="https://networknt.github.io/light-eventuate-4j/example/transfer_integration/" title="Account Money Transfer">
         <span class="direction">
           Previous
         </span>
@@ -440,7 +406,7 @@ architecture.</p>
           </div>
           <div class="stretch">
             <div class="title">
-              How to handle duplicated events in Kafka
+              Account Money Transfer
             </div>
           </div>
         </div>
@@ -450,14 +416,14 @@ architecture.</p>
 
   <div class="next">
   
-      <a href="https://networknt.github.io/light-eventuate-4j/architecture/cqrs/" title="cqrs">
+      <a href="https://networknt.github.io/light-eventuate-4j/example/todo/" title="TodoList">
         <span class="direction">
           Next
         </span>
         <div class="page">
           <div class="stretch">
             <div class="title">
-              cqrs
+              TodoList
             </div>
           </div>
           <div class="button button-next" role="button" aria-label="Next">
