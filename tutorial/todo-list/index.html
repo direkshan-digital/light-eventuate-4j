@@ -2161,6 +2161,8 @@ java -cp ~/networknt/light-docker/eventuate/hybrid-query/service/*:target/hybrid
 
 <h2 id="dockerization">Dockerization</h2>
 
+<h2 id="restful-service-api">Restful Service API:</h2>
+
 <p>Let&rsquo;s copy docker config folder to the todo-list folder from existing
 one.</p>
 
@@ -2221,6 +2223,59 @@ docker-compose up
 </code></pre>
 
 <p>Then following same steps above to verify the service result from command line</p>
+
+<h2 id="restful-service-api-1">Restful Service API:</h2>
+
+<p>Copy service jar files to service folder:</p>
+
+<p>For hybrid command service :</p>
+
+<pre><code>cd ~/networknt/light-docker/eventuate/hybrid-command/service
+
+cp ~/networknt/light-example-4j/eventuate/todo-list/common/target/todo-common-0.1.0.jar .
+cp ~/networknt/light-example-4j/eventuate/todo-list/command/target/todo-command-0.1.0.jar .
+cp ~/networknt/light-example-4j/eventuate/todo-list/hybrid-command/target/hybrid-command-0.1.0.jar .
+cp ~/networknt/light-eventuate-4j/hybrid-command/target/hybrid-command-1.3.5.jar .
+</code></pre>
+
+<p>For hybrid query:</p>
+
+<pre><code>cd ~/networknt/light-docker/eventuate/hybrid-query/service
+cp ~/networknt/light-example-4j/eventuate/todo-list/common/target/todo-common-0.1.0.jar .
+cp ~/networknt/light-example-4j/eventuate/todo-list/command/target/todo-command-0.1.0.jar .
+cp ~/networknt/light-example-4j/eventuate/todo-list/query/target/todo-query-0.1.0.jar .
+cp ~/networknt/light-example-4j/eventuate/todo-list/hybrid-query/target/hybrid-query-0.1.0.jar .
+cp ~/networknt/light-eventuate-4j/hybrid-query/target/hybrid-query-1.3.5.jar .
+
+</code></pre>
+
+<p>Go to light-docker root folder and start docker-compose file for eventutate hybrid service:</p>
+
+<pre><code>cd ~/networknt/light-docker/
+
+docker-compose -f docker-compose-eventuate-hybrid-local.yml up
+
+</code></pre>
+
+<p>Verify result with following command</p>
+
+<p>Create a todo item on command service with the following command.</p>
+
+<pre><code>curl -X POST \
+  http://localhost:8083/api/json \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{&quot;host&quot;:&quot;lightapi.net&quot;,&quot;service&quot;:&quot;todo&quot;,&quot;action&quot;:&quot;create&quot;, &quot;version&quot;: &quot;0.1.0&quot;, &quot;title&quot;: &quot;create todo item from hybrid-command&quot;, &quot;completed&quot;: false, &quot;order&quot;: 1}'
+</code></pre>
+
+<p>Let&rsquo;s get all the todo items from query service with the following command</p>
+
+<pre><code>curl -X POST \
+  http://localhost:8082/api/json \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{&quot;host&quot;:&quot;lightapi.net&quot;,&quot;service&quot;:&quot;todo&quot;,&quot;action&quot;:&quot;gettodos&quot;, &quot;version&quot;: &quot;0.1.0&quot;}'
+</code></pre>
 
 
 			<aside class="copyright" role="note">
