@@ -236,15 +236,11 @@ Service communication is through events and every service maintain its own aggre
       <pubDate>Sat, 22 Oct 2016 20:22:34 -0400</pubDate>
       
       <guid>https://networknt.github.io/light-eventuate-4j/example/transfer_integration/</guid>
-      <description>Integration Test Setting Build related projects: Checkout light-eventuate-4j framework projects.
-cd ~/networknt
-git clone git@github.com:networknt/light-eventuate-4j.git
-Prepare workspace Go into the projects folder above, and build the project with maven
-mvn clean install
-Build Account-management example Get the example project from github: git clone git@github.com:networknt/light-eventuate-example.git
-cd ~/networknt/light-eventuate-example/account-management
-mvn clean install
-Run the Event store and Microservices: First we need to make sure Mysql, Zookeeper, Kafka and CDC server are up and running.</description>
+      <description>Prepare environment We are going to use docker-compose to start light-eventuate-4j, cdcserver and account money transfer services.
+The following assumes that we have a working directory under user directory called networknt.
+Start light-eventuate-4j and cdcserver First let&amp;rsquo;s clone the light-docker repository that contains docker-compose to start light-eventuate-4j platform and cdcserver.
+Clone light-docker.
+cd ~/networknt git clone git@github.com:networknt/light-docker.git  Now you can follow this tutorial to start light-eventuate-4j and cdcserver.</description>
     </item>
     
     <item>
