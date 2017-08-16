@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
     <title>Account Money Transfer - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
-    <meta name="generator" content="Hugo 0.20.6" />
+    <meta name="generator" content="Hugo 0.21" />
 
     
     <meta name="description" content="Light Eventuate Docs">
@@ -459,11 +459,14 @@ docker-compose up
 <pre><code>{&quot;id&quot;:&quot;0000015cf50351d8-0242ac1200060000&quot;,&quot;customerInfo&quot;:{&quot;name&quot;:{&quot;firstName&quot;:&quot;Google22&quot;,&quot;lastName&quot;:&quot;Com&quot;},&quot;email&quot;:&quot;aaa1.bbb@google.com&quot;,&quot;password&quot;:&quot;password&quot;,&quot;ssn&quot;:&quot;9999999999&quot;,&quot;phoneNumber&quot;:&quot;4166666666&quot;,&quot;address&quot;:{&quot;street1&quot;:&quot;Yonge St&quot;,&quot;street2&quot;:&quot;2556 unit&quot;,&quot;city&quot;:&quot;toronto&quot;,&quot;state&quot;:&quot;ON&quot;,&quot;zipCode&quot;:&quot;Canada&quot;,&quot;country&quot;:&quot;L3R 5F5&quot;}}}
 </code></pre>
 
+<p>The json format result include system generated customer id for new created customer: &ldquo;id&rdquo;:&ldquo;0000015cf50351d8-0242ac1200060000&rdquo;. Save the customer id (C1) in a text file.  We could use the customer id in the open account restful API call to open account the customer.</p>
+
 <h2 id="create-an-account-with-the-customer-replace-the-customer-id-with-real-customer-id">Create an account with the customer (replace the customer id with real customer id):</h2>
 
 <ul>
 <li>On account command side, system sent the OpenAccountCommand and apply AccountOpenedEvent event.</li>
 <li>On account view side, system subscribe the  AccountOpenedEvent by registered event handlers. In the example, system will process event and save account and account/customer relationship to local database.</li>
+<li>Open account for the customer created above, use the customer id above in the json data for HTTP POST: customerId&rdquo;:&ldquo;0000015cf50351d8-0242ac1200060000&rdquo;</li>
 </ul>
 
 <pre><code>curl -X POST \
@@ -477,6 +480,8 @@ docker-compose up
 
 <pre><code>{&quot;accountId&quot;:&quot;0000015cf505ed48-0242ac1200090001&quot;,&quot;balance&quot;:12355}
 </code></pre>
+
+<p>The json format result include system generated account id for new opened account: &ldquo;accountId&rdquo;:&ldquo;0000015cf505ed48-0242ac1200090001&rdquo;. Save the account id (A1) in a text file. We could use the account Id for money transfer restful API.</p>
 
 <h2 id="create-an-account-no-link-with-customer">Create an account (no link with customer)</h2>
 
@@ -497,6 +502,8 @@ docker-compose up
 <pre><code>{&quot;accountId&quot;:&quot;0000015cf5084627-0242ac1200090001&quot;,&quot;balance&quot;:12355}
 </code></pre>
 
+<p>The json format result include system generated account id for new opened account: &ldquo;accountId&rdquo;:&ldquo;0000015cf5084627-0242ac1200090001&rdquo;. Save the account id (A2) in a text file.  It will be used to link with customer (C2) in &ldquo;Link account to customer&rdquo; service call.</p>
+
 <h2 id="create-new-customer-c2">Create new customer (C2):</h2>
 
 <ul>
@@ -516,11 +523,14 @@ docker-compose up
 <pre><code>{&quot;id&quot;:&quot;0000015cf50bfe50-0242ac1200060001&quot;,&quot;customerInfo&quot;:{&quot;name&quot;:{&quot;firstName&quot;:&quot;Google11&quot;,&quot;lastName&quot;:&quot;Com&quot;},&quot;email&quot;:&quot;aaa2.bbb@google.com&quot;,&quot;password&quot;:&quot;password&quot;,&quot;ssn&quot;:&quot;9999999999&quot;,&quot;phoneNumber&quot;:&quot;4166666666&quot;,&quot;address&quot;:{&quot;street1&quot;:&quot;Yonge St&quot;,&quot;street2&quot;:&quot;2556 unit&quot;,&quot;city&quot;:&quot;toronto&quot;,&quot;state&quot;:&quot;ON&quot;,&quot;zipCode&quot;:&quot;Canada&quot;,&quot;country&quot;:&quot;L3R 5F5&quot;}}}
 </code></pre>
 
+<p>The json format result include system generated customer id for new created customer: &ldquo;id&rdquo;:&ldquo;0000015cf50bfe50-0242ac1200060001&rdquo;. Save the customer id (C2) in a text file.  It will be used to link with account (opened on previous service call) in &ldquo;Link account to customer&rdquo; service call.</p>
+
 <h2 id="link-account-to-customer-replace-the-customer-id-and-account-with-real-id">Link account to customer (replace the customer id and account with real Id):</h2>
 
 <ul>
 <li>On customer command side, system sent the AddToAccountCommand and apply CustomerAddedToAccount event.</li>
 <li>On customer view side, system subscribe the CustomerAddedToAccount event by registered event handlers. In the example, system will process event and save customer/account relationship to local database.</li>
+<li>Use the new created customer id (replace the {customerId}  with customer id (C2) in the url) and account id (A2) in POST json data which created on previous service call.</li>
 </ul>
 
 <pre><code>curl -X POST \
@@ -542,6 +552,7 @@ docker-compose up
 if subscribed event is AccountDebitFailedDueToInsufficientFundsEvent, system will publish FailedDebitRecordedEvent.</li>
 <li>On account view side, if subscribed events are creditRecorded event and debitRecorded event, system will update local account balance and update the transaction status to COMPLETED.
 if subscribed even FailedDebitRecordedEvent, system will update transaction status to FAILED_DUE_TO_INSUFFICIENT_FUNDS.</li>
+<li>Use the two new opened account id (A1, A2) for the fromAccountId and toAccountId in the following service call.</li>
 </ul>
 
 <pre><code>curl -X POST \
@@ -555,6 +566,8 @@ if subscribed even FailedDebitRecordedEvent, system will update transaction stat
 
 <pre><code>{&quot;moneyTransferId&quot;:&quot;0000015cf5118e64-0242ac1200080000&quot;}
 </code></pre>
+
+<p>Return system generated money transfer transaction id</p>
 
 <h2 id="delete-account">Delete account:</h2>
 
