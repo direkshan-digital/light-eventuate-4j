@@ -239,8 +239,8 @@ Service communication is through events and every service maintain its own aggre
       <description>Prepare environment We are going to use docker-compose to start light-eventuate-4j, cdcserver and account money transfer services.
 The following assumes that we have a working directory under user directory called networknt.
 Start light-eventuate-4j and cdcserver First let&amp;rsquo;s clone the light-docker repository that contains docker-compose to start light-eventuate-4j platform and cdcserver.
-Clone light-docker.
-cd ~/networknt git clone git@github.com:networknt/light-docker.git  Now you can follow this tutorial to start light-eventuate-4j and cdcserver.</description>
+cd ~/networknt git clone git@github.com:networknt/light-docker.git  Now you can follow this tutorial to start light-eventuate-4j and cdcserver.
+Run the Event store and Mocroservices: Before starting any service, we need to make sure that light-eventuate-4j is up and running.</description>
     </item>
     
     <item>

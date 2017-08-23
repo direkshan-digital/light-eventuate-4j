@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=10" />
     <title>Account Money Transfer - Light Eventuate 4J - An event sourcing and CQRS framework with Kafka</title>
-    <meta name="generator" content="Hugo 0.21" />
+    <meta name="generator" content="Hugo 0.20.6" />
 
     
     <meta name="description" content="Light Eventuate Docs">
@@ -138,7 +138,7 @@
         </div>
       
       <div class="name">
-        <strong>Light Eventuate 4J - An event sourcing and CQRS framework with Kafka <span class="version">1.3.5</span></strong>
+        <strong>Light Eventuate 4J - An event sourcing and CQRS framework with Kafka <span class="version">1.4.0</span></strong>
         
           <br>
           networknt/light-eventuate-4j
@@ -406,8 +406,6 @@ called networknt.</p>
 <p>First let&rsquo;s clone the light-docker repository that contains docker-compose
 to start light-eventuate-4j platform and cdcserver.</p>
 
-<p>Clone light-docker.</p>
-
 <pre><code>cd ~/networknt
 git clone git@github.com:networknt/light-docker.git
 </code></pre>
@@ -415,14 +413,11 @@ git clone git@github.com:networknt/light-docker.git
 <p>Now you can follow this <a href="https://networknt.github.io/light-eventuate-4j/tutorial/service-dev/">tutorial</a>
 to start light-eventuate-4j and cdcserver.</p>
 
-<h2 id="clone-and-build-account-management-example">Clone and Build Account-Management example</h2>
+<h2 id="run-the-event-store-and-mocroservices">Run the Event store and Mocroservices:</h2>
 
-<p>Get the example project from github:</p>
-
-<pre><code>git clone git@github.com:networknt/light-example-4j.git
-cd ~/networknt/light-example-4j/eventuate/account-management
-mvn clean install
-</code></pre>
+<p>Before starting any service, we need to make sure that light-eventuate-4j is
+up and running. Please follow this <a href="https://networknt.github.io/light-eventuate-4j/tutorial/service-dev/">tutorial</a>
+to start it up.</p>
 
 <h2 id="start-account-management-services">Start Account-Management services</h2>
 
