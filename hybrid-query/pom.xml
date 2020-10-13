@@ -27,7 +27,7 @@
         <version.commons.codec>1.10</version.commons.codec>
         <version.encoder>1.2.1</version.encoder>
         <version.logback>1.2.3</version.logback>
-        <version.junit>4.12</version.junit>
+        <version.junit>4.13.1</version.junit>
         <version.mockito>2.1.0-RC.1</version.mockito>
         <version.undertow>1.4.19.Final</version.undertow>
         <version.jsonpath>2.2.0</version.jsonpath>
